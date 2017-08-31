@@ -510,6 +510,11 @@ def startAll():
     thread3 = web()
     thread3.start()
 
+#test mise a jour
+import git
+
+git.Git().pull()
+
 #mise a jour
 import requests
 try:
