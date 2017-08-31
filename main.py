@@ -16,7 +16,7 @@ if os.path.exists("/var/egg-force-one"):
     os.chdir("/var/egg-force-one")
 
 
-
+#lllllllll
 
 # partage de données entre threads (ne pas modifier)
 stopAll = 0# ne pas toucher
