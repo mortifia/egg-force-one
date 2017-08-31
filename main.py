@@ -66,6 +66,10 @@ class window(Thread):
         global fPath
 
         self.clean()
+        fPath = 'control'
+
+        self.lineInfo()
+        
 
     def option(self):
         from tkinter import Button, PhotoImage
