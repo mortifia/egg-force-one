@@ -514,9 +514,10 @@ def startAll():
 import git
 
 git.Git().pull()
+startAll()
 
 #mise a jour
-import requests
+"""import requests
 try:
     r = requests.get( urlSer + '/version', timeout=1)
     resp = r.text
@@ -548,3 +549,4 @@ else:
         else:
             print ('sys[event] already in the newest version')
             startAll()
+"""
