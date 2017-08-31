@@ -12,10 +12,11 @@ version = 0.0010
 version = float(version)
 urlSer = 'http://ipr-3d.com:8080'
 
-
-
 if os.path.exists("/var/egg-force-one"):
     os.chdir("/var/egg-force-one")
+
+
+
 
 # partage de données entre threads (ne pas modifier)
 stopAll = 0# ne pas toucher
