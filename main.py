@@ -517,36 +517,3 @@ git.Git().pull()
 startAll()
 
 #mise a jour
-"""import requests
-try:
-    r = requests.get( urlSer + '/version', timeout=1)
-    resp = r.text
-except:
-    print("web[EVENT] update imposible")
-    startAll()
-    pass
-else:
-    try:
-        serSoftVer = float(resp)
-        print("install version : " + str(serSoftVer))
-        print("newest version : " + str(version))
-    except:
-        print('web[ERROR] wrong number maj')
-        startAll()
-    else:
-        if version < serSoftVer:
-            print('web[EVENT] dowload the newest version')
-            try:
-                r = requests.get(urlSer + '/version/download')
-            except:
-                print('web[EVENT] dowload the newest version')
-                startAll()
-            else:
-                uploadFile = open("main.py",'w')
-                uploadFile.write(r.text)
-                uploadFile.close()
-                os.system('python3 main.py')
-        else:
-            print ('sys[event] already in the newest version')
-            startAll()
-"""
