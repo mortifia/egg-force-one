@@ -47,6 +47,12 @@ class window(Thread):
         self.controlButton5 = Button(f, text = "Z-")
         self.controlButton5.place(x=100,y=200)
 
+    def optionUsb(self):
+        print(self.sysVar.bauderate)
+        pass
+    def optionUpdate(self):
+        pass
+
     def option(self):
         from tkinter import Button, PhotoImage
 
@@ -57,7 +63,8 @@ class window(Thread):
 
         self.lineInfo()
 
-        self.optionButton0 = Button(f, text = 'wifi', 
+        self.optionButton0 = Button(f, text = 'usb', 
+            command = self.optionUsb, 
             font = (None, 18), 
             height = 1, width = 28)
         self.optionButton0.place(x = 15, y = 80)
@@ -105,6 +112,9 @@ class window(Thread):
             self.controlButton5.destroy()
 
     def initialisation(self):
+        """
+            lancement de l'interface graphique 
+        """
         from tkinter import Tk
         
         self.sysVar.f = Tk()

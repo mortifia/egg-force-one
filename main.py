@@ -23,6 +23,10 @@ class varsys:
 #gestionnaire variable systeme
 sysVar = varsys()
 
+
+#usb connection
+sysVar.bauderate = 115200
+
 sysVar.stopAll = 0# ne pas toucher
 sysVar.gcode = []# liste de comande a envoyer au controlleur
 sysVar.ser = "" # serial connection
@@ -47,7 +51,7 @@ sysVar.f = ""#main fenetre NE PAS TOUCHER
 sysVar.fPath = ""#position dans la fenetre 
 #lancement de l'interface graphique
 import window
-        
+
 #comunication avec l'imprimante
 import usb
 

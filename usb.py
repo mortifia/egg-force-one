@@ -51,10 +51,10 @@ class usb(Thread):
         path = "/dev/serial/by-id/"
         test = 0
         self.sysVar.ser = serial.Serial()
-        self.sysVar.ser.baudrate = 115200
         self.sysVar.ser.timeout  = 0
         # tant qu'il n'aura pas reussi a se connecter
         while test == 0 and self.sysVar.stopAll == 0:
+            self.sysVar.ser.baudrate = self.sysVar.bauderate
             try:
                 list = os.listdir("/dev/serial/by-id")
             except:
