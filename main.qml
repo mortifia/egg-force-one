@@ -199,16 +199,16 @@ Rectangle {
 
         Item {
             id: control
-            visible: false
+            visible: true
             anchors.fill: parent
 
             Item {
                 id: move
-                width: 240
+                width: 350
                 height: 240
+                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
                 anchors.topMargin: 15
-                anchors.horizontalCenter: parent.horizontalCenter
 
                 Rectangle {
                     id: addX
@@ -412,6 +412,174 @@ Rectangle {
                         }
 
                     }
+                }
+
+                Rectangle {
+                    id: addExtrudeur
+                    x: -3
+                    y: 9
+                    width: 80
+                    height: 80
+                    color: home.varButton.color
+                    radius: 0
+                    anchors.top: parent.top
+                    border.color: home.varButton.colorBorder
+                    anchors.left: parent.left
+                    border.width: home.varButton.border
+                    anchors.leftMargin: 0
+                    Text {
+                        id: addTextExtrudeur
+                        color: home.varButton.colorText
+                        text: qsTr("+E")
+                        font.family: home.varButton.familyText
+                        textFormat: Text.PlainText
+                        font.pixelSize: home.varButton.sizeText
+                        styleColor: home.varButton.colorText
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        anchors.fill: parent
+                    }
+                    anchors.topMargin: 0
+                }
+
+                Rectangle {
+                    id: reduceExtrudeur
+                    x: 3
+                    y: 2
+                    width: 80
+                    height: 80
+                    color: home.varButton.color
+                    radius: 0
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    border.color: home.varButton.colorBorder
+                    border.width: home.varButton.border
+                    anchors.leftMargin: 0
+                    Text {
+                        id: reduceTextExtrudeur
+                        color: home.varButton.colorText
+                        text: qsTr("-E")
+                        font.family: home.varButton.familyText
+                        textFormat: Text.PlainText
+                        styleColor: home.varButton.colorText
+                        font.pixelSize: home.varButton.sizeText
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.fill: parent
+                    }
+                    anchors.topMargin: 160
+                }
+
+                Rectangle {
+                    id: homeX
+                    x: 4
+                    y: -6
+                    width: 80
+                    height: 80
+                    color: home.varButton.color
+                    radius: 0
+                    anchors.top: parent.top
+                    border.color: home.varButton.colorBorder
+                    anchors.left: parent.left
+                    border.width: home.varButton.border
+                    anchors.leftMargin: 280
+                    Text {
+                        id: textHomeX
+                        color: home.varButton.colorText
+                        text: qsTr("X")
+                        font.family: home.varButton.familyText
+                        textFormat: Text.PlainText
+                        font.pixelSize: home.varButton.sizeText
+                        styleColor: home.varButton.colorText
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        anchors.fill: parent
+                    }
+                    anchors.topMargin: 0
+                }
+
+                Rectangle {
+                    id: homeY
+                    x: 0
+                    y: -7
+                    width: 80
+                    height: 80
+                    color: home.varButton.color
+                    radius: 0
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    border.color: home.varButton.colorBorder
+                    border.width: home.varButton.border
+                    anchors.leftMargin: 280
+                    Text {
+                        id: textHomeY
+                        color: home.varButton.colorText
+                        text: qsTr("Y")
+                        font.family: home.varButton.familyText
+                        textFormat: Text.PlainText
+                        styleColor: home.varButton.colorText
+                        font.pixelSize: home.varButton.sizeText
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.fill: parent
+                    }
+                    anchors.topMargin: 80
+                }
+
+                Rectangle {
+                    id: homeZ
+                    x: -2
+                    y: 2
+                    width: 80
+                    height: 80
+                    color: home.varButton.color
+                    radius: 0
+                    anchors.top: parent.top
+                    border.color: home.varButton.colorBorder
+                    anchors.left: parent.left
+                    border.width: home.varButton.border
+                    anchors.leftMargin: 280
+                    Text {
+                        id: textHomeZ
+                        color: home.varButton.colorText
+                        text: qsTr("Z")
+                        font.family: home.varButton.familyText
+                        textFormat: Text.PlainText
+                        font.pixelSize: home.varButton.sizeText
+                        styleColor: home.varButton.colorText
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        anchors.fill: parent
+                    }
+                    anchors.topMargin: 160
+                }
+
+                Rectangle {
+                    id: homeAxe
+                    x: 1
+                    y: -3
+                    width: 30
+                    height: 240
+                    color: home.varButton.color
+                    radius: 0
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    border.color: home.varButton.colorBorder
+                    border.width: home.varButton.border
+                    anchors.leftMargin: 250
+                    Text {
+                        id: textHomeAxe
+                        color: home.varButton.colorText
+                        text: "H\nO\nM\nE"
+                        font.family: home.varButton.familyText
+                        textFormat: Text.AutoText
+                        styleColor: home.varButton.colorText
+                        font.pixelSize: home.varButton.sizeText
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.fill: parent
+                    }
+                    anchors.topMargin: 0
                 }
             }
 
