@@ -20,7 +20,7 @@ class window(Thread):
 
         myApp = QApplication(sys.argv)
         appLabel = QQuickView()
-        appLabel.setSource(QUrl('test.qml'))
+        appLabel.setSource(QUrl('main.qml'))
         appLabel.show()
         myApp.exec_()
         sys.exit()

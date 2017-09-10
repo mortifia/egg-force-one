@@ -4,9 +4,9 @@ import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
 
-ApplicationWindow {
-    flags: Qt.FramelessWindowHint
-    visible: true
+//ApplicationWindow {
+//    flags: Qt.FramelessWindowHint
+//    visible: true
 Rectangle {
     width: 480
     height: 800
@@ -199,7 +199,7 @@ Rectangle {
 
         Item {
             id: control
-            visible: true
+            visible: false
             anchors.fill: parent
 
             Item {
@@ -686,4 +686,4 @@ Rectangle {
         }
     }
 }
-}
+//}
