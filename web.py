@@ -2,6 +2,7 @@
 #!/usr/bin/python3
 
 import logging
+import sys
 from threading import Thread
 
 
@@ -77,12 +78,12 @@ class web(Thread):
                     if dataCut[0] == 'SYS0':
                         print('web[EVENT] start Cut of the launched software')
                         self.sysVar.stopAll = 1
-                        f.destroy()
+                        #f.destroy()
                         print('win[EVENT] widows stop')
                         socketio.stop()
                         #print('web[EVENT] web stop')
-                        sys.exit('web[EVENT] web stop')
-                        os._exit('0')
+                        sys.exit()
+                        #os._exit()
                 else:
                     self.sysVar.gcode.append(data + '\n')
             else:
