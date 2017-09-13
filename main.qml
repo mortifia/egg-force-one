@@ -1,12 +1,10 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.4
+import QtQuick.Window 2.0
+import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
 
-//ApplicationWindow {
-//    flags: Qt.FramelessWindowHint
-//    visible: true
 Rectangle {
     width: 480
     height: 800
@@ -48,16 +46,6 @@ Rectangle {
             PropertyChanges {
                 target: rectangle1
                 color: "#4f4f4f"
-            }
-
-            PropertyChanges {
-                target: bedHeat
-                border.width: 0
-            }
-
-            PropertyChanges {
-                target: fan
-                border.width: 0
             }
 
             PropertyChanges {
@@ -199,7 +187,7 @@ Rectangle {
 
         Item {
             id: control
-            visible: true
+            visible: false
             anchors.fill: parent
 
             Item {
@@ -854,4 +842,3 @@ Rectangle {
         }
     }
 }
-//}
