@@ -77,4 +77,5 @@ def startAll():
 #	print("start[ERROR] update imposible")
 #	startAll()
 #else:
-    startAll()
+#    startAll()
+startAll()
