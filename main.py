@@ -71,5 +71,6 @@ def startAll():
 
 #test mise a jour
 import git
-git.Git().pull()
+try:
+    git.Git().pull()
 startAll()
