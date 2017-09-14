@@ -73,4 +73,8 @@ def startAll():
 import git
 try:
     git.Git().pull()
-startAll()
+except:
+	print("start[ERROR] update imposible")
+	pass
+else:
+    startAll()
