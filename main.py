@@ -75,6 +75,6 @@ try:
     git.Git().pull()
 except:
 	print("start[ERROR] update imposible")
-	pass
+	startAll()
 else:
     startAll()
