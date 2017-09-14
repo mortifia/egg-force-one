@@ -4,6 +4,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
+import QtFeedback 5.0
 
 Rectangle {
     width: 480
@@ -34,17 +35,12 @@ Rectangle {
             name: "control"
 
             PropertyChanges {
-                target: rectangle2
+                target: downButtonPrint
                 visible: true
             }
 
             PropertyChanges {
-                target: control
-                visible: true
-            }
-
-            PropertyChanges {
-                target: rectangle1
+                target: downButtonControl
                 color: "#4f4f4f"
             }
 
@@ -57,6 +53,26 @@ Rectangle {
                 target: dintanceMouseHead
                 opacity: 1
             }
+
+            PropertyChanges {
+                target: text1
+                text: qsTr("Home")
+            }
+
+            PropertyChanges {
+                target: control
+                visible: true
+            }
+
+            PropertyChanges {
+                target: moveControl
+                visible: true
+            }
+
+            PropertyChanges {
+                target: sliderControl
+                visible: true
+            }
         },
         State {
             name: "print"
@@ -67,13 +83,18 @@ Rectangle {
             }
 
             PropertyChanges {
-                target: rectangle2
+                target: downButtonPrint
                 color: "#4f4f4f"
             }
 
             PropertyChanges {
                 target: print1
                 opacity: 1
+            }
+
+            PropertyChanges {
+                target: text2
+                text: qsTr("Home")
             }
         },
         State {
@@ -90,89 +111,59 @@ Rectangle {
             }
 
             PropertyChanges {
-                target: rectangle3
+                target: downButtonOption
                 color: "#4f4f4f"
+            }
+
+            PropertyChanges {
+                target: text3
+                text: qsTr("Home")
+            }
+        },
+        State {
+            name: "controlMenu"
+            PropertyChanges {
+                target: downButtonPrint
+                visible: true
+            }
+
+            PropertyChanges {
+                target: downButtonControl
+                color: "#4f4f4f"
+            }
+
+            PropertyChanges {
+                target: nozzleHeat1
+                border.width: 2
+            }
+
+            PropertyChanges {
+                target: dintanceMouseHead
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: text1
+                text: qsTr("Home")
+            }
+
+            PropertyChanges {
+                target: control
+                visible: true
+            }
+
+            PropertyChanges {
+                target: moveControl
+                visible: false
+            }
+
+            PropertyChanges {
+                target: sliderControl
+                visible: false
             }
         }
     ]
 
-    Item {
-        id: downButton
-        y: 491
-        height: 80
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-
-        Rectangle {
-            id: rectangle1
-            width: 160
-            color: "#666666"
-            border.width: 0
-            border.color: "#ffffff"
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            anchors.top: parent.top
-            anchors.topMargin: 0
-
-            MouseArea {
-                id: mouseArea1
-                anchors.fill: parent
-                onClicked: {
-                    home.state = 'control'
-                    console.log("control");}
-            }
-        }
-
-        Rectangle {
-            id: rectangle2
-            width: 160
-            color: "#666666"
-            border.width: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 160
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-
-            MouseArea {
-                id: mouseArea2
-                anchors.fill: parent
-                onClicked: {
-                    home.state = 'print'
-                    console.log("print");
-                }
-            }
-        }
-
-        Rectangle {
-            id: rectangle3
-            width: 160
-            color: "#666666"
-            anchors.left: parent.left
-            anchors.leftMargin: 320
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            border.width: 0
-
-            MouseArea {
-                id: mouseArea3
-                anchors.fill: parent
-                onClicked: {
-                    home.state = 'option';
-                    console.log("option");
-                }
-            }
-        }
-    }
 
     Item {
         id: mainScreen
@@ -183,23 +174,28 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 80
         anchors.top: parent.top
-        anchors.topMargin: 60
+        anchors.topMargin: 0
 
         Item {
             id: control
             visible: false
             anchors.fill: parent
-
             Item {
-                id: move
-                width: 350
-                height: 240
-                anchors.horizontalCenter: parent.horizontalCenter
+                id: upControl
+                x: 0
+                y: 360
+                height: 80
                 anchors.top: parent.top
-                anchors.topMargin: 15
+                anchors.topMargin: 0
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
 
                 Rectangle {
-                    id: addX
+                    id: pausePlay
+                    x: 145
+                    y: 95
                     width: 80
                     height: 80
                     color: home.varButton.color
@@ -208,20 +204,128 @@ Rectangle {
                     anchors.top: parent.top
                     anchors.topMargin: 0
                     anchors.left: parent.left
-                    anchors.leftMargin: 80
+                    anchors.leftMargin: 320
 
                     Text {
-                        id: addTextX
-                        text: qsTr("+X")
+                        id: pausePlayText
+                        text: "pause\nplay"
+                        anchors.fill: parent
                         font.pixelSize: home.varButton.sizeText
                         font.family: home.varButton.familyText
                         color: home.varButton.colorText
                         styleColor: home.varButton.colorText
-                        anchors.fill: parent
                         textFormat: Text.PlainText
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
                     }
+                }
+
+                Rectangle {
+                    id: stop
+                    x: 137
+                    y: 93
+                    width: 80
+                    height: 80
+                    color: home.varButton.color
+                    border.width: home.varButton.border
+                    anchors.left: parent.left
+                    Text {
+                        id: stopText
+                        color: home.varButton.colorText
+                        text: "stop"
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: home.varButton.familyText
+                        styleColor: home.varButton.colorText
+                        font.pixelSize: home.varButton.sizeText
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        textFormat: Text.PlainText
+                    }
+                    anchors.top: parent.top
+                    anchors.topMargin: 0
+                    anchors.leftMargin: 240
+                    border.color: home.varButton.colorBorder
+                }
+
+                Rectangle {
+                    id: controlMenu
+                    x: 146
+                    y: 102
+                    width: 80
+                    height: 80
+                    color: home.varButton.color
+                    border.width: home.varButton.border
+                    anchors.left: parent.left
+                    Text {
+                        id: controlAvancerText
+                        color: home.varButton.colorText
+                        text: "control\nmenu"
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: home.varButton.familyText
+                        styleColor: home.varButton.colorText
+                        font.pixelSize: home.varButton.sizeText
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        textFormat: Text.PlainText
+                    }
+
+                    MouseArea {
+                        id: mouseAreaControlMenu
+                        x: 2
+                        y: -1
+                        anchors.fill: parent
+                        onClicked: {
+                            if (home.state == 'control') {
+                                home.state = 'controlMenu';
+                                console.log("control");
+                            }
+                            else {
+                                home.state = 'controlMenu';
+                                console.log("controlMenu");
+                            }
+                        }
+                    }
+                    anchors.top: parent.top
+                    anchors.topMargin: 0
+                    anchors.leftMargin: 400
+                    border.color: home.varButton.colorBorder
+                }
+            }
+
+            Item {
+                id: moveControl
+                width: 360
+                height: 240
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.topMargin: 100
+
+
+                Rectangle {
+                    id: addX
+                    x: 160
+                    y: 320
+                    width: 80
+                    height: 80
+                    color: home.varButton.color
+                    border.width: home.varButton.border
+                    anchors.left: parent.left
+                    Text {
+                        id: addTextX
+                        color: home.varButton.colorText
+                        text: qsTr("+X")
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: home.varButton.familyText
+                        styleColor: home.varButton.colorText
+                        font.pixelSize: home.varButton.sizeText
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        textFormat: Text.PlainText
+                    }
+                    anchors.top: parent.top
+                    anchors.topMargin: 0
+                    anchors.leftMargin: 80
+                    border.color: home.varButton.colorBorder
                 }
 
                 Rectangle {
@@ -569,6 +673,7 @@ Rectangle {
                     }
                     anchors.topMargin: 0
                 }
+
             }
 
             Item {
@@ -580,7 +685,7 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.leftMargin: 0
                 anchors.top: parent.top
-                anchors.topMargin: 275
+                anchors.topMargin: 360
 
                 Rectangle {
                     id: nozzleHeat1
@@ -608,12 +713,11 @@ Rectangle {
 
                     Text {
                         id: textNozzleHeat1
+                        height: 30
                         color: "#ffffff"
                         text: qsTr("temp")
                         anchors.top: parent.top
                         anchors.topMargin: 90
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: 260
                         anchors.right: parent.right
                         anchors.rightMargin: 0
                         anchors.left: parent.left
@@ -672,10 +776,8 @@ Rectangle {
                         anchors.right: parent.right
                         font.family: "Tahoma"
                         anchors.leftMargin: 0
-                        anchors.bottom: parent.bottom
                         anchors.top: parent.top
                         anchors.rightMargin: 0
-                        anchors.bottomMargin: 260
                         verticalAlignment: Text.AlignVCenter
                         font.pixelSize: 26
                         anchors.topMargin: 90
@@ -733,8 +835,6 @@ Rectangle {
                         anchors.rightMargin: 0
                         anchors.left: parent.left
                         anchors.leftMargin: 0
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: 260
                         anchors.top: parent.top
                         anchors.topMargin: 90
                         horizontalAlignment: Text.AlignHCenter
@@ -796,10 +896,8 @@ Rectangle {
                         anchors.right: parent.right
                         font.family: "Tahoma"
                         anchors.leftMargin: 0
-                        anchors.bottom: parent.bottom
                         anchors.top: parent.top
                         anchors.rightMargin: 0
-                        anchors.bottomMargin: 260
                         verticalAlignment: Text.AlignVCenter
                         anchors.topMargin: 90
                         font.pixelSize: 26
@@ -832,6 +930,7 @@ Rectangle {
                     anchors.topMargin: 0
                 }
             }
+
         }
 
         Item {
@@ -839,6 +938,130 @@ Rectangle {
             visible: false
             anchors.fill: parent
             opacity: 0
+        }
+
+
+    }
+
+    Item {
+        id: downButton
+        y: 491
+        height: 80
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+
+        Rectangle {
+            id: downButtonControl
+            width: 160
+            color: "#666666"
+            border.width: 0
+            border.color: "#ffffff"
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+
+            MouseArea {
+                id: mouseArea1
+                anchors.fill: parent
+                onClicked: {
+                    if(home.state == "control") {
+                        home.state = '';
+                        console.log("home");
+                    }
+                    else {
+                        home.state = 'control'
+                        console.log("control");
+                    }
+                }
+            }
+
+            Text {
+                id: text1
+                color: home.varButton.colorText
+                text: qsTr("Control")
+                font.family: "Tahoma"
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+                font.pixelSize: 24
+            }
+        }
+
+        Rectangle {
+            id: downButtonPrint
+            width: 160
+            color: "#666666"
+            border.width: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 160
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+
+            MouseArea {
+                id: mouseArea2
+                anchors.fill: parent
+                onClicked: {
+                    home.state = 'print'
+                    console.log("print");
+                }
+            }
+
+            Text {
+                id: text2
+                x: 5
+                y: 1
+                color: home.varButton.colorText
+                text: qsTr("Print")
+                horizontalAlignment: Text.AlignHCenter
+                font.family: "Tahoma"
+                font.pixelSize: 24
+                anchors.fill: parent
+                verticalAlignment: Text.AlignVCenter
+            }
+        }
+
+        Rectangle {
+            id: downButtonOption
+            width: 160
+            color: "#666666"
+            anchors.left: parent.left
+            anchors.leftMargin: 320
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            border.width: 0
+
+            MouseArea {
+                id: mouseArea3
+                anchors.fill: parent
+                onClicked: {
+                    home.state = 'option';
+                    console.log("option");
+                }
+            }
+
+            Text {
+                id: text3
+                x: -1
+                y: 9
+                color: home.varButton.colorText
+                text: qsTr("Option")
+                horizontalAlignment: Text.AlignHCenter
+                font.family: "Tahoma"
+                font.pixelSize: 24
+                anchors.fill: parent
+                verticalAlignment: Text.AlignVCenter
+            }
         }
     }
 }
