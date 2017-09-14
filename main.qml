@@ -275,8 +275,8 @@ Rectangle {
                         y: -1
                         anchors.fill: parent
                         onClicked: {
-                            if (home.state == 'control') {
-                                home.state = 'controlMenu';
+                            if (home.state == 'controlMenu') {
+                                home.state = 'control';
                                 console.log("control");
                             }
                             else {
