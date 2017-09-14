@@ -14,7 +14,7 @@ urlSer = 'http://ipr-3d.com:8080'
 
 if os.path.exists("/etc/egg-force-one"):
     os.chdir("/etc/egg-force-one")
-
+print(os.path.exists("/etc/egg-force-one"))
 # partage de données entre threads (ne pas modifier)
 class varsys:
     def __init__(self):
