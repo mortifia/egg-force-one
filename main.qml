@@ -1,10 +1,16 @@
 import QtQuick 2.2
 import QtQuick.Window 2.0
 import QtQuick.Controls 1.0
+<<<<<<< HEAD
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
 import QtFeedback 5.0
+=======
+import QtQuick.Controls.Styles 1.0
+import QtQuick.Layouts 1.0
+//import QtQuick.Dialogs 1.0
+>>>>>>> d06758e82b2b2c6dcbd4ca24bb096f0336a823d2
 
 Rectangle {
     width: 480
