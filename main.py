@@ -70,11 +70,11 @@ def startAll():
     thread3.start()
 
 #test mise a jour
-import git
-try:
-    git.Git().pull()
-except:
-	print("start[ERROR] update imposible")
-	startAll()
-else:
+#import git
+#try:
+#    git.Git().pull()
+#except:
+#	print("start[ERROR] update imposible")
+#	startAll()
+#else:
     startAll()
