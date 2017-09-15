@@ -3,63 +3,23 @@
 
 import sys
 import os
-import time
-import logging
-from threading import Thread
+#import time
+#import logging
+#from threading import Thread
 
-#ne pas toucher
-version = 0.0010
-version = float(version)
-urlSer = 'http://ipr-3d.com:8080'
+#nous place dans le dossier de l'executable
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+print(sys.argv[0])
+print(os.path.dirname(os.path.realpath(__file__)))
 
-if os.path.exists("/etc/egg-force-one"):
-    os.chdir("/etc/egg-force-one")
-print(os.path.exists("/etc/egg-force-one"))
-# partage de données entre threads (ne pas modifier)
-class varsys:
-    def __init__(self):
-        pass
-
-#gestionnaire variable systeme
-sysVar = varsys()
-
-
-#usb connection
-sysVar.bauderate = 115200
-
-sysVar.stopAll = 0# ne pas toucher
-sysVar.gcode = []# liste de comande a envoyer au controlleur
-sysVar.ser = "" # serial connection
-sysVar.socketio = ""#p ermet d'encoyer des requetes au clients web
-sysVar.temp0 = ""# extrudeur 1
-sysVar.temp1 = ""# extrudeur 2
-sysVar.tempBed = ""# plateau chauffant
-
-sysVar.startPrint = 0# impression lancé
-sysVar.posPrint = 0# position impression
-sysVar.fPrint = ""# pointeur sur fichier en cour d'impression
-sysVar.finPrint = 0
-sysVar.pathPrint = "" # emplacement fichier
-sysVar.tempPrintFolder = "" #
-sysVar.countOut = 0 # nombre de commande envoyer
-sysVar.countIn = 0 # nomdre de commande accepté
-
-#modifier dans 
-sysVar.printerTempMemory = 26 #valeur temporaire 
-
-sysVar.f = ""#main fenetre NE PAS TOUCHER
-sysVar.fPath = ""#position dans la fenetre 
-#lancement de l'interface graphique
-import window
-
-#comunication avec l'imprimante
-import usb
-
-#lancement et gestion serveur web
-import web
 
 #lance les thread
 def startAll():
+    import sysVar   # intercomunication entre thread systeme
+    import window   # lancement de l'interface graphique
+    import usb      # comunication avec l'imprimante
+    import web      # lancement et gestion serveur web
+    
     thread1 = window.window(sysVar)
     thread1.start()
 
@@ -79,3 +39,4 @@ except:
 else:
     startAll()
 #startAll()
+    

@@ -20,9 +20,9 @@ class window(Thread):
 
         myApp = QApplication(sys.argv)
         appLabel = QQuickView()
-        appLabel.setFlags(Qt.FramelessWindowHint)
-        appLabel.setSource(QUrl('main.qml'))
+        appLabel.setSource(QUrl('./main.qml'))
         appLabel.setGeometry(0, 0, 480, 800)
+        appLabel.setFlags(Qt.FramelessWindowHint)
         appLabel.show()
         myApp.exec_()
         sys.exit()

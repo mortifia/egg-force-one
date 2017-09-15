@@ -35,9 +35,9 @@ class usb(Thread):
             self.sysVar.tempPrintFolder.close()
             self.sysVar.pathPrint = temp[:-2]
             try:
-                self.sysVar.fPrint = open(pathPrint, 'r')
+                self.sysVar.fPrint = open(self.sysVar.pathPrint, 'r')
             except:
-                print('usb[ERROR] Fichier a imprimer introuvable :' + pathPrint + '$')
+                print('usb[ERROR] Fichier a imprimer introuvable :' + self.sysVar.pathPrint + '$')
             else :
                 self.sysVar.startPrint = 1
                 self.sysVar.posPrint = int(c) - self.sysVar.printerTempMemory - 1
