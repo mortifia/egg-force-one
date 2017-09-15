@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python3
+"""
+Created on Sat Sep 16 01:15:39 2017
 
+@author: mortifia
+"""
 import logging
 import sys
 from threading import Thread

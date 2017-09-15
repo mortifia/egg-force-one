@@ -1,35 +1,31 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python3
+"""
+Created on Sat Sep 16 01:15:39 2017
 
-import sys
+@author: mortifia
+"""
 import os
-#import time
-#import logging
-#from threading import Thread
 
-#nous place dans le dossier de l'executable
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
-print(sys.argv[0])
-print(os.path.dirname(os.path.realpath(__file__)))
+os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
+#print(os.path.dirname(os.path.realpath(__file__))) 
 
-
-#lance les thread
-def startAll():
+def startAll():     # lance les thread
     import sysVar   # intercomunication entre thread systeme
-    import window   # lancement de l'interface graphique
-    import usb      # comunication avec l'imprimante
-    import web      # lancement et gestion serveur web
     
+    import window   # lancement de l'interface graphique
     thread1 = window.window(sysVar)
     thread1.start()
-
+    
+    import usb      # comunication avec l'imprimante
     thread2 = usb.usb(sysVar)
     thread2.start()
 
+    import web      # lancement et gestion serveur web
     thread3 = web.web(sysVar)
     thread3.start()
 
-#test mise a jour
+# mise a jour provisoire
 import git
 try:
     git.Git().pull()
@@ -38,5 +34,5 @@ except:
 	startAll()
 else:
     startAll()
+
 #startAll()
-    

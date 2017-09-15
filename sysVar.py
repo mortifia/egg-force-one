@@ -7,7 +7,6 @@ Created on Sat Sep 16 01:15:39 2017
 test param sys
 """
 
-
 bauderate = 115200      # usb connection
 
 stopAll = 0             # ne pas toucher
@@ -27,7 +26,6 @@ tempPrintFolder = ""    #
 countOut = 0            # nombre de commande envoyer
 countIn = 0             # nomdre de commande accepté
 
-# modifier dans 
 printerTempMemory = 26  # valeur temporaire 
 
 f = ""                  # main fenetre NE PAS TOUCHER
