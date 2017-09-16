@@ -11,17 +11,17 @@ os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossi
 #print(os.path.dirname(os.path.realpath(__file__))) 
 
 def startAll():     # lance les thread
-    import sysVar   # intercomunication entre thread systeme
+    from lib import sysVar   # intercomunication entre thread systeme
     
-    import window   # lancement de l'interface graphique
+    from lib import window   # lancement de l'interface graphique
     thread1 = window.window(sysVar)
     thread1.start()
     
-    import usb      # comunication avec l'imprimante
+    from lib import usb      # comunication avec l'imprimante
     thread2 = usb.usb(sysVar)
     thread2.start()
 
-    import web      # lancement et gestion serveur web
+    from lib import web      # lancement et gestion serveur web
     thread3 = web.web(sysVar)
     thread3.start()
 
