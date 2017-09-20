@@ -11,7 +11,7 @@ from threading import Thread
 import os
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-#print(os.path.dirname(os.path.realpath(__file__)))
+print(os.path.dirname(os.path.realpath(__file__)))
 
 #lancement et gestion serveur web
 from flask import Flask, request
