@@ -63,7 +63,7 @@ class usb(Thread):
             print("usb[EVENT] platform : " + sys.platform)
             if sys.platform.startswith('win'):
                 pass
-            else:
+            elif sys.platform.startswith('linux'):
                 self.sysVar.ser.baudrate = self.sysVar.bauderate
                 try:
                     list = os.listdir("/dev/serial/by-id")
