@@ -7,6 +7,7 @@ Created on Sat Sep 16 01:15:39 2017
 """
 
 import os
+import sys
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 print(os.path.dirname(os.path.realpath(__file__))) 
@@ -16,6 +17,8 @@ from lib import window
 from lib import usb
 from lib import web
 
+
+sysVar.argv = sys.argv
 def startAll():             # lance les thread
    # from lib import sysVar  # intercomunication entre thread systeme
     

@@ -59,29 +59,31 @@ class usb(Thread):
         self.sysVar.ser.timeout  = 0
         # tant qu'il n'aura pas reussi a se connecter
         while test == 0 and self.sysVar.stopAll == 0:
-            self.sysVar.ser.baudrate = self.sysVar.bauderate
-            try:
-                list = os.listdir("/dev/serial/by-id")
-            except:
-                time.sleep(1)
-                print('usb[ERROR] aucune carte connecté')
+            time.sleep(1)
+            print("usb[EVENT] platform : " + sys.platform)
+            if sys.platform.startswith('win'):
+                pass
             else:
+                self.sysVar.ser.baudrate = self.sysVar.bauderate
+                try:
+                    list = os.listdir("/dev/serial/by-id")
+                except:
+                    print('usb[ERROR] aucune carte connecté')
+                else:
                 #teste si il peut se connecté a un des usb connecter
-                while len(list) != 0 and test == 0:
-                    try:
-                        self.sysVar.ser.port = path + str(list[0])
-                        self.sysVar.ser.open()
-                    except:
-                        print('usb[ERROR] connection impossible a', path, list[0])
-                        del list[0]
-                        if len(list) == 0:
-                            time.sleep(1)
-                    else:
-                        test = 1
-                        print('usb[EVENT] carte connecté')
-                        if os.path.exists(".restart.txt"):
-                            print('usb[EVENT] coupure non voulue, reprise lancé')
-                            self.reprise()
+                    while len(list) != 0 and test == 0:
+                        try:
+                            self.sysVar.ser.port = path + str(list[0])
+                            self.sysVar.ser.open()
+                        except:
+                            print('usb[ERROR] connection impossible a', path, list[0])
+                            del list[0]    
+                        else:
+                            test = 1
+                            print('usb[EVENT] carte connecté')
+                            if os.path.exists(".restart.txt"):
+                                print('usb[EVENT] coupure non voulue, reprise lancé')
+                                self.reprise()
 
     #lire les retour de la carte et ecrire dans les bonnes variables 
     def analyseGcode(self, txt):

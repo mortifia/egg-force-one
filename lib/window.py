@@ -32,7 +32,9 @@ class window(Thread):
         appLabel = QQuickView()
         appLabel.setSource(QUrl('main.qml'))
         appLabel.setGeometry(0, 0, 480, 800)
-        appLabel.setFlags(Qt.FramelessWindowHint)
+        if (len(self.sysVar.argv) > 1):
+            if (self.sysVar.argv[1] == "-nw"):
+                appLabel.setFlags(Qt.FramelessWindowHint)
         appLabel.show()
         myApp.exec_()
         sys.exit()
