@@ -23,15 +23,19 @@ def startAll():             # lance les thread
    # from lib import sysVar  # intercomunication entre thread systeme
     
     #from lib import window  # lancement de l'interface graphique
-    thread1 = window.window(sysVar)
-    thread1.start()
+    threadWindow = window.window(sysVar)
+    threadWindow.setDaemon(True)
+    threadWindow.setName("windows egg force one")
+    threadWindow.start()
     
     #from lib import usb     # comunication avec l'imprimante
     thread2 = usb.usb(sysVar)
+    thread2.setDaemon(True)
     thread2.start()
 
     #from lib import web     # lancement et gestion serveur web
     thread3 = web.web(sysVar)
+    thread3.setDaemon(True)
     thread3.start()
 
 # mise a jour provisoire

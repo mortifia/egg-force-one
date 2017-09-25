@@ -14,6 +14,7 @@ from threading import Thread
 #comunication avec l'imprimante
 
 import serial
+import serial.tools.list_ports
 
 class usb(Thread):
     def __init__(self, sysVar):
@@ -53,6 +54,14 @@ class usb(Thread):
                 self.sysVar.gcode.append("G28 XY\n")
                 
     def search(self):
+        self.sysVar.ser = serial.Serial()
+        self.sysVar.ser.timeout  = 0
+        self.sysVar.allSerialInfo = serial.tools.list_ports.comports()
+        for element in self.sysVar.allSerialInfo:
+            print(element)
+            
+        
+    def searchOld(self):
         path = "/dev/serial/by-id/"
         test = 0
         self.sysVar.ser = serial.Serial()
@@ -77,7 +86,7 @@ class usb(Thread):
                             self.sysVar.ser.open()
                         except:
                             print('usb[ERROR] connection impossible a', path, list[0])
-                            del list[0]    
+                            del list[0]
                         else:
                             test = 1
                             print('usb[EVENT] carte connecté')
@@ -224,5 +233,12 @@ class usb(Thread):
 
     #lancement du module usb
     def run(self):
+        print("usb[TEST]")
         self.search()
         self.lancement()
+
+if __name__ == "__main__":
+    import sysVar
+    thread2 = usb(sysVar)
+    thread2.setDaemon(True)
+    thread2.start()
