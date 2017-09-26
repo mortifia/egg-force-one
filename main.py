@@ -18,7 +18,7 @@ import usb
 import utils
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
-print(os.path.dirname(os.path.realpath(__file__)))
+#print(os.path.dirname(os.path.realpath(__file__)))
 
 def startWin (sysVar):
     threadWin = window.window(sysVar)
