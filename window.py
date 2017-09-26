@@ -7,11 +7,10 @@ Ceci est un script temporaire.
 #import externe
 import os
 import sys
+from threading import Thread
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
-
-from threading import Thread
 
 #lancement de l'interface graphique
 
@@ -46,6 +45,7 @@ class window(Thread):
     def run(self):
         self.initialisation()
         pass
+    pass
 
 if __name__ == "__main__":
     pass

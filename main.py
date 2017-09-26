@@ -13,6 +13,7 @@ import time
 import sysVar
 
 import window
+import usb
 
 import utils
 
@@ -20,14 +21,22 @@ os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossi
 print(os.path.dirname(os.path.realpath(__file__)))
 
 def startWin (sysVar):
-    thread1 = window.window(sysVar)
-    sysVar.thread1 = thread1
-    thread1.setDaemon(True)
-    thread1.setName("windows egg force one")
-    thread1.start()
+    threadWin = window.window(sysVar)
+    sysVar.threadWin = threadWin
+    threadWin.setDaemon(True)
+    threadWin.setName("windows egg force one")
+    threadWin.start()
     
     #thread1.join()
     pass
+def startUsb (sysVar):
+    threadUsb = usb.usb(sysVar)
+    sysVar.threadUsb = threadUsb
+    threadUsb.setDaemon(True)
+    threadUsb.setName("usb egg force one")
+    threadUsb.start()
+    pass
+
 
 def startAll(sysVar):
     startWin(sysVar)
@@ -36,8 +45,11 @@ def startAll(sysVar):
 def alwaysAlive(sysVar):
     while (sysVar.alive == True):
         time.sleep(1/60)
-        if (sysVar.thread1.isAlive() == False):
+        if (sysVar.threadWin.isAlive() == False):
             sysVar.alive = False
+            pass
+        if (sysVar.threadUsb.isAlive() == False):
+            startUsb(sysVar)
             pass
         pass
     pass
