@@ -49,6 +49,7 @@ elif sys.platform.startswith('linux'):
     print("linux")
     paramPath = os.path.expanduser("~") + "/egg force one"
     if (os.path.exists(paramPath) == False):
+        print("egg force one exist")
         os.makedirs(paramPath)
         pass
     os.makedirs(paramPath)
