@@ -5,6 +5,7 @@ Created on Mon Sep 25 16:24:39 2017
 @author: 54386
 """
 import sys
+import os
 
 paramPath = "" # emplacement du fichier de paramettre de l'utilisateur
 alive = True # ferme l'application
@@ -33,16 +34,29 @@ if sys.platform.startswith('win'):
     del SHGFP_TYPE_CURRENT
     del buf
     del ctypes
-    del sys
+    os.makedirs(paramPath)
+    paramPath += "\\option.py"
+    if (os.path.exists(paramPath + "\\option.py") == False):
+        temp = open(paramPath, "w")
+        temp.close()
+        del temp
+        pass
     pass
+
 elif sys.platform.startswith('linux'):
     print("linux")
-    import os
     paramPath = os.path.expanduser("~") + "/egg force one"
-    print(paramPath)
-    del sys
-    del os
+    os.makedirs(paramPath)
+    paramPath += "/option.py"
+    if (os.path.exists(paramPath) == False):
+        temp = open(paramPath, "w")
+        temp.close()
+        del temp
+        pass
     pass
+
+del sys
+del os
 
 if __name__ == "__main__":
     pass
