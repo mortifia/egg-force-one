@@ -34,7 +34,9 @@ if sys.platform.startswith('win'):
     del SHGFP_TYPE_CURRENT
     del buf
     del ctypes
-    os.makedirs(paramPath)
+    if (os.path.exists(paramPath) == False):
+        os.makedirs(paramPath)
+        pass
     paramPath += "\\option.py"
     if (os.path.exists(paramPath + "\\option.py") == False):
         temp = open(paramPath, "w")
@@ -46,6 +48,9 @@ if sys.platform.startswith('win'):
 elif sys.platform.startswith('linux'):
     print("linux")
     paramPath = os.path.expanduser("~") + "/egg force one"
+    if (os.path.exists(paramPath) == False):
+        os.makedirs(paramPath)
+        pass
     os.makedirs(paramPath)
     paramPath += "/option.py"
     if (os.path.exists(paramPath) == False):
