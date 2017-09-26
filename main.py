@@ -26,7 +26,7 @@ def startWin (sysVar):
     threadWin.setDaemon(True)
     threadWin.setName("windows egg force one")
     threadWin.start()
-    
+
     #thread1.join()
     pass
 def startUsb (sysVar):
@@ -40,6 +40,7 @@ def startUsb (sysVar):
 
 def startAll(sysVar):
     startWin(sysVar)
+    startUsb (sysVar)
     pass
 
 def alwaysAlive(sysVar):
