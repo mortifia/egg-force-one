@@ -9,7 +9,7 @@ import sys
 import os
 
 # variable system application
-paramPath       = ""        # emplacement du fichier de paramettre de l'utilisateur
+paramPath       = False     # emplacement du fichier de paramettre de l'utilisateur
 alive           = True      # ferme l'application
 connectType     = "USB"     # permet de choisir le moyen de communication avec le controlleur
 
@@ -32,7 +32,7 @@ usbPort         = False     # port de communication si false il se connectera au
 usbAllPort      = False     # liste tout les port disponible depuis la derniere recherche
                             # si False aucune recherche lancé si [] il y a pas de port disponible
 
-# auto configuration de sysVar
+# auto configuration de paramPath
 if sys.platform.startswith('win'):
     print("windows")
     import ctypes.wintypes

@@ -7,7 +7,6 @@ Created on Mon Sep 25 16:24:39 2017
 """
 #import externe
 import os
-import sys
 import time
 
 #import egg force one

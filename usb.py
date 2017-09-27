@@ -8,7 +8,6 @@ Created on Tue Sep 26 16:05:05 2017
 
 #import externe
 import os
-import sys
 import time
 from threading import Thread
 
