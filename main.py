@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+#!/usr/bin/python3
 """
-Éditeur de Spyder
+Created on Mon Sep 25 16:24:39 2017
 
-Ceci est un script temporaire.
+@author: CASAL Guillaume
 """
 #import externe
 import os
@@ -21,22 +22,20 @@ os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossi
 #print(os.path.dirname(os.path.realpath(__file__)))
 
 def startWin (sysVar):
-    threadWin = window.window(sysVar)
+    threadWin = window.Window(sysVar)
     sysVar.threadWin = threadWin
     threadWin.setDaemon(True)
     threadWin.setName("windows egg force one")
     threadWin.start()
-
-    #thread1.join()
     pass
+
 def startUsb (sysVar):
-    threadUsb = usb.usb(sysVar)
+    threadUsb = usb.Usb(sysVar)
     sysVar.threadUsb = threadUsb
     threadUsb.setDaemon(True)
     threadUsb.setName("usb egg force one")
     threadUsb.start()
     pass
-
 
 def startAll(sysVar):
     startWin(sysVar)

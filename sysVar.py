@@ -1,27 +1,38 @@
 # -*- coding: utf-8 -*-
+#!/usr/bin/python3
 """
 Created on Mon Sep 25 16:24:39 2017
 
-@author: 54386
+@author: CASAL Guillaume
 """
 import sys
 import os
 
-paramPath = "" # emplacement du fichier de paramettre de l'utilisateur
-alive = True # ferme l'application
+# variable system application
+paramPath       = ""        # emplacement du fichier de paramettre de l'utilisateur
+alive           = True      # ferme l'application
+connectType     = "USB"     # permet de choisir le moyen de communication avec le controlleur
+
+# list de communication entre thread
+gcodeInput      = []        # liste des commande recu
+gcodeOutput     = []        # liste de commande a envoyer
+gcodeOnConnect  = []        # liste d'instruction a envoyer a la connection
 
 # liste des thread
-threadWin = False # interface graphique
-threadUsb = False # comunication usb avec le controlleur
+threadWin       = False     # interface graphique
+threadUsb       = False     # comunication usb avec le controlleur
 
 # variable information threadWin
 
 # variable information threadUsb
-usbStart = False # previent si il est en fonctionnement
-usbConnect = False # dit si on est connecter au controlleur
-usbBauderate = 9600 # frequence de communication
-usbPort = False # port de communication
+usbRun          = False     # previent si il tourne
+usbConnect      = False     # dit si on est connecter au controlleur
+usbBauderate    = 115200    # frequence de communication
+usbPort         = False     # port de communication si false il se connectera au premier port posible
+usbAllPort      = False     # liste tout les port disponible depuis la derniere recherche
+                            # si False aucune recherche lancé si [] il y a pas de port disponible
 
+# auto configuration de sysVar
 if sys.platform.startswith('win'):
     print("windows")
     import ctypes.wintypes

@@ -14,7 +14,7 @@ os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossi
 
 #lancement de l'interface graphique
 
-class window(Thread):
+class Window(Thread):
     def __init__(self, sysVar):
         self.sysVar = sysVar
         Thread.__init__(self)
@@ -22,7 +22,7 @@ class window(Thread):
 
     def initialisation(self):
         """
-            lancement de l'interface graphique 
+            lancement de l'interface graphique
         """
         from PyQt5.QtCore import QUrl, Qt
         from PyQt5.QtWidgets import QApplication
