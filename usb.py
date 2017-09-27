@@ -58,7 +58,20 @@ class Usb(Thread):
                     pass
                 pass
             pass
-
+        else:
+            self.sysVar.usbSerial.port = self.sysVar.usbPort
+            try:
+                self.sysVar.usbSerial.open()
+                pass
+            except:
+                #print("connect error")
+                #print(self.sysVar.usbSerial.port)
+                pass
+            else:
+                self.sysVar.usbConnect = True
+                print("USB connecté")
+                pass
+            pass
         pass
 
     def update(self):
