@@ -44,7 +44,7 @@ class Usb(Thread):
         if (self.sysVar.usbPort == False):
             self.recherche()
             for port in self.sysVar.usbAllPort:
-                    self.sysVar.usbSerial.port = port.device
+                self.sysVar.usbSerial.port = port.device
                 try:
                     self.sysVar.usbSerial.open()
                     pass
