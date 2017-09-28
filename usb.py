@@ -20,6 +20,7 @@ os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossi
 class Usb(Thread):
     def __init__(self, sysVar):
         self.sysVar = sysVar
+        self.tempTxt = b''
         Thread.__init__(self)
         pass
 
@@ -27,6 +28,39 @@ class Usb(Thread):
         pass
 
     def lecture(self):
+        try:
+            self.tempTxt += self.sysVar.usbSerial.read(self.sysVar.usbSerial.inWaiting())
+            #print(self.sysVar.usbSerial.read(self.sysVar.usbSerial.inWaiting()))
+            #print(self.tempTxt)
+            #print("wow")
+            pass
+        except:
+            #print("merde")
+            self.sysVar.usbConnect.close()
+            self.sysVar.usbConnect = False
+            pass
+        else:
+            pass
+        pass
+
+    def addLine(self):
+        pos = len(self.tempTxt)
+        tmp = 0
+        stop = 0
+        if (pos > 0):
+            while (stop == 0):
+                time.sleep(1/2)
+                if (self.tempTxt[tmp] == 10 ):
+                    stop = 1
+                    pass
+                tmp += 1
+                if (tmp == pos):
+                    stop = 1
+                    pass
+                pass
+            pass
+        #print("tmp : {}".format(tmp))
+        #time.sleep(5)
         pass
 
     def recherche(self):
@@ -85,6 +119,7 @@ class Usb(Thread):
             try:
                 self.lecture()
                 self.ecriture()
+                self.addLine()
                 pass
             except:
                 self.sysVar.usbConnect == False
@@ -97,7 +132,6 @@ class Usb(Thread):
         elle permet de mainteneir le thread en vie
         """
         while (1):
-            time.sleep(1/10)
             while (self.sysVar.connectType == "USB"): # fait fonctionner la communication usb
                 time.sleep(1/120)
                 self.sysVar.usbRun = True

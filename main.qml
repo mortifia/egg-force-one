@@ -8,4 +8,17 @@ Window {
     visible: true
     color: "#4f4f4f"
     id: home
+
+    Text {
+        id: text1
+        x: 0
+        y: 0
+        width: 480
+        height: 50
+        color: "#ffffff"
+        text: qsTr("Text")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 24
+    }
 }
