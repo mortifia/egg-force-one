@@ -24,20 +24,31 @@ class Usb(Thread):
         Thread.__init__(self)
         pass
 
+    def bugCom(self):
+        self.sysVar.usbConnect.close()
+        self.sysVar.usbConnect = False
+        pass
+    
     def ecriture(self):
+        if (len(self.sysVar.gcodeOutput) > 0):
+            try:
+                self.sysVar.usbSerial.write(self.sysVar.gcodeOutput[0].encode('utf-8'))
+                pass
+            except:
+                self.bugCom()
+                pass
+            else:
+                del self.sysVar.gcodeOutput[0]
+                pass
+            pass
         pass
 
     def lecture(self):
         try:
             self.tempTxt += self.sysVar.usbSerial.read(self.sysVar.usbSerial.inWaiting())
-            #print(self.sysVar.usbSerial.read(self.sysVar.usbSerial.inWaiting()))
-            #print(self.tempTxt)
-            #print("wow")
             pass
         except:
-            #print("merde")
-            self.sysVar.usbConnect.close()
-            self.sysVar.usbConnect = False
+            self.bugCom()
             pass
         else:
             pass
