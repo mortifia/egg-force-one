@@ -44,23 +44,14 @@ class Usb(Thread):
         pass
 
     def addLine(self):
-        pos = len(self.tempTxt)
-        tmp = 0
-        stop = 0
-        if (pos > 0):
-            while (stop == 0):
-                time.sleep(1/2)
-                if (self.tempTxt[tmp] == 10 ):
-                    stop = 1
-                    pass
-                tmp += 1
-                if (tmp == pos):
-                    stop = 1
-                    pass
+        if (len(self.tempTxt) > 0):
+            pos = self.tempTxt.find(b'\n')
+            if (pos != -1):
+                #print(self.tempTxt[0:pos]) # affiche la chaine qui va etre transferer
+                self.sysVar.gcodeInput.append(str(self.tempTxt[0:pos], 'utf-8'))
+                self.tempTxt = self.tempTxt[pos + 1: -1]
                 pass
             pass
-        #print("tmp : {}".format(tmp))
-        #time.sleep(5)
         pass
 
     def recherche(self):
