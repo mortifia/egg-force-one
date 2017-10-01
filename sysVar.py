@@ -7,13 +7,17 @@ Created on Mon Sep 25 16:24:39 2017
 """
 import sys
 import os
+from threading import RLock
 
 # variable system application
 paramPath       = False     # emplacement du fichier de paramettre de l'utilisateur
 alive           = True      # ferme l'application
 connectType     = "USB"     # permet de choisir le moyen de communication avec le controlleur
+temp            = []        # liste toutes les temperatures
 
 # list de communication entre thread
+lockInput       = RLock()   # gere l'acées a gcodeInput
+lockOutput      = RLock()   # gere l'acées a gcodeOutput
 gcodeInput      = []        # liste des commande recu
 gcodeOutput     = []        # liste de commande a envoyer
 gcodeOnConnect  = []        # liste d'instruction a envoyer a la connection
@@ -21,8 +25,11 @@ gcodeOnConnect  = []        # liste d'instruction a envoyer a la connection
 # liste des thread
 threadWin       = False     # interface graphique
 threadUsb       = False     # comunication usb avec le controlleur
-
+threadControl   = False     # comunication entre l'utilisateur et le controlleur
 # variable information threadWin
+#app             = False     #
+#engine          = False     #
+#QObject         = False     #
 
 # variable information threadUsb
 usbRun          = False     # previent si il tourne
@@ -31,6 +38,9 @@ usbBauderate    = 115200    # frequence de communication
 usbPort         = False     # port de communication si false il se connectera au premier port posible 
 usbAllPort      = False     # liste tout les port disponible depuis la derniere recherche
                             # si False aucune recherche lancé si [] il y a pas de port disponible
+
+# variable information threadControl
+
 
 # auto configuration de paramPath
 if sys.platform.startswith('win'):

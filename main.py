@@ -14,6 +14,7 @@ import sysVar
 
 import window
 import usb
+import control
 
 import utils
 
@@ -34,6 +35,14 @@ def startUsb (sysVar):
     threadUsb.setDaemon(True)
     threadUsb.setName("usb egg force one")
     threadUsb.start()
+    pass
+
+def startControl(sysVar):
+    threadControl = control.Control(sysVar)
+    sysVar.threadControl = threadControl
+    threadControl.setDaemon(True)
+    threadControl.setName("control egg force one")
+    threadControl.start()
     pass
 
 def startAll(sysVar):

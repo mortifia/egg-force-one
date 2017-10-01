@@ -9,7 +9,7 @@ Created on Tue Sep 26 16:05:05 2017
 #import externe
 import os
 import time
-from threading import Thread
+from threading import Thread, RLock
 
 import serial
 import serial.tools.list_ports
@@ -32,13 +32,17 @@ class Usb(Thread):
     def ecriture(self):
         if (len(self.sysVar.gcodeOutput) > 0):
             try:
-                self.sysVar.usbSerial.write(self.sysVar.gcodeOutput[0].encode('utf-8'))
+                with self.sysVar.lockOutput:
+                    self.sysVar.usbSerial.write(self.sysVar.gcodeOutput[0].encode('utf-8'))
+                    pass
                 pass
             except:
                 self.bugCom()
                 pass
             else:
-                del self.sysVar.gcodeOutput[0]
+                with self.sysVar.lockOutput:
+                    del self.sysVar.gcodeOutput[0]
+                    pass
                 pass
             pass
         pass
@@ -59,8 +63,9 @@ class Usb(Thread):
         if (nb > 0):
             pos = self.tempTxt.find(b'\n')
             if (pos != -1):
-                #print(self.tempTxt[0:pos]) # affiche la chaine qui va etre transferer
-                self.sysVar.gcodeInput.append(str(self.tempTxt[0:pos], 'utf-8'))
+                with self.sysVar.lockInput:
+                    self.sysVar.gcodeInput.append(str(self.tempTxt[0:pos], 'utf-8'))
+                    pass
                 self.tempTxt = self.tempTxt[pos + 1: nb]
                 pass
             else:
