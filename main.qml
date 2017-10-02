@@ -17,7 +17,19 @@ Window {
         width: 480
         height: 50
         color: "#ffffff"
-        text: temp0
+        text: test[0]
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 24
+    }
+    Text {
+        id: text2
+        x: 0
+        y: 50
+        width: 480
+        height: 50
+        color: "#ffffff"
+        text: getVar.test() + " wooooo"
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         font.pixelSize: 24

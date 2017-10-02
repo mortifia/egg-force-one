@@ -13,14 +13,16 @@ from threading import RLock
 paramPath       = False     # emplacement du fichier de paramettre de l'utilisateur
 alive           = True      # ferme l'application
 connectType     = "USB"     # permet de choisir le moyen de communication avec le controlleur
-temp            = []        # liste toutes les temperatures
+temp            = ['0']        # liste toutes les temperatures
 
 # list de communication entre thread
 lockInput       = RLock()   # gere l'acées a gcodeInput
 lockOutput      = RLock()   # gere l'acées a gcodeOutput
 gcodeInput      = []        # liste des commande recu
 gcodeOutput     = []        # liste de commande a envoyer
-gcodeOnConnect  = []        # liste d'instruction a envoyer a la connection
+gcodeOnConnect  = ['M155 S1\n']        # liste d'instruction a envoyer a la connection
+gcodeCom        = False     # devient true dest que du texte estr ecu du controlleur
+                            # pour commencer a envoyer des commande
 
 # liste des thread
 threadWin       = False     # interface graphique
@@ -35,7 +37,7 @@ threadControl   = False     # comunication entre l'utilisateur et le controlleur
 usbRun          = False     # previent si il tourne
 usbConnect      = False     # dit si on est connecter au controlleur
 usbBauderate    = 115200    # frequence de communication
-usbPort         = False     # port de communication si false il se connectera au premier port posible 
+usbPort         = False     # port de communication si false il se connectera au premier port posible
 usbAllPort      = False     # liste tout les port disponible depuis la derniere recherche
                             # si False aucune recherche lancé si [] il y a pas de port disponible
 
@@ -82,6 +84,7 @@ elif sys.platform.startswith('linux'):
 
 del sys
 del os
+del RLock
 
 if __name__ == "__main__":
     pass

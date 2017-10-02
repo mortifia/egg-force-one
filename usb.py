@@ -27,21 +27,28 @@ class Usb(Thread):
     def bugCom(self):
         self.sysVar.usbConnect.close()
         self.sysVar.usbConnect = False
+        self.com = False
+        with self.sysVar.lockInput:
+            self.sysVar.gcodeInput = []
+        with self.sysVar.lockOutput:
+            self.sysVar.gcodeOutput = []
         pass
-    
+
     def ecriture(self):
-        if (len(self.sysVar.gcodeOutput) > 0):
-            try:
-                with self.sysVar.lockOutput:
-                    self.sysVar.usbSerial.write(self.sysVar.gcodeOutput[0].encode('utf-8'))
+        if (self.sysVar.gcodeCom == True):
+            if (len(self.sysVar.gcodeOutput) > 0):
+                try:
+                    with self.sysVar.lockOutput:
+                        self.sysVar.usbSerial.write(self.sysVar.gcodeOutput[0].encode('utf-8'))
+                        pass
                     pass
-                pass
-            except:
-                self.bugCom()
-                pass
-            else:
-                with self.sysVar.lockOutput:
-                    del self.sysVar.gcodeOutput[0]
+                except:
+                    self.bugCom()
+                    pass
+                else:
+                    with self.sysVar.lockOutput:
+                        del self.sysVar.gcodeOutput[0]
+                        pass
                     pass
                 pass
             pass
@@ -61,6 +68,7 @@ class Usb(Thread):
     def addLine(self):
         nb = len(self.tempTxt)
         if (nb > 0):
+            self.sysVar.gcodeCom = True
             pos = self.tempTxt.find(b'\n')
             if (pos != -1):
                 with self.sysVar.lockInput:
@@ -141,9 +149,12 @@ class Usb(Thread):
         """
         elle permet de mainteneir le thread en vie
         """
+        hz = 1/120 # optimisation
+        hzSleep = 1/10 # optimisation
         while (1):
+            time.sleep(hzSleep)
             while (self.sysVar.connectType == "USB"): # fait fonctionner la communication usb
-                time.sleep(1/120)
+                time.sleep(hz)
                 self.sysVar.usbRun = True
                 self.update()
                 pass

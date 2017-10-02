@@ -48,16 +48,24 @@ def startControl(sysVar):
 def startAll(sysVar):
     startWin(sysVar)
     startUsb (sysVar)
+    startControl(sysVar)
     pass
 
 def alwaysAlive(sysVar):
+    hz = 1/30 #optimisation
     while (sysVar.alive == True):
-        time.sleep(1/60)
+        time.sleep(hz)
         if (sysVar.threadWin.isAlive() == False):
+            print("quit win")
             sysVar.alive = False
             pass
         if (sysVar.threadUsb.isAlive() == False):
+            print("bug usb")
             startUsb(sysVar)
+            pass
+        if (sysVar.threadControl.isAlive() == False):
+            print("bug control")
+            startControl(sysVar)
             pass
         pass
     pass
