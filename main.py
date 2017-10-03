@@ -52,7 +52,7 @@ def startAll(sysVar):
     pass
 
 def alwaysAlive(sysVar):
-    hz = 1/30 #optimisation
+    hz = 1/10 #optimisation
     while (sysVar.alive == True):
         time.sleep(hz)
         if (sysVar.threadWin.isAlive() == False):
