@@ -28,6 +28,7 @@ gcodeCom        = False     # devient true dest que du texte estr ecu du control
 threadWin       = False     # interface graphique
 threadUsb       = False     # comunication usb avec le controlleur
 threadControl   = False     # comunication entre l'utilisateur et le controlleur
+threadWebUser   = False     # interface utilisateur 
 # variable information threadWin
 #app             = False     #
 #engine          = False     #

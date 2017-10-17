@@ -60,8 +60,8 @@ class Control (Thread):
                         print("TEMP : " + self.sysVar.gcodeInput[0])
                         tmp = [self.sysVar.gcodeInput[0]]
                         self.sysVar.temp = tmp
-                        if (self.sysVar.threadWin.isAlive() == True):
-                            self.sysVar.threadWin.updateTemp()
+                        #if (self.sysVar.threadWin.isAlive() == True):
+                        #    self.sysVar.threadWin.updateTemp()
                     else:
                         print("???? : " + self.sysVar.gcodeInput[0])
                         pass

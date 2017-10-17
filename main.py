@@ -15,6 +15,7 @@ import sysVar
 import window
 import usb
 import control
+import webUser
 
 import utils
 
@@ -45,8 +46,17 @@ def startControl(sysVar):
     threadControl.start()
     pass
 
+def startWebUser(sysVar):
+    threadWebUser = webUser.WebUser(sysVar)
+    sysVar.threadWebUser = threadWebUser
+    threadWebUser.setDaemon(True)
+    threadWebUser.setName("web user egg force one")
+    threadWebUser.start()
+    pass
+
 def startAll(sysVar):
-    startWin(sysVar)
+    #startWin(sysVar)
+    startWebUser(sysVar)
     startUsb (sysVar)
     startControl(sysVar)
     pass
@@ -55,10 +65,10 @@ def alwaysAlive(sysVar):
     hz = 1/10 #optimisation
     while (sysVar.alive == True):
         time.sleep(hz)
-        if (sysVar.threadWin.isAlive() == False):
-            print("quit win")
-            sysVar.alive = False
-            pass
+        #if (sysVar.threadWin.isAlive() == False):
+        #    print("quit win")
+        #    sysVar.alive = False
+        #    pass
         if (sysVar.threadUsb.isAlive() == False):
             print("bug usb")
             startUsb(sysVar)
@@ -66,6 +76,10 @@ def alwaysAlive(sysVar):
         if (sysVar.threadControl.isAlive() == False):
             print("bug control")
             startControl(sysVar)
+            pass
+        if (sysVar.threadWebUser.isAlive() == False):
+            print("bug web user")
+            startWebUser(sysVar)
             pass
         pass
     pass
