@@ -12,7 +12,7 @@ import time
 #import egg force one
 import sysVar
 
-import window
+#import window
 import usb
 import control
 import webUser
@@ -22,13 +22,13 @@ import utils
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
 
-def startWin (sysVar):
-    threadWin = window.Window(sysVar)
-    sysVar.threadWin = threadWin
-    threadWin.setDaemon(True)
-    threadWin.setName("windows egg force one")
-    threadWin.start()
-    pass
+#def startWin (sysVar):
+#    threadWin = window.Window(sysVar)
+#    sysVar.threadWin = threadWin
+#    threadWin.setDaemon(True)
+#    threadWin.setName("windows egg force one")
+#    threadWin.start()
+#    pass
 
 def startUsb (sysVar):
     threadUsb = usb.Usb(sysVar)
