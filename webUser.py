@@ -20,10 +20,10 @@ class WebUser(Thread):
         self.sysVar = sysVar
         Thread.__init__(self)
         pass
-    
+
     def initData(self):
         pass
-    
+
     def init(self):
         app = Flask(__name__)
         self.app = app
@@ -33,17 +33,17 @@ class WebUser(Thread):
             return "bou"
             pass
         pass
-    
+
     def startWeb(self):
-        self.app.run(host='127.0.0.2', port=80)
-        
+        self.app.run(host='0.0.0.0', port=8080)
+
         pass
-    
+
     def run(self):
         self.initData()
         self.init()
         self.startWeb()
-        pass        
+        pass
     pass
 
 if __name__ == "__main__":
