@@ -13,7 +13,7 @@ from threading import RLock
 paramPath       = False     # emplacement du fichier de paramettre de l'utilisateur
 alive           = True      # ferme l'application
 connectType     = "USB"     # permet de choisir le moyen de communication avec le controlleur
-temp            = ['0']        # liste toutes les temperatures
+temp            = ['0']     # liste toutes les temperatures de l'imprimante 3D
 
 # list de communication entre thread
 lockInput       = RLock()   # gere l'acées a gcodeInput

@@ -21,7 +21,20 @@ class WebUser(Thread):
         Thread.__init__(self)
         pass
 
+    def html(self):
+        tmp = open("html.html", "r")
+        data = tmp.read()
+        tmp.close()
+        return data
+
     def initData(self):
+        fichier = open("socket.io.js", "r")
+        self.socketIO = fichier.read()
+        fichier.close()
+
+        fichier = open("jquery.min.js", "r")
+        self.jquery = fichier.read()
+        fichier.close()
         pass
 
     def init(self):
@@ -30,12 +43,17 @@ class WebUser(Thread):
 
         @app.route('/')
         def home():
-            return "bou"
-            pass
+            return self.html()
+        @app.route('/socket.io.js')
+        def routeSocketIO():
+            return self.socketIO
+        @app.route('/jquery.min.js')
+        def routeJquery():
+            return self.jquery
         pass
 
     def startWeb(self):
-        self.app.run(host='0.0.0.0', port=8080)
+        self.app.run(host='127.0.0.2', port=8080)
 
         pass
 
