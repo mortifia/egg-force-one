@@ -9,6 +9,7 @@ import os
 import time
 from threading import Thread, RLock
 
+import logging
 from flask import Flask
 from flask_socketio import SocketIO
 
@@ -39,7 +40,14 @@ class WebUser(Thread):
 
     def init(self):
         app = Flask(__name__)
+        socketio = SocketIO(app)
+
+        #log = logging.getLogger('werkzeug')
+        #log.setLevel(logging.ERROR)
+
         self.app = app
+        #self.log = log
+        self.socketio = socketio
 
         @app.route('/')
         def home():
@@ -53,8 +61,8 @@ class WebUser(Thread):
         pass
 
     def startWeb(self):
-        self.app.run(host='127.0.0.2', port=8080)
-
+        #self.app.run(host='127.0.0.2', port=8080)
+        self.socketio.run(self.app, host='127.0.0.2', port='8080')
         pass
 
     def run(self):
