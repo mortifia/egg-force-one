@@ -10,7 +10,7 @@ import time
 from threading import Thread, RLock
 
 import logging
-from flask import Flask
+from flask import Flask, Response
 from flask_socketio import SocketIO
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
@@ -24,6 +24,11 @@ class WebUser(Thread):
 
     def html(self):
         tmp = open("html.html", "r")
+        data = tmp.read()
+        tmp.close()
+        return data
+    def css(self):
+        tmp = open("css.css", "r")
         data = tmp.read()
         tmp.close()
         return data
@@ -52,9 +57,15 @@ class WebUser(Thread):
         @app.route('/')
         def home():
             return self.html()
+        
+        @app.route('/css.css')
+        def css():
+            return Response(self.css(), mimetype='text/css')
+        
         @app.route('/socket.io.js')
         def routeSocketIO():
             return self.socketIO
+        
         @app.route('/jquery.min.js')
         def routeJquery():
             return self.jquery
