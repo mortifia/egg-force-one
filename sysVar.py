@@ -14,6 +14,9 @@ paramPath       = False     # emplacement du fichier de paramettre de l'utilisat
 alive           = True      # ferme l'application
 connectType     = "USB"     # permet de choisir le moyen de communication avec le controlleur
 temp            = ['0']     # liste toutes les temperatures de l'imprimante 3D
+lvlMsg          = 1         # niveau max des message aficher 
+                            # lvl = 0 "info" | lvl = 1 "erreur" | lvl = 2 "debug"
+                            # attention plus le niveau est élevé plus ca consome
 
 # list de communication entre thread
 lockInput       = RLock()   # gere l'acées a gcodeInput

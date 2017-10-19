@@ -1,21 +1,57 @@
 body
 {
-	background-color: 	rgb(214, 214, 214);
-	font-family: 		"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+	/*background-color: 	rgb(214, 214, 214);*/
+	font-family: 		Tahoma, Helvetica, Arial, sans-serif;
 	margin: 			0px;
 	border: 			0px;
 	padding: 			0px;
 }
-p, h1, div
+h3
+{
+	margin: 			0px;
+	margin-top:	 		1px;
+	margin-bottom: 		2px;
+	border: 			0px;
+	padding: 			0px;
+	line-height: 		14px;
+	color: 				rgb(132, 134, 138)
+	font-size: 			20px;
+	font-weight: 		normal;
+	font-family: 		Tahoma, Helvetica, Arial, sans-serif;
+}
+
+/*p, h1, div
 {
 	color: 				rgb(51, 51, 51);
 	font-family: 		"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+}*/
+
+::-webkit-scrollbar {
+    width: 6px;
 }
+
+::-webkit-scrollbar-track-piece {
+    -webkit-border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    
+}
+
+.terminalOutput::-webkit-scrollbar-track-piece {
+    -webkit-border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    margin-bottom: 4px;  
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(202,133,21);
+}
+
 .menu
 {
-	background-color: 	rgb(56, 99, 134);
+	background-color: 	rgb(42, 44, 48);
 	color: 				rgb(253, 253, 253);
-	font-family: 		"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: 		Tahoma, Helvetica, Arial, sans-serif;
+	font-size: 			15px;
 	position: 			absolute;
 	left: 				0px;
 	top:  				0px;
@@ -26,8 +62,8 @@ p, h1, div
 
 .info
 {
-	background-color: 	rgb(214, 214, 214);
-	font-family: 		"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+	background-color: 	rgb(22, 24, 28);
+	font-family: 		Tahoma, Helvetica, Arial, sans-serif;
 	margin: 			0px;
 	border: 			0px;
 	padding: 			0px;
@@ -38,5 +74,105 @@ p, h1, div
 	right: 				0px;
 	overflow: 			auto;
 
+	color: 				rgb(150, 154, 160);
+}
 
+.info2
+{
+	margin: 			0px;
+	margin-top: 		30px;
+	border: 			0px;
+	padding: 			0px;
+	padding-left: 		15px;
+	padding-right: 		15px;
+}
+
+.info3
+{
+	background-color: 	rgb(50, 52, 56);
+	margin: 			0px;
+	margin-bottom: 		5px;
+	border: 			1px;
+	border-style: 		solid;
+	border-color: 		rgb(72, 74, 78);
+}
+
+.infoTitre
+{
+	background-color: 	rgb(42, 44, 48);
+	margin: 			0px;
+	border: 			0px;
+	border-bottom: 		1px;
+	border-color: 		rgb(32, 34, 38);
+	border-style: 		solid;
+	padding: 			10px;
+	padding-left: 		15px;
+	padding-right: 		15px;
+	/*text-align: center;*/
+	font-size: 			20px;
+	font-family: 		Tahoma, Helvetica, Arial, sans-serif;
+}
+
+.infoBody
+{
+	margin: 			0px;
+	border:				0px;
+	padding: 			15px;
+
+}
+
+.terminal
+{
+	background-color: 	rgb(28, 30, 34);
+	margin: 			0px;
+	border: 			1px;
+	border-color: 		rgb(72, 74, 78);
+	border-style: 		solid;
+	padding: 			3px;
+	font-size: 			15px;
+	color: 				rgb(150, 154, 160);
+}
+
+.terminalOutput
+{
+	margin: 			0px;
+	margin-bottom: 		0px;
+	border: 			0px;
+	border-bottom: 		1px;
+	border-color: 		rgb(202,133,21);
+	border-style: 		solid;
+	padding: 			0px;
+	min-height: 		300px;
+	max-height: 		300px;
+	font-family: 		Tahoma, Helvetica, Arial, sans-serif;
+	font-size: 			15px;
+	overflow: 			auto;
+}
+
+.terminalInput
+{
+	margin: 			3px;
+	margin-bottom: 		0px;
+	border: 			0px;
+	padding: 			0px;
+	display: 			block;
+}
+
+.terminalInput2
+{
+	margin: 			0px;
+	border: 			0px;
+	padding: 			3px;
+	background-color: 	rgb(28, 30, 34);
+	display:		 	block;
+	font-size: 			15px;
+	width: 				100%;
+	color: 				rgb(150, 154, 160);
+	transform: translateX(-4px);
+	font-family: 		Tahoma, Helvetica, Arial, sans-serif;
+}
+
+.terminalInput2:focus
+{
+	outline: none;
 }

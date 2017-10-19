@@ -25,8 +25,13 @@ class OnStart (Thread):
 
     def run(self):
         time.sleep(3)
+        try:
+            self.sysVar.threadControl.msgTerminal(2, "add start ####################")
+            pass
+        except:
+            print("msgTerminal bug a control/OnStart/run")
+            pass
         with self.sysVar.lockOutput:
-            print("add start ####################")
             time.sleep(2)
             self.sysVar.gcodeOutput.extend(self.sysVar.gcodeOnConnect)
             pass
@@ -39,6 +44,23 @@ class Control (Thread):
         self.com = False
         self.ok = False
         Thread.__init__(self)
+        pass
+    def msgTerminal(self, lvl=0, msg=""):
+        """
+        envoi communication terminal 
+        (permet de communiquer avec tout les terminal)
+        
+        lvl 0 = info
+        lvl 1 = erreur
+        lvl 2 = debug
+        
+        """
+        if (lvl <= self.sysVar.lvlMsg):
+            print(msg)
+            if(self.sysVar.threadWebUser.isAlive() == True):
+                self.sysVar.threadWebUser.msgTerminal(msg)
+                pass
+            pass
         pass
 
     def startGcode(self):
@@ -57,13 +79,13 @@ class Control (Thread):
             if (len(self.sysVar.gcodeInput) != 0):
                 if (len(self.sysVar.gcodeInput[0]) > 1):
                     if (self.sysVar.gcodeInput[0][0] == 'T' or self.sysVar.gcodeInput[0][1] == 'T'):
-                        print("TEMP : " + self.sysVar.gcodeInput[0])
+                        self.msgTerminal(2, "TEMP : " + self.sysVar.gcodeInput[0])
                         tmp = [self.sysVar.gcodeInput[0]]
                         self.sysVar.temp = tmp
                         #if (self.sysVar.threadWin.isAlive() == True):
                         #    self.sysVar.threadWin.updateTemp()
                     else:
-                        print("???? : " + self.sysVar.gcodeInput[0])
+                        self.msgTerminal(2, "???? : " + self.sysVar.gcodeInput[0])
                         pass
                     pass
                 del self.sysVar.gcodeInput[0]

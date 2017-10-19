@@ -7,16 +7,74 @@
 	</head>
 
 	<body>
-		<h1>Egg force one</h1>
-		<div class="menu">b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br></div>
-		<div class="info">a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br></div>
+		<div class="menu"></div>
+		<div class="info">
+			<div class="info2">
+				<div class="info3">
+					<div class="infoTitre">
+						<h3>terminal</h3>
+					</div>
+					<div class="infoBody">
+						<div class="terminal">
+							<div class="terminalOutput" id="outputTerm"></div>
+							<div class="terminalInput">
+								<input class="terminalInput2" type="text" id="inputTerm" placeholder=">">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<script type="text/javascript" src="/jquery.min.js"></script>
 		<script type="text/javascript" src="/socket.io.js"></script>
 		<script type="text/javascript">
-			$(function () {
-				// body...
-			})
+			var temp = "no temp data"
+
+			var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+			// envoi un message pour prevenir qu'on est connecté
+			socket.on('connect', function (data) {
+				socket.emit('new user', "");
+			});
+
+			// reception des message pour le terminal
+			socket.on('MsgTerm', function (data) {
+				$('#outputTerm').append('<p>' + data + '</p>');
+			});
+
+
+			//reception de la temperature
+			socket.on('temp', function (data) {
+				temp = data
+			});
+
+			// analyse de la commande du terminal
+			$('#inputTerm').keypress(function(e) {
+				if(e.which == 13) {
+					var commande = $('#inputTerm').val();
+					$('#inputTerm').val("");
+					var argCom = commande.split(" ");
+					//alert(argCom)
+					switch (argCom[0]) {
+						case "temp":
+							$('#outputTerm').append('<p>' + temp + '</p>');
+						break;
+
+						case "msglvl":
+							if (argCom.length == 2) {
+
+							}
+							else {
+								$('#outputTerm').append("<p>" + "usage> msglvl 'int:0,1,2' " + "</p>");
+							}
+						break;
+
+						default:
+							$('#outputTerm').append('<p> commande inconnue </p>');
+					}
+				}
+			});
 		</script>
 	</body>
 </html>

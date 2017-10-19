@@ -11,7 +11,7 @@ from threading import Thread, RLock
 
 import logging
 from flask import Flask, Response
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, send, emit
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
@@ -21,7 +21,15 @@ class WebUser(Thread):
         self.sysVar = sysVar
         Thread.__init__(self)
         pass
-
+    def msgTerminal(self, msg=""):
+        try:
+            self.socketio.emit('MsgTerm', msg, broadcast=True)
+            pass
+        except:
+            print("WEB[ERROR] msgTerm not work")
+            pass
+        pass
+    
     def html(self):
         tmp = open("html.html", "r")
         data = tmp.read()
@@ -47,11 +55,11 @@ class WebUser(Thread):
         app = Flask(__name__)
         socketio = SocketIO(app)
 
-        #log = logging.getLogger('werkzeug')
-        #log.setLevel(logging.ERROR)
+        log = logging.getLogger('werkzeug')
+        log.setLevel(logging.ERROR)
 
         self.app = app
-        #self.log = log
+        self.log = log
         self.socketio = socketio
 
         @app.route('/')
@@ -69,11 +77,18 @@ class WebUser(Thread):
         @app.route('/jquery.min.js')
         def routeJquery():
             return self.jquery
+        
+        @socketio.on('new user')
+        def newUser(data):
+            if (self.sysVar.threadControl.isAlive() == True):
+                self.sysVar.threadControl.msgTerminal(0, "utilisateur connecté")
+                pass
+            pass
         pass
 
     def startWeb(self):
         #self.app.run(host='127.0.0.2', port=8080)
-        self.socketio.run(self.app, host='127.0.0.2', port='8080')
+        self.socketio.run(self.app, host='0.0.0.0', port='8080')
         pass
 
     def run(self):
