@@ -6,12 +6,11 @@ Created on Tue Oct 17 11:37:23 2017
 """
 
 import os
-import time
 from threading import Thread, RLock
 
 import logging
 from flask import Flask, Response
-from flask_socketio import SocketIO, send, emit
+from flask_socketio import SocketIO
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
@@ -21,12 +20,22 @@ class WebUser(Thread):
         self.sysVar = sysVar
         Thread.__init__(self)
         pass
+    
     def msgTerminal(self, msg=""):
         try:
             self.socketio.emit('MsgTerm', msg, broadcast=True)
             pass
         except:
             print("WEB[ERROR] msgTerm not work")
+            pass
+        pass
+    
+    def inprimanteConnecterUsb(self):
+        if (self.sysVar.usbConnect == False):
+            self.socketio.emit('inprimanteConnecterUsb', "True")
+            pass
+        else:
+            self.socketio.emit('inprimanteConnecterUsb', "True")
             pass
         pass
     
@@ -96,7 +105,6 @@ class WebUser(Thread):
         
         pass
     
-
     def startWeb(self):
         #self.app.run(host='127.0.0.2', port=8080)
         self.socketio.run(self.app, host='0.0.0.0', port='8080')
