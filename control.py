@@ -97,7 +97,7 @@ class Control (Thread):
 
     def update(self):
         hz = 1/120 # optimisation
-        while (1):
+        while (self.sysVar.alive == True):
             time.sleep(hz)
             self.startGcode()
             self.analyseGcode()

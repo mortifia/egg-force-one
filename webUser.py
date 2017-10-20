@@ -102,6 +102,10 @@ class WebUser(Thread):
                 self.sysVar.lvlMsg = tmp
                 pass
             pass
+        @socketio.on('STOP')
+        def stop(data):
+            self.sysVar.alive = False
+            pass
         
         pass
     

@@ -100,8 +100,8 @@ class Usb(Thread):
                     self.sysVar.usbSerial.open()
                     pass
                 except:
-                    print("connect error")
-                    #print(self.sysVar.usbSerial.port)
+                    self.sysVar.threadControl.msgTerminal(1,"connect error")
+                    self.sysVar.threadControl.msgTerminal(2,self.sysVar.usbSerial.port)
                     pass
                 else:
                     self.sysVar.usbConnect = True
@@ -151,9 +151,9 @@ class Usb(Thread):
         """
         hz = 1/120 # optimisation
         hzSleep = 1/10 # optimisation
-        while (1):
+        while (self.sysVar.alive == True):
             time.sleep(hzSleep)
-            while (self.sysVar.connectType == "USB"): # fait fonctionner la communication usb
+            while (self.sysVar.connectType == "USB" and self.sysVar.alive == True): # fait fonctionner la communication usb
                 time.sleep(hz)
                 self.sysVar.usbRun = True
                 self.update()

@@ -78,6 +78,11 @@
 								"<dd>" + "msglvl : choisi le niveau de message afficher" + "</p>");
 						break;
 
+						case "STOP":
+							socket.emit('STOP', "");
+							$('#outputTerm').append('<p>' + "stop execute" + '</p>');
+						break;
+
 						case "temp":
 							$('#outputTerm').append('<p>' + temp + '</p>');
 						break;

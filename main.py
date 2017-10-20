@@ -9,6 +9,9 @@ Created on Mon Sep 25 16:24:39 2017
 import os
 import time
 
+# profileur
+import cProfile
+
 #import egg force one
 import sysVar
 
@@ -69,8 +72,12 @@ def alwaysAlive(sysVar):
             pass
         pass
     pass
-
-if __name__ == "__main__":
+def start():
     startAll(sysVar)
     alwaysAlive(sysVar)
+    pass
+
+if __name__ == "__main__":
+    #cProfile.run("start()")
+    start()
     pass
