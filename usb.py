@@ -82,10 +82,13 @@ class Usb(Thread):
         pass
 
     def recherche(self):
+        print("wolololololololololololol")
         self.sysVar.usbAllPort = serial.tools.list_ports.comports()
-        #for element in self.sysVar.usbAllPort:
-        #    print(element)
-        #    pass
+        print(self.sysVar.usbAllPort)
+        print("icicicicicicicicicicicici")
+        for element in self.sysVar.usbAllPort:
+            print(element)
+            pass
         pass
 
     def connection(self):
@@ -100,7 +103,7 @@ class Usb(Thread):
                     self.sysVar.usbSerial.open()
                     pass
                 except:
-                    #print("connect error")
+                    print("connect error")
                     #print(self.sysVar.usbSerial.port)
                     pass
                 else:
