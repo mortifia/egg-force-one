@@ -84,7 +84,17 @@ class WebUser(Thread):
                 self.sysVar.threadControl.msgTerminal(0, "utilisateur connecté")
                 pass
             pass
+        
+        @socketio.on('msglvl')
+        def msglvl(data):
+            tmp = int(data)
+            if (tmp >= 0 and tmp <= 2):
+                self.sysVar.lvlMsg = tmp
+                pass
+            pass
+        
         pass
+    
 
     def startWeb(self):
         #self.app.run(host='127.0.0.2', port=8080)

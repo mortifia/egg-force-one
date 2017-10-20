@@ -57,16 +57,34 @@
 					var argCom = commande.split(" ");
 					//alert(argCom)
 					switch (argCom[0]) {
+						case "help":
+							$('#outputTerm').append("<p>" + "help :" + "<br>" + 
+								"<dd>" + "temp : donne la temperature" + "<br>" + 
+								"<dd>" + "msglvl : choisi le niveau de message afficher" + "</p>");
+						break;
+
 						case "temp":
 							$('#outputTerm').append('<p>' + temp + '</p>');
 						break;
 
 						case "msglvl":
 							if (argCom.length == 2) {
-
+								socket.emit('msglvl', argCom[1]);
+								$('#outputTerm').append("<p>" + "msglvl " + argCom[1] + " complete" + "</p>");
 							}
 							else {
 								$('#outputTerm').append("<p>" + "usage> msglvl 'int:0,1,2' " + "</p>");
+							}
+						break;
+
+						case "gcode":
+							if (argCom.length >= 2) {
+								gcode = commande.substring(commande.indexOf(" "), commande.length);
+								alert(argCom[argCom.length - 1]);
+								if (argCom[argCom.length - 1] != "\n") {
+									gcode += " \\n"
+								}
+								alert(gcode);
 							}
 						break;
 
