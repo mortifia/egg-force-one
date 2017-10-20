@@ -12,7 +12,6 @@ import time
 #import egg force one
 import sysVar
 
-#import window
 import usb
 import control
 import webUser
@@ -21,14 +20,6 @@ import utils
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
-
-#def startWin (sysVar):
-#    threadWin = window.Window(sysVar)
-#    sysVar.threadWin = threadWin
-#    threadWin.setDaemon(True)
-#    threadWin.setName("windows egg force one")
-#    threadWin.start()
-#    pass
 
 def startUsb (sysVar):
     threadUsb = usb.Usb(sysVar)
@@ -55,7 +46,6 @@ def startWebUser(sysVar):
     pass
 
 def startAll(sysVar):
-    #startWin(sysVar)
     startWebUser(sysVar)
     startUsb (sysVar)
     startControl(sysVar)
@@ -65,10 +55,6 @@ def alwaysAlive(sysVar):
     hz = 1/10 #optimisation
     while (sysVar.alive == True):
         time.sleep(hz)
-        #if (sysVar.threadWin.isAlive() == False):
-        #    print("quit win")
-        #    sysVar.alive = False
-        #    pass
         if (sysVar.threadUsb.isAlive() == False):
             print("bug usb")
             startUsb(sysVar)
