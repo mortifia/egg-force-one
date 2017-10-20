@@ -29,7 +29,7 @@ class OnStart (Thread):
             self.sysVar.threadControl.msgTerminal(2, "add start ####################")
             pass
         except:
-            print("msgTerminal bug a control/OnStart/run")
+            self.sysVar.threadControl.msgTerminal(1, "msgTerminal bug a control/OnStart/run")
             pass
         with self.sysVar.lockOutput:
             time.sleep(2)
@@ -37,6 +37,8 @@ class OnStart (Thread):
             pass
         pass
     pass
+
+###############################################################################
 
 class Control (Thread):
     def __init__(self, sysVar):
