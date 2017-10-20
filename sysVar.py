@@ -41,7 +41,7 @@ threadWebUser   = False     # interface utilisateur
 usbRun          = False     # previent si il tourne
 usbConnect      = False     # dit si on est connecter au controlleur
 usbBauderate    = 115200    # frequence de communication
-usbPort         = "COM3"     # port de communication si false il se connectera au premier port posible
+usbPort         = False #"COM3"     # port de communication si false il se connectera au premier port posible
 usbAllPort      = False     # liste tout les port disponible depuis la derniere recherche
                             # si False aucune recherche lancé si [] il y a pas de port disponible
 

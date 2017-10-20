@@ -6,6 +6,7 @@ body
 	border: 			0px;
 	padding: 			0px;
 }
+
 h3
 {
 	margin: 			0px;
@@ -18,6 +19,32 @@ h3
 	font-size: 			20px;
 	font-weight: 		normal;
 	font-family: 		Tahoma, Helvetica, Arial, sans-serif;
+}
+td
+{
+	border: 0px;
+	padding: 5px;
+	padding-right: 1px;
+}
+tr:hover
+{
+	background-color: rgb(50, 60, 74);
+}
+.td1
+{
+	width: 30%;
+}
+
+.td2
+{
+	width: 70%;
+}
+
+table
+{
+	font-size: 13px;
+	width: 100%;
+	border-collapse: collapse;
 }
 
 /*p, h1, div

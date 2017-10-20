@@ -31,9 +31,10 @@ class WebUser(Thread):
         pass
     
     def html(self):
-        tmp = open("html.html", "r")
+        tmp = open("html.html", "r", encoding="utf-8")
         data = tmp.read()
         tmp.close()
+        
         return data
     def css(self):
         tmp = open("css.css", "r")
@@ -64,7 +65,7 @@ class WebUser(Thread):
 
         @app.route('/')
         def home():
-            return self.html()
+            return Response(self.html(), content_type='charset=utf-8')
         
         @app.route('/css.css')
         def css():
