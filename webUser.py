@@ -102,11 +102,19 @@ class WebUser(Thread):
                 self.sysVar.lvlMsg = tmp
                 pass
             pass
+        
         @socketio.on('STOP')
         def stop(data):
             self.sysVar.alive = False
             pass
         
+        @socketio.on('gcode')
+        def gcode(data):
+            #self.sysVar.threadControl.msgTerminal(2, data)
+            with self.sysVar.lockOutput:
+                self.sysVar.gcodeOutput.append(data)
+                pass
+            pass
         pass
     
     def startWeb(self):

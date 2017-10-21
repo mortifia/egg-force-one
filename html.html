@@ -102,10 +102,11 @@
 								gcode = commande.substring(commande.indexOf(" "), commande.length);
 								//alert(argCom[argCom.length - 1]);
 								if (argCom[argCom.length - 1] != "\n") {
-									gcode += " \\n"
+									gcode += "\n"
 								}
 								//alert(gcode);
 								socket.emit('gcode', gcode);
+								alert("'"+gcode+"'");
 								$('#outputTerm').append('<p>' + 'emit "' + gcode + '"</p>');
 							}
 						break;

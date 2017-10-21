@@ -25,14 +25,9 @@ class OnStart (Thread):
 
     def run(self):
         time.sleep(3)
-        try:
-            self.sysVar.threadControl.msgTerminal(2, "add start ####################")
-            pass
-        except:
-            self.sysVar.threadControl.msgTerminal(1, "msgTerminal bug a control/OnStart/run")
-            pass
+        self.sysVar.threadControl.msgTerminal(2, "add start ####################")
         with self.sysVar.lockOutput:
-            time.sleep(2)
+            #time.sleep(2)
             self.sysVar.gcodeOutput.extend(self.sysVar.gcodeOnConnect)
             pass
         pass
