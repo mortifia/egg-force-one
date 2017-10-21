@@ -30,6 +30,7 @@ class OnStart (Thread):
             #time.sleep(2)
             self.sysVar.gcodeOutput.extend(self.sysVar.gcodeOnConnect)
             pass
+        self.sysVar.addStart = False
         pass
     pass
 
@@ -59,18 +60,16 @@ class Control (Thread):
                 pass
             pass
         pass
-
+    
     def startGcode(self):
-        if (self.com == False):
-            if (self.sysVar.gcodeCom == True):
-                self.com = True
-                threadOnStart = OnStart(self.sysVar)
-                threadOnStart.setDaemon(True)
-                threadOnStart.start()
-                pass
+        if (self.sysVar.addStart == False):
+            self.sysVar.addStart = True
+            threadOnStart = OnStart(self.sysVar)
+            threadOnStart.setDaemon(True)
+            threadOnStart.start()
             pass
         pass
-
+    
     def analyseGcode(self):
         with self.sysVar.lockInput:
             if (len(self.sysVar.gcodeInput) != 0):
@@ -81,6 +80,9 @@ class Control (Thread):
                         self.sysVar.temp = tmp
                         #if (self.sysVar.threadWin.isAlive() == True):
                         #    self.sysVar.threadWin.updateTemp()
+                    elif (self.sysVar.gcodeInput[0] == "start"):
+                        self.startGcode()
+                        pass
                     else:
                         self.msgTerminal(2, "???? : " + self.sysVar.gcodeInput[0])
                         pass
@@ -94,7 +96,7 @@ class Control (Thread):
         hz = 1/120 # optimisation
         while (self.sysVar.alive == True):
             time.sleep(hz)
-            self.startGcode()
+            #self.startGcode()
             self.analyseGcode()
             pass
         pass

@@ -31,11 +31,13 @@ class WebUser(Thread):
         pass
     
     def inprimanteConnecterUsb(self):
+        self.sysVar.threadControl.msgTerminal(2, "usbConnect : " + str(self.sysVar.usbConnect))
+        self.sysVar.threadControl.msgTerminal(2, self.sysVar.usbSerial.port)
         if (self.sysVar.usbConnect == False):
-            self.socketio.emit('inprimanteConnecterUsb', "True")
+            self.socketio.emit('inprimanteConnecterUsb', "False", broadcast=True)
             pass
         else:
-            self.socketio.emit('inprimanteConnecterUsb', "True")
+            self.socketio.emit('inprimanteConnecterUsb', "True", broadcast=True)
             pass
         pass
     
@@ -92,6 +94,7 @@ class WebUser(Thread):
         def newUser(data):
             if (self.sysVar.threadControl.isAlive() == True):
                 self.sysVar.threadControl.msgTerminal(0, "utilisateur connecté")
+                self.inprimanteConnecterUsb()
                 pass
             pass
         

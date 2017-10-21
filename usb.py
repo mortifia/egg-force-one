@@ -23,7 +23,7 @@ class Usb(Thread):
         self.tempTxt = b''
         Thread.__init__(self)
         pass
-
+    
     def bugCom(self):
         self.sysVar.usbConnect.close()
         self.sysVar.usbConnect = False
@@ -90,6 +90,7 @@ class Usb(Thread):
         pass
 
     def connection(self):
+        time.sleep(1/2)
         self.sysVar.usbSerial = serial.Serial()
         self.sysVar.usbSerial.timeout  = 0
         self.sysVar.usbSerial.baudrate = self.sysVar.usbBauderate
@@ -99,6 +100,7 @@ class Usb(Thread):
                 self.sysVar.usbSerial.port = port.device
                 try:
                     self.sysVar.usbSerial.open()
+                    print(port.device)
                     pass
                 except:
                     self.sysVar.threadControl.msgTerminal(1,"connect error")
@@ -106,7 +108,15 @@ class Usb(Thread):
                     pass
                 else:
                     self.sysVar.usbConnect = True
-                    print("USB connecté")
+                    self.sysVar.usbPort = port.device
+                    self.sysVar.threadControl.msgTerminal(2,"USB connecté")
+                    self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur 
+                    try:
+                        self.sysVar.threadControl.startGcode() #lance le start gcode
+                        pass
+                    except:
+                        self.sysVar.threadControl.msgTerminal(1,"start gcode error")
+                        pass
                     pass
                 pass
             pass
@@ -116,16 +126,26 @@ class Usb(Thread):
                 self.sysVar.usbSerial.open()
                 pass
             except:
-                #print("connect error")
-                #print(self.sysVar.usbSerial.port)
+                self.sysVar.threadControl.msgTerminal(1,"connect error")
+                self.sysVar.threadControl.msgTerminal(2,self.sysVar.usbSerial.port)
                 pass
             else:
                 self.sysVar.usbConnect = True
-                print("USB connecté")
+                self.sysVar.threadControl.msgTerminal(2,"USB connecté")
+                self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur
+                try:
+                    self.sysVar.threadControl.startGcode() #lance le start gcode
+                    pass
+                except:
+                    self.sysVar.threadControl.msgTerminal(1,"start gcode error")
+                    pass
                 pass
             pass
         pass
-
+    def testConnection(self):
+        assert self.sysVar.usbSerial.is_open == True
+        pass
+    
     def update(self):
         """
         permet la connection, la reception de donner, et l'envoi d'information
@@ -136,12 +156,15 @@ class Usb(Thread):
             pass
         if (self.sysVar.usbConnect == True):
             try:
+                #self.testConnection()
                 self.lecture()
                 self.ecriture()
                 self.addLine()
                 pass
             except:
-                self.sysVar.usbConnect == False
+                self.sysVar.usbConnect = False
+                self.sysVar.usbSerial.close()
+                self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur 
                 pass
             pass
         pass

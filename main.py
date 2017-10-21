@@ -50,8 +50,8 @@ def startWebUser(sysVar):
 
 def startAll(sysVar):
     startWebUser(sysVar)
-    startUsb (sysVar)
     startControl(sysVar)
+    startUsb (sysVar)
     pass
 
 def alwaysAlive(sysVar):

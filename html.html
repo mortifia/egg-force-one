@@ -12,13 +12,13 @@
 			<div class="info2">
 				<div class="info3">
 					<div class="infoTitre">
-						<h3>information</h3>
+						<h3>USB</h3>
 					</div>
 					<div class="infoBody">
 						<table>
 							<tr>
-								<td class="td1"><strong>imprimante Connecté</strong></td>
-								<td class="td2"><span>Non connecté</span></td>
+								<td class="td1"><strong>imprimante</strong></td>
+								<td class="td2"><span id="inprimanteConnecterUsb">Non connecté</span></td>
 							</tr>
 						</table>
 					</div>
@@ -64,6 +64,15 @@
 				temp = data
 			});
 
+			socket.on('inprimanteConnecterUsb', function (data) {
+				if (data == "True") {
+					$('#inprimanteConnecterUsb').text("Connecté");
+				}
+				else {
+					$('#inprimanteConnecterUsb').text("Non connecté");
+				}
+			})
+
 			// analyse de la commande du terminal
 			$('#inputTerm').keypress(function(e) {
 				if(e.which == 13) {
@@ -106,7 +115,7 @@
 								}
 								//alert(gcode);
 								socket.emit('gcode', gcode);
-								alert("'"+gcode+"'");
+								//alert("'"+gcode+"'");
 								$('#outputTerm').append('<p>' + 'emit "' + gcode + '"</p>');
 							}
 						break;
