@@ -100,11 +100,13 @@
 						case "gcode":
 							if (argCom.length >= 2) {
 								gcode = commande.substring(commande.indexOf(" "), commande.length);
-								alert(argCom[argCom.length - 1]);
+								//alert(argCom[argCom.length - 1]);
 								if (argCom[argCom.length - 1] != "\n") {
 									gcode += " \\n"
 								}
-								alert(gcode);
+								//alert(gcode);
+								socket.emit('gcode', gcode);
+								$('#outputTerm').append('<p>' + 'emit "' + gcode + '"</p>');
 							}
 						break;
 
