@@ -118,6 +118,7 @@ class Control (Thread):
             pass 
         self.countOut += 1
         self.msgTerminal(2, "out :" + gcode)
+        self.msgTerminal(2, "count I/O :" + str(self.countIn) + " / " + str(self.countOut))
         pass
     
     def analyseGcode(self):
@@ -135,6 +136,7 @@ class Control (Thread):
                     elif (self.sysVar.gcodeInput[0] == "ok"):
                         self.countIn += 1
                         self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
+                        self.msgTerminal(2, "count I/O :" + str(self.countIn) + " / " + str(self.countOut))
                         pass
                     else:
                         self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
