@@ -52,6 +52,12 @@ class WebUser(Thread):
         data = tmp.read()
         tmp.close()
         return data
+    
+    def cssCharac(self):
+        tmp = open("charac.css", "r")
+        data = tmp.read()
+        tmp.close()
+        return data
 
     def initData(self):
         fichier = open("socket.io.js", "r")
@@ -81,6 +87,9 @@ class WebUser(Thread):
         @app.route('/css.css')
         def css():
             return Response(self.css(), mimetype='text/css')
+        @app.route('/charac.css')
+        def charac():
+            return Response(self.cssCharac(), mimetype='text/css')
         
         @app.route('/socket.io.js')
         def routeSocketIO():

@@ -10,6 +10,44 @@
 		<div class="menu"></div>
 		<div class="info">
 			<div class="info2">
+				
+				<div class="info3">
+					<div class="infoTitre">
+						<h3>Information</h3>
+					</div>
+					<dir class="infoBody">
+						
+					</dir>
+				</div>
+
+				<div class="info3">
+					<div class="infoTitre">
+						<h3>Inpression</h3>
+					</div>
+					<dir class="infoBody">
+						
+					</dir>
+				</div>
+
+				<div class="info3">
+					<div class="infoTitre">
+						<h3>Connection</h3>
+					</div>
+					<dir class="infoBody">
+						<table>
+							<tr>
+								<td class="td1">Type de connection</td>
+								<td class="td2">
+									<select>
+										<option value="USB">USB</option>
+										<option value="wifi">Wifi</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</dir>
+				</div>
+
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>USB</h3>
@@ -17,7 +55,7 @@
 					<div class="infoBody">
 						<table>
 							<tr>
-								<td class="td1"><strong>imprimante</strong></td>
+								<td class="td1">imprimante</td>
 								<td class="td2"><span id="inprimanteConnecterUsb">Non connecté</span></td>
 							</tr>
 						</table>
@@ -55,7 +93,7 @@
 
 			// reception des message pour le terminal
 			socket.on('MsgTerm', function (data) {
-				$('#outputTerm').append('<p>' + data + '</p>');
+				$('#outputTerm').append('<span>' + data + '</span><br>');
 			});
 
 
@@ -82,27 +120,27 @@
 					//alert(argCom)
 					switch (argCom[0]) {
 						case "help":
-							$('#outputTerm').append("<p>" + "help :" + "<br>" + 
+							$('#outputTerm').append("<span>" + "help :" + "<br>" + 
 								"<dd>" + "temp : donne la temperature" + "<br>" + 
-								"<dd>" + "msglvl : choisi le niveau de message afficher" + "</p>");
+								"<dd>" + "msglvl : choisi le niveau de message afficher" + "</span><br>");
 						break;
 
 						case "STOP":
 							socket.emit('STOP', "");
-							$('#outputTerm').append('<p>' + "stop execute" + '</p>');
+							$('#outputTerm').append('<span>' + "stop execute" + '</span><br>');
 						break;
 
 						case "temp":
-							$('#outputTerm').append('<p>' + temp + '</p>');
+							$('#outputTerm').append('<span>' + temp + '</span><br>');
 						break;
 
 						case "msglvl":
 							if (argCom.length == 2) {
 								socket.emit('msglvl', argCom[1]);
-								$('#outputTerm').append("<p>" + "msglvl " + argCom[1] + " complete" + "</p>");
+								$('#outputTerm').append("<span>" + "msglvl " + argCom[1] + " complete" + "</span><br>");
 							}
 							else {
-								$('#outputTerm').append("<p>" + "usage> msglvl 'int:0,1,2' " + "</p>");
+								$('#outputTerm').append("<span>" + "usage> msglvl 'int:0,1,2' " + "</span><br>");
 							}
 						break;
 
@@ -116,12 +154,12 @@
 								//alert(gcode);
 								socket.emit('gcode', gcode);
 								//alert("'"+gcode+"'");
-								$('#outputTerm').append('<p>' + 'emit "' + gcode + '"</p>');
+								$('#outputTerm').append('<span>' + 'emit "' + gcode + '"</span><br>');
 							}
 						break;
 
 						default:
-							$('#outputTerm').append('<p> commande inconnue </p>');
+							$('#outputTerm').append('<span> commande inconnue </span><br>');
 					}
 				}
 			});
