@@ -30,7 +30,7 @@ lockOutput      = RLock()           # gere l'acées a gcodeOutput
 gcodeInput      = []                # liste des commande recu
 gcodeOutput     = []                # liste de commande a envoyer
 gcodeOnConnect  = ['M155 S1\n']     # liste d'instruction a envoyer a la connection
-gcodeCom        = False             # devient true dest que du texte estr ecu du controlleur
+gcodeCom        = False             # devient true des que du texte est recu du controlleur
                                     # pour commencer a envoyer des commande
 
 # liste des thread
@@ -43,7 +43,8 @@ threadWebUser   = False             # interface utilisateur
 usbRun          = False             # previent si il tourne
 usbConnect      = False             # dit si on est connecter au controlleur
 usbBauderate    = 115200            # frequence de communication
-usbPort         = "COM3"            # port de communication si false il se connectera au premier port posible
+usbPort         = "/dev/ttyUSB0"    # port de communication si false il se connectera au premier port posible
+                                    #"COM3" windown | "/dev/ttyUSB0" linux
 usbAllPort      = False             # liste tout les port disponible depuis la derniere recherche
                                     # si False aucune recherche lancé si [] il y a pas de port disponible
 
