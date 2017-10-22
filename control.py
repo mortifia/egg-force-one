@@ -68,7 +68,7 @@ class Control (Thread):
     def initPrint(self, src):
         self.sysVar.threadControl.msgTerminal(2, "start init print :" + src)
         try:
-            self.folder = open(src, "r")
+            self.folder = open(src, "r", encoding="utf-8")
             pass
         except:
             self.sysVar.threadControl.msgTerminal(1, "init print : bug open folder")
@@ -82,7 +82,7 @@ class Control (Thread):
             self.sysVar.printNbLine = n
             self.sysVar.threadControl.msgTerminal(2, "print nb ligne : " + str(self.sysVar.printNbLine))
             self.folder.close()
-            self.folder = open(src, "r")
+            self.folder = open(src, "r", encoding="utf-8")
             self.countIn = 0
             self.countOut = 0
             self.sysVar.printStatut = 1
