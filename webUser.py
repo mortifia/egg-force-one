@@ -32,7 +32,11 @@ class WebUser(Thread):
     
     def inprimanteConnecterUsb(self):
         self.sysVar.threadControl.msgTerminal(2, "usbConnect : " + str(self.sysVar.usbConnect))
-        self.sysVar.threadControl.msgTerminal(2, self.sysVar.usbSerial.port)
+        try:
+            self.sysVar.threadControl.msgTerminal(2, self.sysVar.usbSerial.port)
+            pass
+        except:
+            pass
         if (self.sysVar.usbConnect == False):
             self.socketio.emit('inprimanteConnecterUsb', "False", broadcast=True)
             pass
