@@ -78,15 +78,23 @@ class Control (Thread):
             while self.folder.readline():
                 n += 1
                 pass
+            print("#####test :"+ str(self.folder.readline()))
             self.sysVar.printNbLine = n
             self.sysVar.threadControl.msgTerminal(2, "print nb ligne : " + str(self.sysVar.printNbLine))
+            self.folder.close()
+            self.folder = open(src, "r")
+            self.countIn = 0
+            self.countOut = 0
             self.sysVar.printStatut = 1
             pass
         pass
     
     def onPrint(self):
         if (self.sysVar.printStatut == 1):
-            tmp = self.folder.readline()
+            if (self.countIn == self.countOut):
+                tmp = self.folder.readline()
+                self.addGcode(tmp)
+                pass
             pass
         pass
     
@@ -107,9 +115,8 @@ class Control (Thread):
     def addGcode(self, gcode):
         with self.sysVar.lockOutput:
             self.sysVar.gcodeOutput.append(gcode)
-            pass
-        pass
-            
+            pass 
+        self.countOut += 1
         self.msgTerminal(2, "out :" + gcode)
         pass
     
