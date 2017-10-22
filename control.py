@@ -25,7 +25,7 @@ class OnStart (Thread):
 
     def run(self):
         time.sleep(3)
-        self.sysVar.threadControl.msgTerminal(2, "add start ####################")
+        self.sysVar.threadControl.msgTerminal(2, "add start #################")
         with self.sysVar.lockOutput:
             #time.sleep(2)
             self.sysVar.gcodeOutput.extend(self.sysVar.gcodeOnConnect)
