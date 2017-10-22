@@ -128,6 +128,25 @@ class WebUser(Thread):
                 pass
             pass
         pass
+        @socketio.on('printSrc')
+        def printSrc(data):
+            if(data[0] == "/"):
+                try:
+                    self.sysVar.threadControl.initPrint(data)
+                    pass
+                except:
+                    self.socketio.emit('ALERT', "bug a printSrc '1' ")
+                    pass
+                pass
+            else:
+                try:
+                    self.sysVar.threadControl.initPrint(self.sysVar.paramPath + data)
+                    pass
+                except:
+                    self.socketio.emit('ALERT', "bug a printSrc '2' ")
+                    pass
+                pass
+            pass
     
     def startWeb(self):
         #self.app.run(host='127.0.0.2', port=8080)

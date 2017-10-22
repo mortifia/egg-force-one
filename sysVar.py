@@ -17,6 +17,10 @@ temp            = ['0']     # liste toutes les temperatures de l'imprimante 3D
 lvlMsg          = 2         # niveau max des message aficher 
                             # lvl = 0 "info" | lvl = 1 "erreur" | lvl = 2 "debug"
                             # attention plus le niveau est élevé plus ca consome
+printStatut     = 0         # 0 = aucune impression
+                            # 1 = impression en cour
+                            # 2 = impression terminer
+printSrc        = ""        # emplacement du fichier
 
 # list de communication entre thread
 lockInput       = RLock()   # gere l'acées a gcodeInput

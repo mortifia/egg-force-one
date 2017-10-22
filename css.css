@@ -31,18 +31,27 @@ td
 	font-size: 				14px;
 	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
 }
-tr:hover
-{
-	background-color: 		rgb(50, 60, 74);
-}
 .td1
 {
 	width: 					30%;
+	font-family: 			'Roboto', 'Roboto Mono', Tahoma, Helvetica, Arial, sans-serif;
+	font-size: 				15px;
 }
 
 .td2
 {
 	width: 					70%;
+	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
+	font-size: 				13px;
+}
+.td2 span
+{
+	padding: 				4px;
+}
+
+tr:hover
+{
+	background-color: 		rgb(50, 60, 74);
 }
 
 select
@@ -86,6 +95,30 @@ table
 	font-size: 				13px;
 	width: 					100%;
 	border-collapse: 		collapse;
+}
+
+.txtInput
+{
+	background-color: 		rgb(50, 52, 56);
+	border: 				1px;
+	border-style: 			solid;
+	border-color: 			rgb(102, 104, 108);
+	padding: 				3px;
+	font-size: 				13px;
+	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
+	color: 					rgb(132, 134, 138);
+}
+
+.txtInput:focus
+{
+	outline: 				none;
+	color: 					rgb(132, 134, 138);
+}
+
+tr:hover .td2 .txtInput
+{
+	outline: 				none;
+	border-color: 			rgba(202,133,21,0.6);
 }
 
 .terminalOutput span

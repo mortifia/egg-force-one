@@ -61,6 +61,10 @@ class Control (Thread):
             pass
         pass
     
+    def initPrint(self, src):
+        self.sysVar.threadControl.msgTerminal(2, "start init print :" + src)
+        pass
+    
     def startGcode(self):
         if (self.sysVar.addStart == False):
             self.sysVar.addStart = True

@@ -25,7 +25,20 @@
 						<h3>Inpression</h3>
 					</div>
 					<dir class="infoBody">
-						
+						<table>
+							<tr>
+								<td class="td1">Statut</td>
+								<td class="td2"><span id="statutImpression"> Aucune impression</span></td>
+							</tr>
+							<tr>
+								<td class="td1">Emplacement fichier</td>
+								<td class="td2"><span id="emplacementFichier"> Aucun fichier choisi</span></td>
+							</tr>
+							<tr>
+								<td class="td1">Fichier a imprimer</td>
+								<td class="td2"><input type="text" id="printSrc" class="txtInput" placeholder="fichier.gcode"></td>
+							</tr>
+						</table>
 					</dir>
 				</div>
 
@@ -81,8 +94,8 @@
 		<script type="text/javascript" src="/jquery.min.js"></script>
 		<script type="text/javascript" src="/socket.io.js"></script>
 		<script type="text/javascript">
-			var temp = "no temp data"
-			var machine = ""
+			var temp 	= "no temp data"
+			var print 	= "0"
 
 			var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -111,9 +124,20 @@
 				}
 			})
 
+			//
+
+			$("#printSrc").keypress(function(e) {
+				if (e.which == 13) {
+					//alert($('#printSrc').val());
+					var src = $('#printSrc').val();
+					$('#printSrc').val("");
+					socket.emit('printSrc', src);
+				}
+			});
+
 			// analyse de la commande du terminal
 			$('#inputTerm').keypress(function(e) {
-				if(e.which == 13) {
+				if (e.which == 13) {
 					var commande = $('#inputTerm').val();
 					$('#inputTerm').val("");
 					var argCom = commande.split(" ");
