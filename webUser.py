@@ -123,11 +123,8 @@ class WebUser(Thread):
         @socketio.on('gcode')
         def gcode(data):
             #self.sysVar.threadControl.msgTerminal(2, data)
-            with self.sysVar.lockOutput:
-                self.sysVar.gcodeOutput.append(data)
-                pass
+            self.sysVar.threadControl.addGcode(data)
             pass
-        pass
         @socketio.on('printSrc')
         def printSrc(data):
             if(data[0] == "/"):
@@ -140,7 +137,7 @@ class WebUser(Thread):
                 pass
             else:
                 try:
-                    self.sysVar.threadControl.initPrint(self.sysVar.paramPath + data)
+                    self.sysVar.threadControl.initPrint(self.sysVar.FolderPrint + data)
                     pass
                 except:
                     self.socketio.emit('ALERT', "bug a printSrc '2' ")

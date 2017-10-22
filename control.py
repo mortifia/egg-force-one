@@ -28,7 +28,11 @@ class OnStart (Thread):
         self.sysVar.threadControl.msgTerminal(2, "add start #################")
         with self.sysVar.lockOutput:
             #time.sleep(2)
-            self.sysVar.gcodeOutput.extend(self.sysVar.gcodeOnConnect)
+            tmp = 0
+            while (tmp < len(self.sysVar.gcodeOnConnect)):
+                self.sysVar.threadControl.addGcode(self.sysVar.gcodeOnConnect[tmp])
+                tmp += 1
+                pass                
             pass
         self.sysVar.addStart = False
         pass
@@ -41,6 +45,8 @@ class Control (Thread):
         self.sysVar = sysVar
         self.com = False
         self.ok = False
+        self.countOut = 0
+        self.countIn = 0
         Thread.__init__(self)
         pass
     def msgTerminal(self, lvl=0, msg=""):
@@ -65,6 +71,9 @@ class Control (Thread):
         self.sysVar.threadControl.msgTerminal(2, "start init print :" + src)
         pass
     
+    def onPrint(self):
+        pass
+    
     def startGcode(self):
         if (self.sysVar.addStart == False):
             self.sysVar.addStart = True
@@ -74,21 +83,33 @@ class Control (Thread):
             pass
         pass
     
+    def addGcode(self, gcode):
+        with self.sysVar.lockOutput:
+            self.sysVar.gcodeOutput.append(gcode)
+            pass
+        pass
+            
+        self.msgTerminal(2, "out :" + gcode)
+        pass
+    
     def analyseGcode(self):
         with self.sysVar.lockInput:
             if (len(self.sysVar.gcodeInput) != 0):
                 if (len(self.sysVar.gcodeInput[0]) > 1):
                     if (self.sysVar.gcodeInput[0][0] == 'T' or self.sysVar.gcodeInput[0][1] == 'T'):
-                        self.msgTerminal(2, "TEMP : " + self.sysVar.gcodeInput[0])
-                        tmp = [self.sysVar.gcodeInput[0]]
-                        self.sysVar.temp = tmp
-                        #if (self.sysVar.threadWin.isAlive() == True):
-                        #    self.sysVar.threadWin.updateTemp()
+                        self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
+                        self.sysVar.temp = [self.sysVar.gcodeInput[0]]
+                        pass
                     elif (self.sysVar.gcodeInput[0] == "start"):
                         self.startGcode()
+                        self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
+                        pass
+                    elif (self.sysVar.gcodeInput[0] == "ok"):
+                        self.countIn += 1
+                        self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
                         pass
                     else:
-                        self.msgTerminal(2, "???? : " + self.sysVar.gcodeInput[0])
+                        self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
                         pass
                     pass
                 del self.sysVar.gcodeInput[0]
@@ -100,8 +121,8 @@ class Control (Thread):
         hz = 1/120 # optimisation
         while (self.sysVar.alive == True):
             time.sleep(hz)
-            #self.startGcode()
             self.analyseGcode()
+            self.onPrint()
             pass
         pass
 

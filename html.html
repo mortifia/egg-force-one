@@ -175,10 +175,7 @@
 								if (argCom[argCom.length - 1] != "\n") {
 									gcode += "\n"
 								}
-								//alert(gcode);
 								socket.emit('gcode', gcode);
-								//alert("'"+gcode+"'");
-								$('#outputTerm').append('<span>' + 'emit "' + gcode + '"</span><br>');
 							}
 						break;
 

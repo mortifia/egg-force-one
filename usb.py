@@ -142,9 +142,6 @@ class Usb(Thread):
                 pass
             pass
         pass
-    def testConnection(self):
-        assert self.sysVar.usbSerial.is_open == True
-        pass
     
     def update(self):
         """
@@ -156,7 +153,6 @@ class Usb(Thread):
             pass
         if (self.sysVar.usbConnect == True):
             try:
-                #self.testConnection()
                 self.lecture()
                 self.ecriture()
                 self.addLine()
