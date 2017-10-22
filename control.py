@@ -9,10 +9,7 @@ Created on Tue Sep 26 16:05:05 2017
 #import externe
 import os
 import time
-from threading import Thread, RLock
-
-import serial
-import serial.tools.list_ports
+from threading import Thread
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
@@ -45,6 +42,7 @@ class Control (Thread):
         self.sysVar = sysVar
         self.com = False
         self.ok = False
+        self.folder = False
         self.countOut = 0
         self.countIn = 0
         Thread.__init__(self)
@@ -69,9 +67,32 @@ class Control (Thread):
     
     def initPrint(self, src):
         self.sysVar.threadControl.msgTerminal(2, "start init print :" + src)
+        try:
+            self.folder = open(src, "r")
+            pass
+        except:
+            self.sysVar.threadControl.msgTerminal(1, "init print : bug open folder")
+            pass
+        else:
+            n = 0
+            while self.folder.readline():
+                n += 1
+                pass
+            self.sysVar.printNbLine = n
+            self.sysVar.threadControl.msgTerminal(2, "print nb ligne : " + str(self.sysVar.printNbLine))
+            self.sysVar.printStatut = 1
+            pass
         pass
     
     def onPrint(self):
+        if (self.sysVar.printStatut == 1):
+            tmp = self.folder.readline()
+            pass
+        pass
+    
+    def endPrint(self):
+        self.folder.close()
+        self.sysVar.printStatut = 2
         pass
     
     def startGcode(self):

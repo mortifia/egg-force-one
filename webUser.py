@@ -6,7 +6,7 @@ Created on Tue Oct 17 11:37:23 2017
 """
 
 import os
-from threading import Thread, RLock
+from threading import Thread
 
 import logging
 from flask import Flask, Response

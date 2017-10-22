@@ -22,6 +22,7 @@ printStatut     = 0                 # 0 = aucune impression
                                     # 1 = impression en cour
                                     # 2 = impression terminer
 printSrc        = ""                # emplacement du fichier
+printNbLine     = 0                 # nombre de ligne dans le fichier 
 
 # list de communication entre thread
 lockInput       = RLock()           # gere l'acées a gcodeInput
