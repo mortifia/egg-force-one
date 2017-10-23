@@ -96,18 +96,18 @@ class Control (Thread):
             if (self.countIn == self.countOut):
                 tmp = self.folder.readline()
                 self.sysVar.printPosLine += 1
-                if (tmp[0] != ";"):
+                if (tmp == ""):
+                    self.sysVar.threadControl.msgTerminal("impression terminer I/O :" + 
+                                                          str(self.countIn) + 
+                                                          str(self.countOut))
+                    self.sysVar.printStatut = 2
+                    pass
+                elif (tmp[0] != ";"):
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
                 elif (tmp[0] == ";"):
                     self.countIn  += 1
                     self.countOut += 1
-                    pass
-                elif (tmp == ""):
-                    self.sysVar.threadControl.msgTerminal("impression terminer I/O :" + 
-                                                          str(self.countIn) + 
-                                                          str(self.countOut))
-                    self.sysVar.printStatut = 2
                     pass
                 pass
             pass
