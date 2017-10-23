@@ -102,12 +102,12 @@ class Control (Thread):
                                                           str(self.countOut))
                     self.sysVar.printStatut = 2
                     pass
-                elif (tmp[0] != ";"):
-                    self.sysVar.threadControl.addGcode(tmp)
-                    pass
-                elif (tmp[0] == ";"):
+                elif (tmp[0] == ";" or tmp[0] == "\n"):
                     self.countIn  += 1
                     self.countOut += 1
+                    pass
+                else:
+                    self.sysVar.threadControl.addGcode(tmp)
                     pass
                 pass
             pass
