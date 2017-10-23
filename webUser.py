@@ -127,7 +127,7 @@ class WebUser(Thread):
         @socketio.on('gcode')
         def gcode(data):
             #self.sysVar.threadControl.msgTerminal(2, data)
-            self.sysVar.threadControl.addGcode(data)
+            self.sysVar.threadControl.addGcode(str(data))
             pass
         @socketio.on('printSrc')
         def printSrc(data):
