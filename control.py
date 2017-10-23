@@ -47,7 +47,7 @@ class Control (Thread):
         self.countIn = 0
         Thread.__init__(self)
         pass
-    def msgTerminal(self, lvl=0, msg=""):
+    def msgTerminal(self, msg=""):
         """
         envoi communication terminal 
         (permet de communiquer avec tout les terminal)
@@ -57,30 +57,31 @@ class Control (Thread):
         lvl 2 = debug
         
         """
-        if (lvl <= self.sysVar.lvlMsg):
-            print(msg)
-            if(self.sysVar.threadWebUser.isAlive() == True):
-                self.sysVar.threadWebUser.msgTerminal(msg)
-                pass
+        print(msg)
+        try:
+            self.sysVar.threadWebUser.msgTerminal(msg)
+            pass
+        except:
+            print("bug to send online msg")
             pass
         pass
     
     def initPrint(self, src):
-        self.sysVar.threadControl.msgTerminal(2, "start init print :" + src)
+        self.sysVar.threadControl.msgTerminal("start init print :" + src)
         try:
             self.folder = open(src, "r", encoding="utf-8")
             pass
         except:
-            self.sysVar.threadControl.msgTerminal(1, "init print : bug open folder")
+            self.sysVar.threadControl.msgTerminal("init print : bug open folder")
             pass
         else:
             n = 0
             while self.folder.readline():
                 n += 1
                 pass
-            self.sysVar.threadControl.msgTerminal(2,"#####test :"+ str(self.folder.readline()))
+            self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
             self.sysVar.printNbLine = n
-            self.sysVar.threadControl.msgTerminal(2, "print nb ligne : " + str(self.sysVar.printNbLine))
+            self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
             self.folder.close()
             self.folder = open(src, "r", encoding="utf-8")
             self.countIn = 0
@@ -98,8 +99,12 @@ class Control (Thread):
                 if (tmp[0] != ";"):
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
+                elif (tmp[0] == ";"):
+                    self.countIn  += 1
+                    self.countOut += 1
+                    pass
                 elif (tmp == ""):
-                    self.sysVar.threadControl.msgTerminal(2, "impression terminer I/O :" + 
+                    self.sysVar.threadControl.msgTerminal("impression terminer I/O :" + 
                                                           str(self.countIn) + 
                                                           str(self.countOut))
                     self.sysVar.printStatut = 2
@@ -127,8 +132,8 @@ class Control (Thread):
             self.sysVar.gcodeOutput.append(gcode)
             pass 
         self.countOut += 1
-        self.msgTerminal(2, "out :" + gcode)
-        self.msgTerminal(2, "count I/O :" + str(self.countIn) + " / " + str(self.countOut))
+        self.msgTerminal("out :" + gcode)
+        self.msgTerminal("count I/O :" + str(self.countIn) + " / " + str(self.countOut))
         pass
     
     def analyseGcode(self):
@@ -136,20 +141,20 @@ class Control (Thread):
             if (len(self.sysVar.gcodeInput) != 0):
                 if (len(self.sysVar.gcodeInput[0]) > 1):
                     if (self.sysVar.gcodeInput[0][0] == 'T' or self.sysVar.gcodeInput[0][1] == 'T'):
-                        self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
+                        self.msgTerminal("in : " + self.sysVar.gcodeInput[0])
                         self.sysVar.temp = [self.sysVar.gcodeInput[0]]
                         pass
                     elif (self.sysVar.gcodeInput[0] == "start"):
                         self.startGcode()
-                        self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
+                        self.msgTerminal("in : " + self.sysVar.gcodeInput[0])
                         pass
                     elif (self.sysVar.gcodeInput[0] == "ok"):
                         self.countIn += 1
-                        self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
-                        self.msgTerminal(2, "count I/O :" + str(self.countIn) + " / " + str(self.countOut))
+                        self.msgTerminal("in : " + self.sysVar.gcodeInput[0])
+                        self.msgTerminal("count I/O :" + str(self.countIn) + " / " + str(self.countOut))
                         pass
                     else:
-                        self.msgTerminal(2, "in : " + self.sysVar.gcodeInput[0])
+                        self.msgTerminal("in : " + self.sysVar.gcodeInput[0])
                         pass
                     pass
                 del self.sysVar.gcodeInput[0]

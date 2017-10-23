@@ -10,6 +10,7 @@ import os
 from threading import RLock
 
 # variable system application
+path            = False             # emplacement du dossier egg force one log
 paramPath       = False             # emplacement du fichier de paramettre de l'utilisateur
 FolderPrint     = False             # emplacement du dossier d'impression 
 alive           = True              # ferme l'application
