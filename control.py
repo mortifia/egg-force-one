@@ -98,6 +98,12 @@ class Control (Thread):
                 if (tmp[0] != ";"):
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
+                elif (tmp == ""):
+                    self.sysVar.threadControl.msgTerminal(2, "impression terminer I/O :" + 
+                                                          str(self.countIn) + 
+                                                          str(self.countOut))
+                    self.sysVar.printStatut = 2
+                    pass
                 pass
             pass
         pass
