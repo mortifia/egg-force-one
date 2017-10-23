@@ -78,7 +78,7 @@ class Control (Thread):
             while self.folder.readline():
                 n += 1
                 pass
-            print("#####test :"+ str(self.folder.readline()))
+            self.sysVar.threadControl.msgTerminal(2,"#####test :"+ str(self.folder.readline()))
             self.sysVar.printNbLine = n
             self.sysVar.threadControl.msgTerminal(2, "print nb ligne : " + str(self.sysVar.printNbLine))
             self.folder.close()
@@ -92,9 +92,11 @@ class Control (Thread):
     def onPrint(self):
         if (self.sysVar.printStatut == 1):
             if (self.countIn == self.countOut):
-                tmp = str(self.folder.readline() + "\n")
+                tmp = self.folder.readline() + '\n'
+                self.sysVar.threadControl.msgTerminal(2,"hmmm :" + tmp[len(tmp) - 1])
+                self.sysVar.threadControl.msgTerminal(2,"hmmm :" + tmp[len(tmp) - 2])
                 self.msgTerminal(2, "onPrint add :" + tmp)
-                self.addGcode(tmp)
+                self.sysVar.threadControl.addGcode(tmp)
                 pass
             pass
         pass
