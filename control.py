@@ -92,7 +92,7 @@ class Control (Thread):
     def onPrint(self):
         if (self.sysVar.printStatut == 1):
             if (self.countIn == self.countOut):
-                tmp = str(self.folder.readline())
+                tmp = self.folder.readline() + "\\n"
                 self.sysVar.threadControl.msgTerminal(2,"hmmm :" + tmp[len(tmp) - 1] + "|")
                 self.sysVar.threadControl.msgTerminal(2,"hmmm :" + tmp[len(tmp) - 2] + "|")
                 self.sysVar.threadControl.msgTerminal(2,"hmmm :" + tmp[len(tmp) - 3] + "|")
