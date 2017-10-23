@@ -25,8 +25,11 @@ printStatut     = 0                 # 0 = aucune impression
                                     # 1 = impression en cour
                                     # 2 = impression terminer
 printSrc        = ""                # emplacement du fichier
-printNbLine     = 0                 # nombre de ligne dans le fichier 
+printNbLine     = 0                 # nombre de ligne dans le fichier
+printNbLayer    = 0                 # nombre de couches
+posLayer        = []                # position de la fin de la couche
 printPosLine    = 0                 # position dans le fichier
+
 
 # list de communication entre thread
 lockInput       = RLock()           # gere l'acées a gcodeInput
@@ -47,7 +50,7 @@ threadWebUser   = False             # interface utilisateur
 usbRun          = False             # previent si il tourne
 usbConnect      = False             # dit si on est connecter au controlleur
 usbBauderate    = 115200            # frequence de communication
-usbPort         = "/dev/ttyUSB0"    # port de communication si false il se connectera au premier port posible
+usbPort         = False             # port de communication si false il se connectera au premier port posible
                                     #"COM3" windown | "/dev/ttyUSB0" linux
 usbAllPort      = False             # liste tout les port disponible depuis la derniere recherche
                                     # si False aucune recherche lancé si [] il y a pas de port disponible
@@ -59,13 +62,14 @@ addStart        = False             # permet de detecté si un startGcode est de
 # auto configuration de paramPath
 if sys.platform.startswith('win'):
     print("windows")
+    usbPort = "COM3"
     import ctypes.wintypes
     CSIDL_PERSONAL = 5
     SHGFP_TYPE_CURRENT = 0
     buf= ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
     ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, buf)
     paramPath = buf.value + "\\egg force one"
-    FolderPrint = buf.value + "\\"
+    FolderPrint = paramPath + "\\"
     del CSIDL_PERSONAL
     del SHGFP_TYPE_CURRENT
     del buf
@@ -84,6 +88,7 @@ if sys.platform.startswith('win'):
 
 elif sys.platform.startswith('linux'):
     print("linux")
+    usbPort = "/dev/ttyUSB0"
     paramPath = os.path.expanduser("~") + "/egg force one"
     if (os.path.exists(paramPath) == False):
         os.makedirs(paramPath)
