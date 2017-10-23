@@ -18,11 +18,14 @@ temp            = ['0']             # liste toutes les temperatures de l'imprima
 lvlMsg          = 2                 # niveau max des message aficher 
                                     # lvl = 0 "info" | lvl = 1 "erreur" | lvl = 2 "debug"
                                     # attention plus le niveau est élevé plus ca consome
+                                    
+#variable impression
 printStatut     = 0                 # 0 = aucune impression
                                     # 1 = impression en cour
                                     # 2 = impression terminer
 printSrc        = ""                # emplacement du fichier
 printNbLine     = 0                 # nombre de ligne dans le fichier 
+printPosLine    = 0                 # position dans le fichier
 
 # list de communication entre thread
 lockInput       = RLock()           # gere l'acées a gcodeInput
