@@ -40,7 +40,7 @@ class Usb(Thread):
                 try:
                     with self.sysVar.lockOutput:
                         #self.sysVar.threadControl.msgTerminal(2, self.sysVar.gcodeOutput[0])
-                        self.sysVar.threadControl.msgTerminal(2, "test usb write :" + str(elf.sysVar.gcodeOutput[0]) + "|")
+                        self.sysVar.threadControl.msgTerminal(2, "test usb write :" + str(self.sysVar.gcodeOutput[0]) + "|")
                         self.sysVar.usbSerial.write(self.sysVar.gcodeOutput[0].encode('utf-8'))
                         pass
                     pass
