@@ -92,10 +92,7 @@ class Control (Thread):
     def onPrint(self):
         if (self.sysVar.printStatut == 1):
             if (self.countIn == self.countOut):
-                tmp = self.folder.readline() + "\\n"
-                self.sysVar.threadControl.msgTerminal(2,"hmmm :" + tmp[len(tmp) - 1] + "|")
-                self.sysVar.threadControl.msgTerminal(2,"hmmm :" + tmp[len(tmp) - 2] + "|")
-                self.sysVar.threadControl.msgTerminal(2,"hmmm :" + tmp[len(tmp) - 3] + "|")
+                tmp = self.folder.readline()
                 self.msgTerminal(2, "onPrint add :" + tmp)
                 self.sysVar.threadControl.addGcode(tmp)
                 pass
