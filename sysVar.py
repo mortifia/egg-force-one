@@ -12,14 +12,14 @@ from threading import RLock
 # variable system application
 path            = False             # emplacement du dossier egg force one log
 paramPath       = False             # emplacement du fichier de paramettre de l'utilisateur
-FolderPrint     = False             # emplacement du dossier d'impression 
+FolderPrint     = False             # emplacement du dossier d'impression
 alive           = True              # ferme l'application
 connectType     = "USB"             # permet de choisir le moyen de communication avec le controlleur
 temp            = ['0']             # liste toutes les temperatures de l'imprimante 3D
-lvlMsg          = 2                 # niveau max des message aficher 
+lvlMsg          = 2                 # niveau max des message aficher
                                     # lvl = 0 "info" | lvl = 1 "erreur" | lvl = 2 "debug"
                                     # attention plus le niveau est élevé plus ca consome
-                                    
+
 #variable impression
 printStatut     = 0                 # 0 = aucune impression
                                     # 1 = impression en cour
@@ -27,7 +27,8 @@ printStatut     = 0                 # 0 = aucune impression
 printSrc        = ""                # emplacement du fichier
 printNbLine     = 0                 # nombre de ligne dans le fichier
 printNbLayer    = 0                 # nombre de couches
-posLayer        = []                # position de la fin de la couche
+printLayer      = 0                 # couche actuel du layer
+printPosLayer   = []                # position de la fin de la couche
 printPosLine    = 0                 # position dans le fichier
 
 
@@ -44,7 +45,7 @@ gcodeCom        = False             # devient true des que du texte est recu du 
 threadWin       = False             # interface graphique
 threadUsb       = False             # comunication usb avec le controlleur
 threadControl   = False             # comunication entre l'utilisateur et le controlleur
-threadWebUser   = False             # interface utilisateur 
+threadWebUser   = False             # interface utilisateur
 
 # variable information threadUsb
 usbRun          = False             # previent si il tourne
@@ -77,7 +78,7 @@ if sys.platform.startswith('win'):
     if (os.path.exists(paramPath) == False):
         os.makedirs(paramPath)
         pass
-    
+
     paramPath += "\\option.py"
     if (os.path.exists(paramPath + "\\option.py") == False):
         temp = open(paramPath, "w")

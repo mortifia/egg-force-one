@@ -94,7 +94,7 @@ class Control (Thread):
                             while (tmpPos < lenTmpCode):
                                 if (tmpCode[tmpPos][0] == "Z"):
                                     #print("found z")
-                                    self.sysVar.posLayer.append(n)
+                                    self.sysVar.printPosLayer.append(n)
                                     self.sysVar.printNbLayer += 1
                                     pass
                                 tmpPos += 1
@@ -105,15 +105,6 @@ class Control (Thread):
                     tmpTxt = self.folder.readline()
                     pass
                 print("end init print 1")
-                ####### debug
-                #p = 0
-                #end = len(self.sysVar.posLayer)
-                #self.sysVar.threadControl.msgTerminal("nb layer" + str(self.sysVar.printNbLayer))
-                #while (p < end):
-                #    self.sysVar.threadControl.msgTerminal("Layer " + str(p) + " : " + str(self.sysVar.posLayer[p]))
-                #    p += 1
-                #    pass
-                #######
                 self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
                 self.sysVar.printNbLine = n
                 self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
@@ -123,6 +114,7 @@ class Control (Thread):
                 self.countIn = 0
                 self.countOut = 0
                 self.sysVar.printPosLine = 0
+                self.sysVar.printLayer = 0
                 self.sysVar.printStatut = 1
                 print("end init print 2")
                 pass
