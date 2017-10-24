@@ -20,7 +20,7 @@ class WebUser(Thread):
         self.sysVar = sysVar
         Thread.__init__(self)
         pass
-    
+
     def msgTerminal(self, msg=""):
         try:
             self.socketio.emit('MsgTerm', msg, broadcast=True)
@@ -29,7 +29,24 @@ class WebUser(Thread):
             print("WEB[ERROR] msgTerm not work")
             pass
         pass
-    
+
+    def initPrint(self):
+        self.socketio.emit('print', str(self.sysVar.printNbLine), broadcast=True)
+        pass
+
+    def posPrint(self):
+        self.socketio.emit('posPrint', self.sysVar.printPosLine, broadcast=True)
+        pass
+
+    def endLayer(self, pos):
+        try:
+            self.socketio.emit('endLayer', self.sysVar.posLayer[int(pos)], broadcast=True)
+            pass
+        except:
+            print("bug to send end layer")
+            pass
+        pass
+
     def inprimanteConnecterUsb(self):
         self.sysVar.threadControl.msgTerminal("usbConnect : " + str(self.sysVar.usbConnect))
         try:
@@ -44,19 +61,19 @@ class WebUser(Thread):
             self.socketio.emit('inprimanteConnecterUsb', "True", broadcast=True)
             pass
         pass
-    
+
     def html(self):
         tmp = open("html.html", "r", encoding="utf-8")
         data = tmp.read()
         tmp.close()
-        
+
         return data
     def css(self):
         tmp = open("css.css", "r")
         data = tmp.read()
         tmp.close()
         return data
-    
+
     def cssCharac(self):
         tmp = open("charac.css", "r")
         data = tmp.read()
@@ -87,22 +104,22 @@ class WebUser(Thread):
         @app.route('/')
         def home():
             return Response(self.html(), content_type='charset=utf-8')
-        
+
         @app.route('/css.css')
         def css():
             return Response(self.css(), mimetype='text/css')
         @app.route('/charac.css')
         def charac():
             return Response(self.cssCharac(), mimetype='text/css')
-        
+
         @app.route('/socket.io.js')
         def routeSocketIO():
             return self.socketIO
-        
+
         @app.route('/jquery.min.js')
         def routeJquery():
             return self.jquery
-        
+
         @socketio.on('new user')
         def newUser(data):
             if (self.sysVar.threadControl.isAlive() == True):
@@ -110,7 +127,7 @@ class WebUser(Thread):
                 self.inprimanteConnecterUsb()
                 pass
             pass
-        
+
         @socketio.on('msglvl')
         def msglvl(data):
             tmp = int(data)
@@ -118,12 +135,12 @@ class WebUser(Thread):
                 self.sysVar.lvlMsg = tmp
                 pass
             pass
-        
+
         @socketio.on('STOP')
         def stop(data):
             self.sysVar.alive = False
             pass
-        
+
         @socketio.on('gcode')
         def gcode(data):
             self.sysVar.threadControl.addGcode(str(data))
@@ -147,7 +164,7 @@ class WebUser(Thread):
                     pass
                 pass
             pass
-    
+
     def startWeb(self):
         #self.app.run(host='127.0.0.2', port=8080)
         self.socketio.run(self.app, host='0.0.0.0', port='8080')

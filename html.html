@@ -36,11 +36,11 @@
 							</tr>
 							<tr>
 								<td class="td1">Progression couche</td>
-								<td class="td2"><progress value="" max="100"></td>
+								<td class="td2"><progress id="progressLayer" value="0" max="100"></td>
 							</tr>
 							<tr>
 								<td class="td1">Progression impression</td>
-								<td class="td2"><progress value="" max=""></td>
+								<td class="td2"><progress id="progressPrint" value="0" max="1000"></td>
 							</tr>
 							<tr>
 								<td class="td1">Fichier a imprimer</td>
@@ -102,8 +102,9 @@
 		<script type="text/javascript" src="/jquery.min.js"></script>
 		<script type="text/javascript" src="/socket.io.js"></script>
 		<script type="text/javascript">
-			var temp 	= "no temp data"
-			var print 	= "0"
+			var lenTerm = 1000 				// nombre de ligne garder sur le terminal
+			var temp 	= "no temp data" 	// garde les derniere temperature recu
+			var print 	= "0"				// statut de l'impression
 
 			var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -114,6 +115,10 @@
 
 			// reception des message pour le terminal
 			socket.on('MsgTerm', function (data) {
+				if (document.getElementById('outputTerm').childNodes.length >= (lenTerm * 2)) {
+					document.getElementById('outputTerm').firstElementChild.remove();
+					document.getElementById('outputTerm').firstElementChild.remove();
+				}
 				$('#outputTerm').append('<span>' + data + '</span><br>');
 			});
 
@@ -123,6 +128,7 @@
 				temp = data
 			});
 
+			// previent si on est connecté a l'imprimante ou non
 			socket.on('inprimanteConnecterUsb', function (data) {
 				if (data == "True") {
 					$('#inprimanteConnecterUsb').text("Connecté");
@@ -132,8 +138,7 @@
 				}
 			})
 
-			//
-
+			// dit quel fichier il faut imprimé
 			$("#printSrc").keypress(function(e) {
 				if (e.which == 13) {
 					//alert($('#printSrc').val());
@@ -141,6 +146,11 @@
 					$('#printSrc').val("");
 					socket.emit('printSrc', src);
 				}
+			});
+			//met a jour l'interface avec la progression
+			socket.on('posPrint', function (data) {
+				$('#progressLayer').value = data
+				$('#progressPrint').value = data
 			});
 
 			// analyse de la commande du terminal
@@ -151,21 +161,23 @@
 					var argCom = commande.split(" ");
 					//alert(argCom)
 					switch (argCom[0]) {
+						//affiche les commande disponible
 						case "help":
 							$('#outputTerm').append("<span>" + "help :" + "<br>" + 
 								"<dd>" + "temp : donne la temperature" + "<br>" + 
 								"<dd>" + "msglvl : choisi le niveau de message afficher" + "</span><br>");
 						break;
-
+						//arret d'urgence distant du programme ATTENTION si une generation ou impression
+						// est en cour ca sera coupé net 
 						case "STOP":
 							socket.emit('STOP', "");
 							$('#outputTerm').append('<span>' + "stop execute" + '</span><br>');
 						break;
-
+						// affiche les derniere temperature recu 
 						case "temp":
 							$('#outputTerm').append('<span>' + temp + '</span><br>');
 						break;
-
+						// deprecié
 						case "msglvl":
 							if (argCom.length == 2) {
 								socket.emit('msglvl', argCom[1]);
@@ -175,7 +187,7 @@
 								$('#outputTerm').append("<span>" + "usage> msglvl 'int:0,1,2' " + "</span><br>");
 							}
 						break;
-
+						//permet d'envoyer une commande gcode
 						case "gcode":
 							if (argCom.length >= 2) {
 								gcode = commande.substring(commande.indexOf(" "), commande.length);
@@ -186,7 +198,7 @@
 								socket.emit('gcode', gcode);
 							}
 						break;
-
+						// si aucune commande trouvé 
 						default:
 							$('#outputTerm').append('<span> commande inconnue </span><br>');
 					}

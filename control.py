@@ -29,7 +29,7 @@ class OnStart (Thread):
             while (tmp < len(self.sysVar.gcodeOnConnect)):
                 self.sysVar.threadControl.addGcode(self.sysVar.gcodeOnConnect[tmp])
                 tmp += 1
-                pass                
+                pass
             pass
         self.sysVar.addStart = False
         pass
@@ -49,13 +49,13 @@ class Control (Thread):
         pass
     def msgTerminal(self, msg=""):
         """
-        envoi communication terminal 
+        envoi communication terminal
         (permet de communiquer avec tout les terminal)
-        
+
         lvl 0 = info
         lvl 1 = erreur
         lvl 2 = debug
-        
+
         """
         print(msg)
         try:
@@ -65,72 +65,84 @@ class Control (Thread):
             print("bug to send online msg")
             pass
         pass
-    
+
     def initPrint(self, src):
         self.sysVar.threadControl.msgTerminal("start init print :" + src)
-        try:
-            self.folder = open(src, "r", encoding="utf-8")
+        isConnect = 0
+        if (self.sysVar.connectType == "USB"):
+            isConnect = 1
             pass
-        except:
-            self.sysVar.threadControl.msgTerminal("init print : bug open folder")
-            pass
-        else:
-            self.sysVar.posLayer = []
-            self.sysVar.printNbLayer = 0
-            n = 1
-            tmpTxt = tmpTxt = self.folder.readline()
-            while (tmpTxt):
-                #print(n)
-                if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
-                    if (tmpTxt[1] != "4"):
-                        tmpCode = tmpTxt.split(" ")
-                        tmpPos = 0
-                        lenTmpCode = len(tmpCode)
-                        while (tmpPos < lenTmpCode):
-                            if (tmpCode[tmpPos][0] == "Z"):
-                                #print("found z")
-                                self.sysVar.posLayer.append(n)
-                                self.sysVar.printNbLayer += 1
+        if (isConnect == 1):
+            try:
+                self.folder = open(src, "r", encoding="utf-8")
+                pass
+            except:
+                self.sysVar.threadControl.msgTerminal("init print : bug open folder")
+                pass
+            else:
+                self.sysVar.posLayer = []
+                self.sysVar.printNbLayer = 0
+                n = 1
+                tmpTxt = tmpTxt = self.folder.readline()
+                while (tmpTxt):
+                    #print(n)
+                    if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
+                        if (tmpTxt[1] != "4"):
+                            tmpCode = tmpTxt.split(" ")
+                            tmpPos = 0
+                            lenTmpCode = len(tmpCode)
+                            while (tmpPos < lenTmpCode):
+                                if (tmpCode[tmpPos][0] == "Z"):
+                                    #print("found z")
+                                    self.sysVar.posLayer.append(n)
+                                    self.sysVar.printNbLayer += 1
+                                    pass
+                                tmpPos += 1
                                 pass
-                            tmpPos += 1
                             pass
                         pass
+                    n += 1
+                    tmpTxt = self.folder.readline()
                     pass
-                n += 1
-                tmpTxt = self.folder.readline()
+                print("end init print 1")
+                ####### debug
+                #p = 0
+                #end = len(self.sysVar.posLayer)
+                #self.sysVar.threadControl.msgTerminal("nb layer" + str(self.sysVar.printNbLayer))
+                #while (p < end):
+                #    self.sysVar.threadControl.msgTerminal("Layer " + str(p) + " : " + str(self.sysVar.posLayer[p]))
+                #    p += 1
+                #    pass
+                #######
+                self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
+                self.sysVar.printNbLine = n
+                self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
+                self.sysVar.threadControl.msgTerminal("print nb layer" + str(self.sysVar.printNbLayer))
+                self.folder.close()
+                self.folder = open(src, "r", encoding="utf-8")
+                self.countIn = 0
+                self.countOut = 0
+                self.sysVar.printPosLine = 0
+                self.sysVar.printStatut = 1
+                print("end init print 2")
                 pass
-            print("end init print 1")
-            ####### debug
-            #p = 0
-            #end = len(self.sysVar.posLayer)
-            #self.sysVar.threadControl.msgTerminal("nb layer" + str(self.sysVar.printNbLayer))
-            #while (p < end):
-            #    self.sysVar.threadControl.msgTerminal("Layer " + str(p) + " : " + str(self.sysVar.posLayer[p]))
-            #    p += 1
-            #    pass
-            #######
-            self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
-            self.sysVar.printNbLine = n
-            self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
-            self.sysVar.threadControl.msgTerminal("print nb layer" + str(self.sysVar.printNbLayer))
-            self.folder.close()
-            self.folder = open(src, "r", encoding="utf-8")
-            self.countIn = 0
-            self.countOut = 0
-            self.sysVar.printPosLine = 0
-            self.sysVar.printStatut = 1
-            print("end init print 2")
             pass
         pass
-    
+
     def onPrint(self):
         if (self.sysVar.printStatut == 1):
             if (self.countIn == self.countOut):
                 tmp = self.folder.readline()
                 self.sysVar.printPosLine += 1
+                try:
+                    self.sysVar.threadWebUser.posPrint();
+                    pass
+                except:
+                    print("bug to send posPrint")
+                    pass
                 if (tmp == ""):
-                    self.sysVar.threadControl.msgTerminal("impression terminer I/O :" + 
-                                                          str(self.countIn) + 
+                    self.sysVar.threadControl.msgTerminal("impression terminer I/O :" +
+                                                          str(self.countIn) +
                                                           str(self.countOut))
                     self.sysVar.printStatut = 2
                     pass
@@ -144,12 +156,12 @@ class Control (Thread):
                 pass
             pass
         pass
-    
+
     def endPrint(self):
         self.folder.close()
         self.sysVar.printStatut = 2
         pass
-    
+
     def startGcode(self):
         if (self.sysVar.addStart == False):
             self.sysVar.addStart = True
@@ -158,16 +170,16 @@ class Control (Thread):
             threadOnStart.start()
             pass
         pass
-    
+
     def addGcode(self, gcode):
         with self.sysVar.lockOutput:
             self.sysVar.gcodeOutput.append(gcode)
-            pass 
+            pass
         self.countOut += 1
         self.msgTerminal("out :" + gcode)
         self.msgTerminal("count I/O :" + str(self.countIn) + " / " + str(self.countOut))
         pass
-    
+
     def analyseGcode(self):
         with self.sysVar.lockInput:
             if (len(self.sysVar.gcodeInput) != 0):
