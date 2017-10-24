@@ -149,7 +149,6 @@
 			});
 			//met a jour l'interface avec la progression
 			socket.on('posPrint', function (data) {
-				alert(data);
 				document.getElementById("progressLayer").value = data;
 				document.getElementById("progressPrint").value = data;
 			});
