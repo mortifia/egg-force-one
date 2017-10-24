@@ -149,8 +149,9 @@
 			});
 			//met a jour l'interface avec la progression
 			socket.on('posPrint', function (data) {
-				$('#progressLayer').value = data
-				$('#progressPrint').value = data
+				alert(data);
+				$('#progressLayer').value = data;
+				$('#progressPrint').value = data;
 			});
 
 			// analyse de la commande du terminal
