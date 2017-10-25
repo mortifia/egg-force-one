@@ -39,7 +39,6 @@ class WebUser(Thread):
         pass
 
     def layer(self):
-        print("in layer")
         try:
             self.socketio.emit('endLayer', str(self.sysVar.printPosLayer[self.sysVar.printLayer]) +
                                " " + str(self.sysVar.printOldLayer), broadcast=True)

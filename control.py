@@ -104,6 +104,7 @@ class Control (Thread):
                     n += 1
                     tmpTxt = self.folder.readline()
                     pass
+                self.sysVar.printPosLayer.append(n)
                 print("end init print 1")
                 self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
                 self.sysVar.printNbLine = n
@@ -151,7 +152,8 @@ class Control (Thread):
                     pass
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
-                    if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
+                    if (len(self.sysVar.printPosLayer) > self.sysVar.printLayer
+                        and self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
                         self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
                         self.sysVar.printLayer += 1
                         try:
