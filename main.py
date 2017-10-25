@@ -62,10 +62,10 @@ def alwaysAlive(sysVar):
             print("bug usb")
             startUsb(sysVar)
             pass
-        if (sysVar.threadControl.isAlive() == False):
-            print("bug control")
-            startControl(sysVar)
-            pass
+        #if (sysVar.threadControl.isAlive() == False):
+        #    print("bug control")
+        #    startControl(sysVar)
+        #    pass
         if (sysVar.threadWebUser.isAlive() == False):
             print("bug web user")
             startWebUser(sysVar)
