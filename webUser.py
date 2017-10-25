@@ -42,7 +42,7 @@ class WebUser(Thread):
         print("in layer")
         try:
             self.socketio.emit('endLayer', str(self.sysVar.printPosLayer[self.sysVar.printLayer]) +
-                               " " + self.sysVar.printOldLayer, broadcast=True)
+                               " " + str(self.sysVar.printOldLayer), broadcast=True)
             pass
         except:
             print("bug to send end layer")
