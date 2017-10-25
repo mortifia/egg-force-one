@@ -150,7 +150,7 @@ class Control (Thread):
                     self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
                     self.sysVar.printLayer += 1
                     try:
-                        self.sysVar.addStart.threadWebUser.layer()
+                        self.sysVar.threadWebUser.layer()
                         pass
                     except:
                         print("bug to send layer")
