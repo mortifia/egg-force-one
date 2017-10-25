@@ -38,16 +38,23 @@ class WebUser(Thread):
         self.socketio.emit('posPrint', self.sysVar.printPosLine, broadcast=True)
         pass
 
-    def endLayer(self, pos):
-        while (int(pos) >= self.sysVar.printPosLayer[self.sysVar.printLayer] and
-               pos < self.sysVar.printNbLine):
-            self.sysVar.printLayer += 1
-            pass
+    def layer(self):
+        print("in layer")
         try:
-            self.socketio.emit('endLayer', self.sysVar.printPosLayer[0], broadcast=True)
+            self.socketio.emit('endLayer', str(self.sysVar.printPosLayer[self.sysVar.printLayer]) +
+                               " " + self.sysVar.printOldLayer, broadcast=True)
             pass
         except:
             print("bug to send end layer")
+            pass
+        pass
+
+    def posEndPrint(self):
+        try:
+            self.socketio.emit('posEndPrint', self.sysVar.printNbLine, broadcast=True)
+            pass
+        except:
+            print("bug to send end pos print")
             pass
         pass
 
@@ -131,6 +138,8 @@ class WebUser(Thread):
                 self.inprimanteConnecterUsb()
                 if (self.sysVar.printStatut != 0):
                     self.posPrint()
+                    self.layer()
+                    self.posEndPrint()
                     pass
                 pass
             pass

@@ -152,12 +152,18 @@
 			//met a jour l'interface avec la progression
 			socket.on('posPrint', function (data) {
 				
-				document.getElementById("progressLayer").value = data;
+				document.getElementById("progressLayer").value = data - oldPosLayer;
 				document.getElementById("progressPrint").value = data;
 			});
 			socket.on('endLayer', function (data) {
-				document.getElementById("progressLayer").max = data;
+				allNb = data.split(" ");
+				document.getElementById("progressLayer").max = allNb[0];
+				oldPosLayer = allNb[1];
 			});
+			socket.on('posEndPrint', function (data) {
+				document.getElementById("progressPrint").max = data;
+			});
+
 
 			// analyse de la commande du terminal
 			$('#inputTerm').keypress(function(e) {

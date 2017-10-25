@@ -116,6 +116,7 @@ class Control (Thread):
                 self.sysVar.printPosLine = 0
                 self.sysVar.printLayer = 0
                 self.sysVar.printStatut = 1
+                self.sysVar.printOldLayer = 0
                 print("end init print 2")
                 pass
             pass
@@ -144,6 +145,16 @@ class Control (Thread):
                     pass
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
+                    pass
+                if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
+                    self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
+                    self.sysVar.printLayer += 1
+                    try:
+                        self.sysVar.addStart.threadWebUser.layer()
+                        pass
+                    except:
+                        print("bug to send layer")
+                        pass
                     pass
                 pass
             pass
@@ -178,7 +189,7 @@ class Control (Thread):
             if (len(self.sysVar.gcodeInput) != 0):
                 if (len(self.sysVar.gcodeInput[0]) > 1):
                     if (self.sysVar.gcodeInput[0][0] == 'T' or self.sysVar.gcodeInput[0][1] == 'T'):
-                        self.msgTerminal("in : " + self.sysVar.gcodeInput[0])
+                        #self.msgTerminal("in : " + self.sysVar.gcodeInput[0])
                         self.sysVar.temp = [self.sysVar.gcodeInput[0]]
                         pass
                     elif (self.sysVar.gcodeInput[0] == "start"):

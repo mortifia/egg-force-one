@@ -28,6 +28,7 @@ printSrc        = ""                # emplacement du fichier
 printNbLine     = 0                 # nombre de ligne dans le fichier
 printNbLayer    = 0                 # nombre de couches
 printLayer      = 0                 # couche actuel du layer
+printOldLayer   = 0                 # position de l'ancien layer
 printPosLayer   = []                # position de la fin de la couche
 printPosLine    = 0                 # position dans le fichier
 
