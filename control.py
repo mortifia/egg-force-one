@@ -108,7 +108,7 @@ class Control (Thread):
                 self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
                 self.sysVar.printNbLine = n
                 self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
-                self.sysVar.threadControl.msgTerminal("print nb layer" + str(self.sysVar.printNbLayer))
+                self.sysVar.threadControl.msgTerminal("print nb layer : " + str(self.sysVar.printNbLayer))
                 self.folder.close()
                 self.folder = open(src, "r", encoding="utf-8")
                 self.countIn = 0

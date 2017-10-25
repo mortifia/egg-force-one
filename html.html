@@ -157,7 +157,7 @@
 			});
 			socket.on('endLayer', function (data) {
 				allNb = data.split(" ");
-				document.getElementById("progressLayer").max = allNb[0];
+				document.getElementById("progressLayer").max = allNb[0] - allNb[1];
 				oldPosLayer = allNb[1];
 			});
 			socket.on('posEndPrint', function (data) {
