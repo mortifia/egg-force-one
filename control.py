@@ -115,8 +115,13 @@ class Control (Thread):
                 self.countOut = 0
                 self.sysVar.printPosLine = 0
                 self.sysVar.printLayer = 0
-                self.sysVar.printStatut = 1
                 self.sysVar.printOldLayer = 0
+                self.sysVar.printStatut = 1
+                try:
+                    pass
+                except:
+                    print("bug to update print")
+                    pass
                 print("end init print 2")
                 pass
             pass
@@ -134,6 +139,7 @@ class Control (Thread):
                     print("bug to send posPrint")
                     pass
                 if (tmp == ""):
+                    print("######### test ##############")
                     self.sysVar.threadControl.msgTerminal("impression terminer I/O :" +
                                                           str(self.countIn) +
                                                           str(self.countOut))
@@ -145,15 +151,15 @@ class Control (Thread):
                     pass
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
-                    pass
-                if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
-                    self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
-                    self.sysVar.printLayer += 1
-                    try:
-                        self.sysVar.threadWebUser.layer()
-                        pass
-                    except:
-                        print("bug to send layer")
+                    if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
+                        self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
+                        self.sysVar.printLayer += 1
+                        try:
+                            self.sysVar.threadWebUser.layer()
+                            pass
+                        except:
+                            print("bug to send layer")
+                            pass
                         pass
                     pass
                 pass
