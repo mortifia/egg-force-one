@@ -119,9 +119,10 @@ class Control (Thread):
                 self.sysVar.printOldLayer = 0
                 self.sysVar.printStatut = 1
                 try:
+                    self.sysVar.threadWebUser.posEndPrint()
                     pass
                 except:
-                    print("bug to update print")
+                    print("bug to update start print")
                     pass
                 print("end init print 2")
                 pass
