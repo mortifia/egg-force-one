@@ -60,15 +60,18 @@ def alwaysAlive(sysVar):
         time.sleep(hz)
         if (sysVar.threadUsb.isAlive() == False):
             print("bug usb")
-            startUsb(sysVar)
+            #startUsb(sysVar)
+            sysVar.alive == False
             pass
-        #if (sysVar.threadControl.isAlive() == False):
-        #    print("bug control")
-        #    startControl(sysVar)
-        #    pass
+        if (sysVar.threadControl.isAlive() == False):
+            print("bug control")
+            #startControl(sysVar)
+            sysVar.alive == False
+            pass
         if (sysVar.threadWebUser.isAlive() == False):
             print("bug web user")
-            startWebUser(sysVar)
+            #startWebUser(sysVar)
+            sysVar.alive == False
             pass
         pass
     pass
