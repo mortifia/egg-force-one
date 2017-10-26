@@ -97,6 +97,10 @@ table
 	border-collapse: 		collapse;
 }
 
+progress
+{
+	width: 100%
+}
 .txtInput
 {
 	background-color: 		rgb(50, 52, 56);
