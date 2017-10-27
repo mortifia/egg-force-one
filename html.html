@@ -165,7 +165,7 @@
 			});
 			socket.on('statutImpression', function (data) {
 				alert(data);
-				switch (data[0]) {
+				switch (data) {
 					case "0":
 						// aucune impression
 						$('#statutImpression').text("aucune impression");
@@ -187,6 +187,8 @@
 						// impression en pause
 						$('#statutImpression').text("impression en pause");
 					break;
+					default:
+						$('#statutImpression').text("Bug");
 				}
 
 			});
