@@ -72,14 +72,11 @@ class Control (Thread):
         if (self.sysVar.connectType == "USB"):
             isConnect = 1
             pass
-        print("#############lol###########")
         if (src[0] == "/" or src[0] == "\\"):
             self.tmpSrc = src
-            print("test1: " + self.tmpSrc)
             pass
         else:
             self.tmpSrc = self.sysVar.FolderPrint + src
-            print("test2: " + self.tmpSrc)
             pass
         if (isConnect == 1):
             try:
