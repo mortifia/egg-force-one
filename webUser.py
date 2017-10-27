@@ -33,15 +33,15 @@ class WebUser(Thread):
     #def initPrint(self):
     #    self.socketio.emit('print', str(self.sysVar.printNbLine), broadcast=True)
     #    pass
-    
+
     def statutImpression(self):
         self.socketio.emit('statutImpression', self.sysVar.printStatut, broadcast=True)
         pass
-    
+
     def srcImpression(self):
         self.socketio.emit('srcImpression', self.sysVar.printSrc, broadcast=True)
         pass
-    
+
     def posPrint(self):
         self.socketio.emit('posPrint', self.sysVar.printPosLine, broadcast=True)
         pass
@@ -172,21 +172,11 @@ class WebUser(Thread):
             pass
         @socketio.on('printSrc')
         def printSrc(data):
-            if(data[0] == "/"):
-                try:
-                    self.sysVar.threadControl.initPrint(data)
-                    pass
-                except:
-                    self.socketio.emit('ALERT', "bug a printSrc '1' ")
-                    pass
+            try:
+                self.sysVar.threadControl.initPrint(data)
                 pass
-            else:
-                try:
-                    self.sysVar.threadControl.initPrint(self.sysVar.FolderPrint + data)
-                    pass
-                except:
-                    self.socketio.emit('ALERT', "bug a printSrc '2' ")
-                    pass
+            except:
+                self.socketio.emit('ALERT', "bug a printSrc")
                 pass
             pass
 

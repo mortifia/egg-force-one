@@ -72,9 +72,15 @@ class Control (Thread):
         if (self.sysVar.connectType == "USB"):
             isConnect = 1
             pass
+        if (src[0] == "/" or src[0] == "\\"):
+            tmpSrc = self.sysVar.FolderPrint + src
+            pass
+        else:
+            tmpSrc = src
+            pass
         if (isConnect == 1):
             try:
-                self.folder = open(src, "r", encoding="utf-8")
+                self.folder = open(tmpSrc, "r", encoding="utf-8")
                 pass
             except:
                 self.sysVar.threadControl.msgTerminal("init print : bug open folder")
@@ -111,14 +117,14 @@ class Control (Thread):
                 self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
                 self.sysVar.threadControl.msgTerminal("print nb layer : " + str(self.sysVar.printNbLayer))
                 self.folder.close()
-                self.folder = open(src, "r", encoding="utf-8")
+                self.folder = open(tmpSrc, "r", encoding="utf-8")
                 self.countIn = 0
                 self.countOut = 0
                 self.sysVar.printPosLine = 0
                 self.sysVar.printLayer = 0
                 self.sysVar.printOldLayer = 0
-                self.sysVar.printSrc = src
                 self.sysVar.printStatut = 1
+                self.sysVar.printSrc = src
                 self.sysVar.threadWebUser.statutImpression()
                 self.sysVar.threadWebUser.srcImpression()
                 try:
