@@ -164,7 +164,6 @@
 				document.getElementById("progressPrint").max = data;
 			});
 			socket.on('statutImpression', function (data) {
-				alert(typeof data);
 				switch (data) {
 					case 0:
 						// aucune impression
@@ -172,7 +171,6 @@
 					break;
 					case 1:
 						// impression en cour
-						alert("impression en cour")
 						$('#statutImpression').text("impression en cour");
 					break;
 					case 2:
