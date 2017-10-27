@@ -118,6 +118,7 @@ class Control (Thread):
                 self.sysVar.printLayer = 0
                 self.sysVar.printOldLayer = 0
                 self.sysVar.printStatut = 1
+                self.sysVar.threadWebUser.statutImpression()
                 try:
                     self.sysVar.threadWebUser.posEndPrint()
                     pass
@@ -141,11 +142,11 @@ class Control (Thread):
                     print("bug to send posPrint")
                     pass
                 if (tmp == ""):
-                    print("######### test ##############")
-                    self.sysVar.threadControl.msgTerminal("impression terminer I/O :" +
-                                                          str(self.countIn) +
-                                                          str(self.countOut))
                     self.sysVar.printStatut = 2
+                    self.sysVar.threadWebUser.statutImpression()
+                    self.sysVar.threadControl.msgTerminal("impression terminer I/O :" +
+                                                          str(self.countIn) + " / " +
+                                                          str(self.countOut))
                     pass
                 elif (tmp[0] == ";" or tmp[0] == "\n"):
                     self.countIn  += 1

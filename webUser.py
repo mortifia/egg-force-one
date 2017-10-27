@@ -33,7 +33,11 @@ class WebUser(Thread):
     #def initPrint(self):
     #    self.socketio.emit('print', str(self.sysVar.printNbLine), broadcast=True)
     #    pass
-
+    
+    def statutImpression(self):
+        self.socketio.emit('statutImpression', self.sysVar.printStatut, broadcast=True)
+        pass
+    
     def posPrint(self):
         self.socketio.emit('posPrint', self.sysVar.printPosLine, broadcast=True)
         pass
@@ -136,9 +140,10 @@ class WebUser(Thread):
                 self.sysVar.threadControl.msgTerminal("utilisateur connecté")
                 self.inprimanteConnecterUsb()
                 if (self.sysVar.printStatut != 0):
+                    self.statutImpression()
+                    self.posEndPrint()
                     self.posPrint()
                     self.layer()
-                    self.posEndPrint()
                     pass
                 pass
             pass
