@@ -22,20 +22,6 @@
 
 				<div class="info3">
 					<div class="infoTitre">
-						<h3>Lancement impression</h3>
-					</div>
-					<dir class="infoBody">
-						<table>
-							<tr>
-								<td class="td1">Fichier a imprimer</td>
-								<td class="td2"><input type="text" id="printSrc" class="txtInput" placeholder="fichier.gcode"></td>
-							</tr>
-						</table>
-					</dir>
-				</div>
-
-				<div class="info3">
-					<div class="infoTitre">
 						<h3>Inpression</h3>
 					</div>
 					<dir class="infoBody">
@@ -45,16 +31,16 @@
 								<td class="td2"><span id="statutImpression">Aucune impression</span></td>
 							</tr>
 							<tr>
-								<td class="td1">Fichier imprimer</td>
-								<td class="td2"><span id="emplacementFichier">Aucun fichier choisi</span></td>
-							</tr>
-							<tr>
 								<td class="td1">Progression impression</td>
 								<td class="td2"><progress id="progressPrint" value="0" max="1000"></td>
 							</tr>
 							<tr>
 								<td class="td1">Progression couche</td>
 								<td class="td2"><progress id="progressLayer" value="0" max="100"></td>
+							</tr>
+							<tr>
+								<td class="td1">Fichier imprimer</td>
+								<td class="td2"><span id="emplacementFichier">Aucun fichier choisi</span></td>
 							</tr>
 							<tr>
 								<td class="td1">Couche actuel</td>
@@ -67,6 +53,20 @@
 							<tr>
 								<td class="td1">Nombre de couches</td>
 								<td class="td2"><span id="">###################################</span></td>
+							</tr>
+						</table>
+					</dir>
+				</div>
+
+				<div class="info3">
+					<div class="infoTitre">
+						<h3>Lancement impression</h3>
+					</div>
+					<dir class="infoBody">
+						<table>
+							<tr>
+								<td class="td1">Fichier a imprimer</td>
+								<td class="td2"><input type="text" id="printSrc" class="txtInput" placeholder="fichier.gcode"></td>
 							</tr>
 						</table>
 					</dir>
