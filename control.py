@@ -117,8 +117,10 @@ class Control (Thread):
                 self.sysVar.printPosLine = 0
                 self.sysVar.printLayer = 0
                 self.sysVar.printOldLayer = 0
+                self.sysVar.printSrc = src
                 self.sysVar.printStatut = 1
                 self.sysVar.threadWebUser.statutImpression()
+                self.sysVar.threadWebUser.srcImpression()
                 try:
                     self.sysVar.threadWebUser.posEndPrint()
                     pass
