@@ -166,24 +166,24 @@
 			socket.on('statutImpression', function (data) {
 				alert(typeof data);
 				switch (data) {
-					case '0':
+					case 0:
 						// aucune impression
 						$('#statutImpression').text("aucune impression");
 					break;
-					case '1':
+					case 1:
 						// impression en cour
 						alert("impression en cour")
 						$('#statutImpression').text("impression en cour");
 					break;
-					case '2':
+					case 2:
 						// impression terminer
 						$('#statutImpression').text("impression terminer");
 					break;
-					case '3':
+					case 3:
 						// impression areter
 						$('#statutImpression').text("impression areter");
 					break;
-					case '4':
+					case 4:
 						// impression en pause
 						$('#statutImpression').text("impression en pause");
 					break;
