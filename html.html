@@ -163,7 +163,7 @@
 			socket.on('posEndPrint', function (data) {
 				document.getElementById("progressPrint").max = data;
 			});
-			socket.on('statutImpression', function (data) {
+			socket.on('srcImpression', function (data) {
 				$('#emplacementFichier').text(data);
 			})
 			socket.on('statutImpression', function (data) {
