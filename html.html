@@ -164,7 +164,8 @@
 				document.getElementById("progressPrint").max = data;
 			});
 			socket.on('statutImpression', function (data) {
-				switch (data) {
+				alert(data);
+				switch (data[0]) {
 					case "0":
 						// aucune impression
 						$('#statutImpression').text("aucune impression");
