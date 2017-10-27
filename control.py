@@ -73,14 +73,16 @@ class Control (Thread):
             isConnect = 1
             pass
         if (src[0] == "/" or src[0] == "\\"):
-            tmpSrc = self.sysVar.FolderPrint + src
+            self.tmpSrc = src
+            print("test1: " + tmpSrc)
             pass
         else:
-            tmpSrc = src
+            self.tmpSrc = self.sysVar.FolderPrint + src
+            print("test2: " + tmpSrc)
             pass
         if (isConnect == 1):
             try:
-                self.folder = open(tmpSrc, "r", encoding="utf-8")
+                self.folder = open(self.tmpSrc, "r", encoding="utf-8")
                 pass
             except:
                 self.sysVar.threadControl.msgTerminal("init print : bug open folder")
@@ -117,7 +119,7 @@ class Control (Thread):
                 self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
                 self.sysVar.threadControl.msgTerminal("print nb layer : " + str(self.sysVar.printNbLayer))
                 self.folder.close()
-                self.folder = open(tmpSrc, "r", encoding="utf-8")
+                self.folder = open(self.tmpSrc, "r", encoding="utf-8")
                 self.countIn = 0
                 self.countOut = 0
                 self.sysVar.printPosLine = 0
