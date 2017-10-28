@@ -52,6 +52,12 @@ class rafrechisementFichierPrint(Thread):
                 print("bug dans updatePrint")
                 pass
             pass
+        try:
+            self.sysVar.threadWebUser.updatePrint()
+            pass
+        except:
+            print("bug dans updatePrint")
+            pass
         pass
     pass
 
@@ -80,6 +86,7 @@ class analyseFichierPrint(Thread):
         self.nbLigne = 1
         
         self.sysVar.printLoad = 1
+        self.updateThread()
         pass
     
     def analyse(self, tmpTxt):
