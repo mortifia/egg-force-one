@@ -115,7 +115,7 @@ progress::-webkit-progress-bar
 progress::-webkit-progress-value
 {
 	color: 					rgb(202,96,51);
-	background-color: 		rgb(202,133,21);
+	background-color: 		rgb(202,96,51);
 }
 
 progress::-moz-progress-bar
