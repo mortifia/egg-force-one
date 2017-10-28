@@ -196,7 +196,13 @@ class Control (Thread):
                     pass
                 except:
                     print("imposible d'aceder au fichier")
-                    self.sysVar.printStatut     = 0
+                    self.sysVar.printStatut = 0
+                    try:
+                        self.sysVar.threadWebUser.statutImpression()
+                        pass
+                    except:
+                        print("bug to update statut not found start print")
+                        pass
                     pass
                 else:
                     if (self.sysVar.printStatut == 5):
