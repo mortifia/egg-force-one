@@ -196,6 +196,7 @@ class Control (Thread):
                     pass
                 except:
                     print("imposible d'aceder au fichier")
+                    elf.sysVar.printStatut     = 0
                     pass
                 else:
                     if (self.sysVar.printStatut == 5):
