@@ -105,6 +105,11 @@ progress
 	background-color: 		rgb(30, 32, 36);
 }
 
+::-webkit-progress-bar
+{
+	background-color: 		rgb(202,133,21);
+}
+
 .txtInput
 {
 	background-color: 		rgb(50, 52, 56);
