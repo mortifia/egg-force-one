@@ -105,9 +105,13 @@ progress
 	background-color: 		rgb(30, 32, 36);
 }
 
-progress::-webkit-progress-bar, progress::-moz-progress-bar
+::-webkit-progress-bar
 {
-	color: 		rgb(202,133,21);
+	background-color: 		rgb(202,133,21);
+}
+::-moz-progress-bar
+{
+	background-color: 		rgb(202,133,21);
 }
 
 .txtInput
