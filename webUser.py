@@ -196,8 +196,12 @@ class WebUser(Thread):
             pass
         @socketio.on('statutPrint')
         def statutPrint(data):
-            self.sysVar.printStatut = int(data)
-            self.statutImpression()
+            if ((data == 1 or data == 3) and self.sysVar.printStatut > 1):
+                pass
+            else:
+                self.sysVar.printStatut = int(data)
+                self.statutImpression()
+                pass
             pass
 
     def startWeb(self):

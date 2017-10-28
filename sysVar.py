@@ -24,7 +24,7 @@ lvlMsg          = 2                 # niveau max des message aficher
 printStatut     = 0                 # 0 = aucune impression
                                     # 1 = impression en cour
                                     # 2 = impression terminer
-printLoad       = RLock()           # permet deviter le lancement de plusieur 
+printSafe       = RLock()           # permet deviter le lancement de plusieur
                                     # impression en meme temp
 printSrc        = ""                # emplacement du fichier
 printNbLine     = 0                 # nombre de ligne dans le fichier
