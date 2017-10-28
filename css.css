@@ -107,7 +107,7 @@ progress
 
 ::-webkit-progress-bar
 {
-	/*background-color: 		rgb(202,133,21);*/
+	background-color: 		rgb(202,133,21);
 }
 
 ::-moz-progress-bar
@@ -258,7 +258,7 @@ tr:hover .td2 .txtInput
 	margin-bottom: 			0px;
 	border: 				0px;
 	border-bottom: 			1px;
-	border-color: 			rgb(202,133,21);
+	border-color: 			rgb(202,96,51);
 	border-style: 			solid;
 	padding: 				0px;
 	min-height: 			300px;
