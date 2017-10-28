@@ -69,7 +69,7 @@ class Control (Thread):
     def initPrint(self, src):
         self.sysVar.threadControl.msgTerminal("start init print :" + src)
         self.sysVar.printStatut = -1
-        with self.sysVar.printSafe
+        with self.sysVar.printSafe:
             try:
                 self.sysVar.threadWebUser.statutImpression()
                 pass
