@@ -61,7 +61,7 @@ tr:hover
 
 select
 {
-	background-color: 		rgb(50, 52, 56);
+	background-color: 		rgb(38, 40, 44);
 	font-size: 				14px;
 	font-family: 			'Roboto',Tahoma, Helvetica, Arial, sans-serif;
 	color: 					rgb(132, 134, 138);
@@ -74,25 +74,11 @@ select
 tr select:focus
 {
 	outline: 				none;
-	background-color: 		rgb(50, 60, 74);
-	border-color: 			rgba(202,133,21,0.6);
-}
-
-tr:hover select:focus
-{
-	outline:				none;
-	border-color: 			rgba(202,133,21,0.6);
 }
 
 select:hover, tr:hover select:hover
 {
 	border-color: 			rgba(202,133,21,0.6);
-}
-
-tr:hover select
-{
-	background-color: 		rgb(50, 60, 74);
-	border-color: 			rgb(50, 60, 74);
 }
 
 table
@@ -152,6 +138,10 @@ button
 	padding-right: 			8px;
 	font-size: 				14px;
 	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
+	text-align: 			center;
+  	text-decoration: 		none;
+  	outline: 				none;
+
 
 	-webkit-transition-duration: 0.3s; /* Safari */
     transition-duration: 0.3s;
