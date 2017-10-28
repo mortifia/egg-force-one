@@ -45,15 +45,15 @@ class WebUser(Thread):
     def posPrint(self):
         self.socketio.emit('posPrint', self.sysVar.printPosLine, broadcast=True)
         pass
-    
+
     def layerPrint(self):
         self.socketio.emit('layerPrint', self.sysVar.printLayer, broadcast=True)
         pass
-    
+
     def nbLinesPrint(self):
         self.socketio.emit('nbLinesPrint', self.sysVar.printNbLine, broadcast=True)
         pass
-    
+
     def nbLayerPrint(self):
         self.socketio.emit('nbLayerPrint', self.sysVar.printNbLayer, broadcast=True)
         pass
@@ -193,6 +193,11 @@ class WebUser(Thread):
             except:
                 self.socketio.emit('ALERT', "bug a printSrc")
                 pass
+            pass
+        @socketio.on('statutPrint')
+        def statutPrint(data):
+            self.sysVar.printStatut = int(data)
+            self.statutImpression()
             pass
 
     def startWeb(self):

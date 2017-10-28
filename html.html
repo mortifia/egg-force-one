@@ -55,9 +55,9 @@
 								<td class="td2"><span id="nbLayerPrint"></span></td>
 							</tr>
 						</table>
-						<button>pause</button>
-						<button>play</button>
-						<button>stop</button>
+						<button onclick="statutPrint(3)">pause</button>
+						<button onclick="statutPrint(1)">play</button>
+						<button onclick="statutPrint(4)">stop</button>
 
 					</dir>
 				</div>
@@ -128,13 +128,21 @@
 		<script type="text/javascript" src="/jquery.min.js"></script>
 		<script type="text/javascript" src="/socket.io.js"></script>
 		<script type="text/javascript">
-			var lenTerm 	= 1000 				// nombre de ligne garder sur le terminal
-			var temp 		= "no temp data" 	// garde les derniere temperature recu
-			var print 		= "0"				// statut de l'impression
-			var oldPosLayer = 0 				// ancienne position du layer
-			var PosLayer 	= 0 				// position actiel du layer
+			var lenTerm 			= 1000 				// nombre de ligne garder sur le terminal
+			var temp 				= "no temp data" 	// garde les derniere temperature recu
+			var print 				= "0"				// statut de l'impression
+			var oldPosLayer 		= 0 				// ancienne position du layer
+			var PosLayer 			= 0 				// position actiel du layer
+			var statutPrintData 	= 0					// donne le statu de l'impression
 
 			var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+
+			//
+			function statutPrint(data) {
+				socket.emit('statutPrint', data);
+			}
+
 
 			// envoi un message pour prevenir qu'on est connecté
 			socket.on('connect', function (data) {
@@ -212,23 +220,28 @@
 				switch (data) {
 					case 0:
 						// aucune impression
+						statutPrintData = data
 						$('#statutImpression').text("Aucune impression");
 					break;
 					case 1:
 						// impression en cour
+						statutPrintData = data
 						$('#statutImpression').text("Impression en cour");
 					break;
 					case 2:
 						// impression terminer
+						statutPrintData = data
 						$('#statutImpression').text("Impression terminer");
 					break;
 					case 3:
-						// impression areter
-						$('#statutImpression').text("Impression areter");
+						// impression en pause
+						statutPrintData = data
+						$('#statutImpression').text("Impression en pause");
 					break;
 					case 4:
-						// impression en pause
-						$('#statutImpression').text("Impression en pause");
+						// impression areter
+						statutPrintData = data
+						$('#statutImpression').text("Impression areter");
 					break;
 					default:
 						$('#statutImpression').text("Bug");
