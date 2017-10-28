@@ -217,7 +217,6 @@
 				$('#emplacementFichier').text(data);
 			})
 			socket.on('statutImpression', function (data) {
-				data = int(data);
 				switch (data) {
 					case 5:
 						// initialisation de l'impression
