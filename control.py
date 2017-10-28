@@ -233,15 +233,17 @@ class Control (Thread):
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
-                if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
-                    self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
-                    self.sysVar.printLayer += 1
-                    self.sysVar.threadWebUser.layerPrint()
-                    try:
-                        self.sysVar.threadWebUser.layer()
-                        pass
-                    except:
-                        print("bug to send layer")
+                if (len(self.sysVar.printPosLayer) > 2):
+                    if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
+                        self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
+                        self.sysVar.printLayer += 1
+                        self.sysVar.threadWebUser.layerPrint()
+                        try:
+                            self.sysVar.threadWebUser.layer()
+                            pass
+                        except:
+                            print("bug to send layer")
+                            pass
                         pass
                     pass
                 pass
