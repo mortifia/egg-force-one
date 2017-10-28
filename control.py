@@ -35,6 +35,39 @@ class OnStart (Thread):
         pass
     pass
 
+class analyseFichierPrint(Thread):
+    def __init__(self,sysVar):
+        self.sysVar = sysVar
+        Thread.__init__(self)
+        pass
+    
+    def analyse(self):
+        pass
+    
+    def initialisation(self):
+        self.folder = open(self.sysVar.printSrc, "r", encoding="utf-8")
+        self.tmpTxt = self.folder.readline()
+        self.nbLigne = 1
+        pass
+    
+    def lectureFicher(self):
+        while (self.tmpTxt and self.sysVar.printStatut != -2):
+            self.tmpTxt = self.folder.readline()
+            self.nbLigne += 1
+            pass
+        pass
+    
+    def fin(self):
+        if (self.sysVar.printStatut != -2):
+            pass
+        pass
+    
+    def run(self):
+        self.initialisation()
+        self.lectureFichier()
+        self.fin()
+        pass
+
 ###############################################################################
 
 class Control (Thread):
@@ -98,7 +131,7 @@ class Control (Thread):
                     self.sysVar.posLayer = []
                     self.sysVar.printNbLayer = 0
                     n = 1
-                    tmpTxt = tmpTxt = self.folder.readline()
+                    tmpTxt = self.folder.readline()
                     while (tmpTxt and self.sysVar.printStatut == 5):
                         #print(n)
                         if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
