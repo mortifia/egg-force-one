@@ -162,9 +162,10 @@ button:hover
 	background-color: 		rgb(50, 60, 74);
 }
 
-button:
+button:active
 {
 	background-color:  		rgb(202,96,51);
+	color:  				rgb(38, 40, 44);
 }
 
 .txtInput
