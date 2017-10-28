@@ -164,6 +164,7 @@ tr:hover .td2 .txtInput
 }
 
 ::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 	0;
     background-color: 		rgb(202,96,51);
 }
 
