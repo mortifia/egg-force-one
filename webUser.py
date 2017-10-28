@@ -197,7 +197,8 @@ class WebUser(Thread):
         @socketio.on('statutPrint')
         def statutPrint(data):
             if ((data == 1 or data == 3)
-            and (self.sysVar.printStatut == 2 or self.sysVar.printStatut == 4)):
+            and (self.sysVar.printStatut == 2 or self.sysVar.printStatut == 4
+                 or self.sysVar.printStatut == 0)):
                 pass
             else:
                 self.sysVar.printStatut = int(data)
