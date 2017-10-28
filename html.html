@@ -176,17 +176,32 @@
 
 			//
 			socket.on('layerPrint', function(data) {
-				$('#layerPrint').text(data);
+				if (data != 0) {
+					$('#layerPrint').text(data);
+				}
+				else {
+					$('#layerPrint').text("");
+				}
 			});
 
 			//
 			socket.on('nbLinesPrint', function(data) {
-				$('#nbLinesPrint').text(data);
+				if (data != 0) {
+					$('#nbLinesPrint').text(data);
+				}
+				else {
+					$('#nbLinesPrint').text("");
+				}
 			});
 
 			//
 			socket.on('nbLayerPrint', function(data) {
-				$('#nbLayerPrint').text(data);
+				if (data != 0) {
+					$('#nbLayerPrint').text(data);
+				}
+				else {
+					$('#nbLayerPrint').text("");
+				}
 			});
 
 			// dit quel fichier il faut imprimé
