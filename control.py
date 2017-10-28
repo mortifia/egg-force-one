@@ -99,14 +99,14 @@ class Control (Thread):
                     self.sysVar.printNbLayer = 0
                     n = 1
                     tmpTxt = tmpTxt = self.folder.readline()
-                    while (tmpTxt and self.sysVar.printStatut == -1)
+                    while (tmpTxt and self.sysVar.printStatut == -1):
                         #print(n)
                         if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
                             if (tmpTxt[1] != "4"):
                                 tmpCode = tmpTxt.split(" ")
                                 tmpPos = 0
                                 lenTmpCode = len(tmpCode)
-                                while (tmpPos < lenTmpCode and and self.sysVar.printStatut == -1):
+                                while (tmpPos < lenTmpCode and self.sysVar.printStatut == -1):
                                     if (tmpCode[tmpPos][0] == "Z"):
                                         #print("found z")
                                         self.sysVar.printPosLayer.append(n)
@@ -119,7 +119,7 @@ class Control (Thread):
                         n += 1
                         tmpTxt = self.folder.readline()
                         pass
-                    if (and self.sysVar.printStatut == -1):
+                    if (self.sysVar.printStatut == -1):
                         self.sysVar.printPosLayer.append(n)
                         print("end init print 1")
                         self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
