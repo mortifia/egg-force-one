@@ -49,6 +49,11 @@ td
 	padding: 				4px;
 }
 
+tr
+{
+	-webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+}
 tr:hover
 {
 	background-color: 		rgb(50, 60, 74);
@@ -105,6 +110,9 @@ progress
 	background-color: 		rgb(38, 40, 44);
 	color: 					rgb(202,96,51);
 	-webkit-appearance: 	none;
+
+	-webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
 }
 
 progress::-webkit-progress-bar
@@ -131,6 +139,32 @@ progress:not([value])::-webkit-progress-bar
 progress:not([value])::-moz-progress-bar
 {
 	background-color: 		rgba(0,0,0,0);
+}
+
+button
+{
+	background-color: 		rgb(38, 40, 44);
+	color: 					rgb(132, 134, 138);
+	margin: 				4px;
+	border: 				0px;
+	padding: 				3px;
+	padding-left: 			8px;
+	padding-right: 			8px;
+	font-size: 				14px;
+	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
+
+	-webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+}
+
+button:hover
+{
+	background-color: 		rgb(50, 60, 74);
+}
+
+button:
+{
+	background-color:  		rgb(202,96,51);
 }
 
 .txtInput

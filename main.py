@@ -9,17 +9,12 @@ Created on Mon Sep 25 16:24:39 2017
 import os
 import time
 
-# profileur
-import cProfile
-
 #import egg force one
 import sysVar
 
 import usb
 import control
 import webUser
-
-import utils
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
