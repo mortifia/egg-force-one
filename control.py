@@ -35,10 +35,45 @@ class OnStart (Thread):
         pass
     pass
 
+class rafrechisementFichierPrint(Thread):
+    def __init__(self,sysVar):
+        self.sysVar = sysVar
+        Thread.__init__(self)
+        pass
+    
+    def run(self):
+        hz = 1/2
+        while (self.sysVar.printLoad == 1):
+            time.sleep(hz)
+            try:
+                self.sysVar.threadWebUser.updatePrint()
+                pass
+            except:
+                print("bug dans updatePrint")
+                pass
+            pass
+        pass
+    pass
+
+
 class analyseFichierPrint(Thread):
     def __init__(self,sysVar):
         self.sysVar = sysVar
         Thread.__init__(self)
+        pass
+    
+    def updateThread(self):
+        threadTime = rafrechisementFichierPrint(self.sysVar)
+        threadTime.setDaemon(True)
+        threadTime.start()
+        pass
+    
+    def initialisation(self):
+        self.folder = open(self.sysVar.printSrc, "r", encoding="utf-8")
+        self.tmpTxt = self.folder.readline()
+        self.nbLigne = 1
+        
+        self.sysVar.printLoad = 1
         pass
     
     def analyse(self, tmpTxt):
@@ -57,14 +92,6 @@ class analyseFichierPrint(Thread):
                     pass
                 pass
             pass
-        pass
-    
-    def initialisation(self):
-        self.folder = open(self.sysVar.printSrc, "r", encoding="utf-8")
-        self.tmpTxt = self.folder.readline()
-        self.nbLigne = 1
-        
-        self.sysVar.printLoad = 1
         pass
     
     def lectureFicher(self):
