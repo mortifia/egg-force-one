@@ -98,7 +98,7 @@ class analyseFichierPrint(Thread):
                 while (tmpPos < lenTmpCode):
                     if (tmpCode[tmpPos][0] == "Z"):
                         #print("found z")
-                        self.sysVar.printPosLayer.append(self.nbLigne)
+                        self.sysVar.printPosLayer.append(self.sysVar.printNbLine)
                         self.sysVar.printNbLayer += 1
                         pass
                     tmpPos += 1
@@ -111,7 +111,7 @@ class analyseFichierPrint(Thread):
         while (self.tmpTxt and self.sysVar.printStatut != -2):
             self.analyse(self.tmpTxt)
 
-            self.nbLigne += 1
+            self.sysVar.printNbLine += 1
             self.tmpTxt = self.folder.readline()
             pass
         pass
@@ -119,8 +119,8 @@ class analyseFichierPrint(Thread):
     def fin(self):
         self.folder.close()
         if (self.sysVar.printStatut != -2):
-            self.sysVar.printPosLayer.append(self.nbLigne)
-            self.sysVar.printNbLine = self.nbLigne
+            self.sysVar.printPosLayer.append(self.sysVar.printNbLine)
+            self.sysVar.printNbLine
             pass
         self.sysVar.printLoad = 0
         print("###FIN Experimental###")
