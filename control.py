@@ -185,7 +185,7 @@ class Control (Thread):
                     self.folder = open(self.tmpSrc, "r", encoding="utf-8")
                     pass
                 except:
-                    print("imposible d'acederau fichier")
+                    print("imposible d'aceder au fichier")
                     pass
                 else:
                     if (self.sysVar.printStatut == 5):
