@@ -200,6 +200,8 @@ class WebUser(Thread):
             and (self.sysVar.printStatut == 2 or self.sysVar.printStatut == 4
                  or self.sysVar.printStatut == 0)):
                 pass
+            elif (data == 4 and self.sysVar.printStatut == 0):
+                pass
             else:
                 self.sysVar.printStatut = int(data)
                 self.statutImpression()
