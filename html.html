@@ -217,30 +217,36 @@
 				$('#emplacementFichier').text(data);
 			})
 			socket.on('statutImpression', function (data) {
+				data = int(data);
 				switch (data) {
+					case -1:
+						// initialisation de l'impression
+						statutPrintData = data;
+						$('#statutImpression').text("analyse en cour");
+					break;
 					case 0:
 						// aucune impression
-						statutPrintData = data
+						statutPrintData = data;
 						$('#statutImpression').text("Aucune impression");
 					break;
 					case 1:
 						// impression en cour
-						statutPrintData = data
+						statutPrintData = data;
 						$('#statutImpression').text("Impression en cour");
 					break;
 					case 2:
 						// impression terminer
-						statutPrintData = data
+						statutPrintData = data;
 						$('#statutImpression').text("Impression terminer");
 					break;
 					case 3:
 						// impression en pause
-						statutPrintData = data
+						statutPrintData = data;
 						$('#statutImpression').text("Impression en pause");
 					break;
 					case 4:
 						// impression areter
-						statutPrintData = data
+						statutPrintData = data;
 						$('#statutImpression').text("Impression areter");
 					break;
 					default:
