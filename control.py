@@ -48,6 +48,8 @@ class analyseFichierPrint(Thread):
         self.folder = open(self.sysVar.printSrc, "r", encoding="utf-8")
         self.tmpTxt = self.folder.readline()
         self.nbLigne = 1
+        
+        self.sysVar.printLoad = 1
         pass
     
     def lectureFicher(self):
@@ -60,6 +62,7 @@ class analyseFichierPrint(Thread):
     def fin(self):
         if (self.sysVar.printStatut != -2):
             pass
+        self.sysVar.printLoad = 0
         pass
     
     def run(self):
@@ -73,13 +76,11 @@ class analyseFichierPrint(Thread):
 class Control (Thread):
     def __init__(self, sysVar):
         self.sysVar = sysVar
-        self.com = False
-        self.ok = False
-        self.folder = False
         self.countOut = 0
         self.countIn = 0
         Thread.__init__(self)
         pass
+    
     def msgTerminal(self, msg=""):
         """
         envoi communication terminal

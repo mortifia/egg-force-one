@@ -26,6 +26,7 @@ printStatut     = 0                 # 0 = aucune impression
                                     # 2 = impression terminer
 printSafe       = RLock()           # permet deviter le lancement de plusieur
                                     # impression en meme temp
+printLoad       = 0                 # analyse du ficher en cour
 printSrc        = ""                # emplacement du fichier
 printNbLine     = 0                 # nombre de ligne dans le fichier
 printNbLayer    = 0                 # nombre de couches
