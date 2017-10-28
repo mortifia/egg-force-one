@@ -68,7 +68,7 @@ class Control (Thread):
 
     def initPrint(self, src):
         self.sysVar.threadControl.msgTerminal("start init print :" + src)
-        self.sysVar.printStatut = -1
+        self.sysVar.printStatut = 5
         with self.sysVar.printSafe:
             try:
                 self.sysVar.threadWebUser.statutImpression()
@@ -99,7 +99,7 @@ class Control (Thread):
                     self.sysVar.printNbLayer = 0
                     n = 1
                     tmpTxt = tmpTxt = self.folder.readline()
-                    while (tmpTxt and self.sysVar.printStatut == -1):
+                    while (tmpTxt and self.sysVar.printStatut == 5):
                         #print(n)
                         if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
                             if (tmpTxt[1] != "4"):
@@ -119,7 +119,7 @@ class Control (Thread):
                         n += 1
                         tmpTxt = self.folder.readline()
                         pass
-                    if (self.sysVar.printStatut == -1):
+                    if (self.sysVar.printStatut == 5):
                         self.sysVar.printPosLayer.append(n)
                         print("end init print 1")
                         self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
