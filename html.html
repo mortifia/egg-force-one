@@ -44,15 +44,15 @@
 							</tr>
 							<tr>
 								<td class="td1">Couche actuel</td>
-								<td class="td2"><span id="">###################################</span></td>
+								<td class="td2"><span id="layerPrint">###################################</span></td>
 							</tr>
 							<tr>
 								<td class="td1">Nombre de lignes</td>
-								<td class="td2"><span id="">###################################</span></td>
+								<td class="td2"><span id="nbLinesPrint">###################################</span></td>
 							</tr>
 							<tr>
 								<td class="td1">Nombre de couches</td>
-								<td class="td2"><span id="">###################################</span></td>
+								<td class="td2"><span id="nbLayerPrint">###################################</span></td>
 							</tr>
 						</table>
 					</dir>
@@ -161,6 +161,21 @@
 					$('#inprimanteConnecterUsb').text("Non connecté");
 				}
 			})
+
+			//
+			socket.on('layerPrint', function(data) {
+				$('#layerPrint').text(data);
+			});
+
+			//
+			socket.on('nbLinesPrint', function(data) {
+				$('#nbLinesPrint').text(data);
+			});
+
+			//
+			socket.on('nbLayerPrint', function(data) {
+				$('#nbLayerPrint').text(data);
+			});
 
 			// dit quel fichier il faut imprimé
 			$("#printSrc").keypress(function(e) {
