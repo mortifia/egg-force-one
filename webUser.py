@@ -166,16 +166,14 @@ class WebUser(Thread):
             if (self.sysVar.threadControl.isAlive() == True):
                 self.sysVar.threadControl.msgTerminal("utilisateur connecté")
                 self.inprimanteConnecterUsb()
-                if (self.sysVar.printStatut != 0):
-                    self.statutImpression()
-                    self.srcImpression()
-                    self.posEndPrint()
-                    self.posPrint()
-                    self.layer()
-                    self.layerPrint()
-                    self.nbLinesPrint()
-                    self.nbLayerPrint()
-                    pass
+                self.statutImpression()
+                self.srcImpression()
+                self.posEndPrint()
+                self.posPrint()
+                self.layer()
+                self.layerPrint()
+                self.nbLinesPrint()
+                self.nbLayerPrint()
                 pass
             pass
 
