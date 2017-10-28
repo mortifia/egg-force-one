@@ -106,7 +106,7 @@ class Control (Thread):
                                 tmpCode = tmpTxt.split(" ")
                                 tmpPos = 0
                                 lenTmpCode = len(tmpCode)
-                                while (tmpPos < lenTmpCode and self.sysVar.printStatut == -1):
+                                while (tmpPos < lenTmpCode):
                                     if (tmpCode[tmpPos][0] == "Z"):
                                         #print("found z")
                                         self.sysVar.printPosLayer.append(n)
