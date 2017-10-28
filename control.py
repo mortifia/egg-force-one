@@ -41,7 +41,22 @@ class analyseFichierPrint(Thread):
         Thread.__init__(self)
         pass
     
-    def analyse(self):
+    def analyse(self, tmpTxt):
+        if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
+            if (tmpTxt[1] != "4"):
+                tmpCode = tmpTxt.split(" ")
+                tmpPos = 0
+                lenTmpCode = len(tmpCode)
+                while (tmpPos < lenTmpCode):
+                    if (tmpCode[tmpPos][0] == "Z"):
+                        #print("found z")
+                        self.sysVar.printPosLayer.append(self.nbLigne)
+                        self.sysVar.printNbLayer += 1
+                        pass
+                    tmpPos += 1
+                    pass
+                pass
+            pass
         pass
     
     def initialisation(self):
@@ -54,13 +69,18 @@ class analyseFichierPrint(Thread):
     
     def lectureFicher(self):
         while (self.tmpTxt and self.sysVar.printStatut != -2):
-            self.tmpTxt = self.folder.readline()
+            self.analyse(self.tmpTxt)
+
             self.nbLigne += 1
+            self.tmpTxt = self.folder.readline()
             pass
         pass
     
     def fin(self):
+        self.folder.close()
         if (self.sysVar.printStatut != -2):
+            self.sysVar.printPosLayer.append(self.nbLigne)
+            self.sysVar.printNbLine = self.nbLigne
             pass
         self.sysVar.printLoad = 0
         pass
@@ -175,12 +195,12 @@ class Control (Thread):
                         self.sysVar.printOldLayer = 0
                         self.sysVar.printStatut = 1
                         self.sysVar.printSrc = src
-                        self.sysVar.threadWebUser.statutImpression()
-                        self.sysVar.threadWebUser.srcImpression()
-                        self.sysVar.threadWebUser.layerPrint()
-                        self.sysVar.threadWebUser.nbLinesPrint()
-                        self.sysVar.threadWebUser.nbLayerPrint()
                         try:
+                            self.sysVar.threadWebUser.statutImpression()
+                            self.sysVar.threadWebUser.srcImpression()
+                            self.sysVar.threadWebUser.layerPrint()
+                            self.sysVar.threadWebUser.nbLinesPrint()
+                            self.sysVar.threadWebUser.nbLayerPrint()
                             self.sysVar.threadWebUser.posEndPrint()
                             pass
                         except:
