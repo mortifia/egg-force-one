@@ -192,7 +192,7 @@
 				document.getElementById("progressLayer").value = data - oldPosLayer;
 				document.getElementById("progressPrint").value = data;
 			});
-			socket.on('endLayer', function (data) {
+			socket.on('progressLayer', function (data) {
 				allNb = data.split(" ");
 				document.getElementById("progressLayer").max = allNb[0] - allNb[1];
 				oldPosLayer = allNb[1];
