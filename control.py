@@ -110,6 +110,7 @@ class analyseFichierPrint(Thread):
             self.sysVar.printNbLine = self.nbLigne
             pass
         self.sysVar.printLoad = 0
+        print("###FIN Experimental###")
         pass
     
     def run(self):
