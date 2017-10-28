@@ -97,8 +97,8 @@ progress
 	color: 					rgb(202,96,51);
 	-webkit-appearance: 	none;
 
-	-webkit-transition-duration: 0.1s; /* Safari */
-    transition-duration: 0.1s;
+	-webkit-transition-duration: 0.02s; /* Safari */
+    transition-duration: 0.02s;
 }
 
 progress::-webkit-progress-bar
