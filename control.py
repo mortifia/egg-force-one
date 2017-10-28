@@ -69,7 +69,13 @@ class analyseFichierPrint(Thread):
         pass
     
     def initialisation(self):
-        self.folder = open(self.sysVar.printSrc, "r", encoding="utf-8")
+        if (self.sysVar.printSrc[0] == "/" or self.sysVar.printSrc[0] == "\\"):
+                self.src = self.sysVar.printSrc
+                pass
+            else:
+                self.src = self.sysVar.FolderPrint + self.sysVar.printSrc
+                pass
+        self.folder = open(self.src, "r", encoding="utf-8")
         self.tmpTxt = self.folder.readline()
         self.nbLigne = 1
         
