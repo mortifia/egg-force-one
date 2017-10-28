@@ -60,8 +60,14 @@ class WebUser(Thread):
 
     def layer(self):
         try:
-            self.socketio.emit('progressLayer', str(self.sysVar.printPosLayer[self.sysVar.printLayer]) +
-                               " " + str(self.sysVar.printOldLayer), broadcast=True)
+            if (len(self.sysVar.printPosLayer) > 0):
+                self.socketio.emit('progressLayer', str(self.sysVar.printPosLayer[self.sysVar.printLayer]) +
+                                   " " + str(self.sysVar.printOldLayer), broadcast=True)
+                pass
+            else:
+                self.socketio.emit('progressLayer', "0" + " " + "0", broadcast=True)
+                pass
+            
             pass
         except:
             print("bug to send end layer")
