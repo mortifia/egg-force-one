@@ -103,9 +103,10 @@ progress
 	padding: 				0px;
 	border:					0px;
 	background-color: 		rgb(38, 40, 44);
+	color: 					rgb(202,133,21);
 }
 
-progress::-webkit-progress-bar
+progress::-webkit-progress-bar, progress:::-webkit-progress-value
 {
 	color: 					rgb(202,133,21);
 	background-color: 		rgba(0,0,0,0);
