@@ -145,6 +145,12 @@ class Control (Thread):
             print("bug to send online msg")
             pass
         pass
+    
+    def analyseFichier(self):
+        threadAnalyseFichierPrint = analyseFichierPrint(self.sysVar)
+        threadAnalyseFichierPrint.setDaemon(True)
+        threadAnalyseFichierPrint.start()
+        pass
 
     def initPrint(self, src):
         self.sysVar.threadControl.msgTerminal("start init print :" + src)
@@ -179,56 +185,18 @@ class Control (Thread):
                     self.folder = open(self.tmpSrc, "r", encoding="utf-8")
                     pass
                 except:
-                    self.sysVar.threadControl.msgTerminal("init print : bug open folder")
+                    print("imposible d'acederau fichier")
                     pass
                 else:
-                    self.sysVar.posLayer = []
-                    self.sysVar.printNbLayer = 0
-                    n = 1
-                    tmpTxt = self.folder.readline()
-                    while (tmpTxt and self.sysVar.printStatut == 5):
-                        #print(n)
-                        if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
-                            if (tmpTxt[1] != "4"):
-                                tmpCode = tmpTxt.split(" ")
-                                tmpPos = 0
-                                lenTmpCode = len(tmpCode)
-                                while (tmpPos < lenTmpCode):
-                                    if (tmpCode[tmpPos][0] == "Z"):
-                                        #print("found z")
-                                        self.sysVar.printPosLayer.append(n)
-                                        self.sysVar.printNbLayer += 1
-                                        pass
-                                    tmpPos += 1
-                                    pass
-                                pass
-                            pass
-                        n += 1
-                        tmpTxt = self.folder.readline()
-                        pass
                     if (self.sysVar.printStatut == 5):
-                        self.sysVar.printPosLayer.append(n)
-                        print("end init print 1")
-                        self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
-                        self.sysVar.printNbLine = n
-                        self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
-                        self.sysVar.threadControl.msgTerminal("print nb layer : " + str(self.sysVar.printNbLayer))
-                        self.folder.close()
-                        self.folder = open(self.tmpSrc, "r", encoding="utf-8")
                         self.countIn = 0
                         self.countOut = 0
-                        self.sysVar.printPosLine = 0
-                        self.sysVar.printLayer = 0
-                        self.sysVar.printOldLayer = 0
-                        self.sysVar.printStatut = 1
                         self.sysVar.printSrc = src
+                        self.sysVar.printStatut = 1
+                        self.analyseFichier()
                         try:
                             self.sysVar.threadWebUser.statutImpression()
                             self.sysVar.threadWebUser.srcImpression()
-                            self.sysVar.threadWebUser.layerPrint()
-                            self.sysVar.threadWebUser.nbLinesPrint()
-                            self.sysVar.threadWebUser.nbLayerPrint()
-                            self.sysVar.threadWebUser.posEndPrint()
                             pass
                         except:
                             print("bug to update start print")
@@ -239,7 +207,7 @@ class Control (Thread):
                 pass
             pass
         pass
-
+    
     def onPrint(self):
         if (self.sysVar.printStatut == 1):
             if (self.countIn == self.countOut):
