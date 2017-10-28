@@ -127,6 +127,9 @@ class Control (Thread):
                 self.sysVar.printSrc = src
                 self.sysVar.threadWebUser.statutImpression()
                 self.sysVar.threadWebUser.srcImpression()
+                self.sysVar.threadWebUser.layerPrint()
+                self.sysVar.threadWebUser.nbLinesPrint()
+                self.sysVar.threadWebUser.nbLayerPrint()
                 try:
                     self.sysVar.threadWebUser.posEndPrint()
                     pass
@@ -166,6 +169,7 @@ class Control (Thread):
                 if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
                     self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
                     self.sysVar.printLayer += 1
+                    self.sysVar.threadWebUser.layerPrint()
                     try:
                         self.sysVar.threadWebUser.layer()
                         pass
