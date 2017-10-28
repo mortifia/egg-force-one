@@ -76,6 +76,17 @@ class WebUser(Thread):
             print("bug to send end pos print")
             pass
         pass
+    
+    def updatePrint(self):
+        self.statutImpression()
+        self.srcImpression()
+        self.posEndPrint()
+        self.posPrint()
+        self.layer()
+        self.layerPrint()
+        self.nbLinesPrint()
+        self.nbLayerPrint()
+        pass
 
     def inprimanteConnecterUsb(self):
         self.sysVar.threadControl.msgTerminal("usbConnect : " + str(self.sysVar.usbConnect))

@@ -72,7 +72,6 @@ class analyseFichierPrint(Thread):
         pass
 
 ###############################################################################
-
 class Control (Thread):
     def __init__(self, sysVar):
         self.sysVar = sysVar
@@ -102,10 +101,17 @@ class Control (Thread):
 
     def initPrint(self, src):
         self.sysVar.threadControl.msgTerminal("start init print :" + src)
-        self.sysVar.printStatut = 5
+        self.sysVar.printStatut     = 5
+        self.sysVar.printSrc        = ""
+        self.sysVar.printNbLine     = 0
+        self.sysVar.printNbLayer    = 0
+        self.sysVar.printLayer      = 0
+        self.sysVar.printOldLayer   = 0
+        self.sysVar.printPosLayer   = []
+        self.sysVar.printPosLine    = 0
         with self.sysVar.printSafe:
             try:
-                self.sysVar.threadWebUser.statutImpression()
+                self.sysVar.threadWebUser.updatePrint()
                 pass
             except:
                 print("bug update statut web")
