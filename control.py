@@ -121,7 +121,7 @@ class analyseFichierPrint(Thread):
     
     def run(self):
         self.initialisation()
-        self.lectureFichier()
+        self.lectureFicher()
         self.fin()
         pass
 
