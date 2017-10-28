@@ -62,10 +62,11 @@ class WebUser(Thread):
         try:
             if (len(self.sysVar.printPosLayer) > 0):
                 self.socketio.emit('progressLayer', str(self.sysVar.printPosLayer[self.sysVar.printLayer]) +
-                                   " " + str(self.sysVar.printOldLayer), broadcast=True)
+                                   " " + str(self.sysVar.printOldLayer) + " " 
+                                   + str(self.sysVar.printPosLine), broadcast=True)
                 pass
             else:
-                self.socketio.emit('progressLayer', "0" + " " + "0", broadcast=True)
+                self.socketio.emit('progressLayer', "0" + " " + "0" + " " + "0", broadcast=True)
                 pass
             
             pass

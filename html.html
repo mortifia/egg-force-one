@@ -221,7 +221,7 @@
 			});
 			socket.on('progressLayer', function (data) {
 				allNb = data.split(" ");
-				document.getElementById("progressLayer").value = 0;
+				document.getElementById("progressLayer").value = allNb[2] - allNb[1];
 				document.getElementById("progressLayer").max = allNb[0] - allNb[1];
 				oldPosLayer = allNb[1];
 			});
