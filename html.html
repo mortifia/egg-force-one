@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -194,6 +194,7 @@
 			});
 			socket.on('progressLayer', function (data) {
 				allNb = data.split(" ");
+				document.getElementById("progressLayer").value = 0;
 				document.getElementById("progressLayer").max = allNb[0] - allNb[1];
 				oldPosLayer = allNb[1];
 			});
