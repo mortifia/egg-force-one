@@ -68,75 +68,87 @@ class Control (Thread):
 
     def initPrint(self, src):
         self.sysVar.threadControl.msgTerminal("start init print :" + src)
-        isConnect = 0
-        if (self.sysVar.connectType == "USB"):
-            isConnect = 1
-            pass
-        if (src[0] == "/" or src[0] == "\\"):
-            self.tmpSrc = src
-            pass
-        else:
-            self.tmpSrc = self.sysVar.FolderPrint + src
-            pass
-        if (isConnect == 1):
+        self.sysVar.printStatut = -1
+        with self.sysVar.printSafe
             try:
-                self.folder = open(self.tmpSrc, "r", encoding="utf-8")
+                self.sysVar.threadWebUser.statutImpression()
                 pass
             except:
-                self.sysVar.threadControl.msgTerminal("init print : bug open folder")
+                print("bug update statut web")
+                self.sysVar.printStatut = 0
+                pass
+            isConnect = 0
+            if (self.sysVar.connectType == "USB"):
+                isConnect = 1
+                pass
+            if (src[0] == "/" or src[0] == "\\"):
+                self.tmpSrc = src
                 pass
             else:
-                self.sysVar.posLayer = []
-                self.sysVar.printNbLayer = 0
-                n = 1
-                tmpTxt = tmpTxt = self.folder.readline()
-                while (tmpTxt):
-                    #print(n)
-                    if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
-                        if (tmpTxt[1] != "4"):
-                            tmpCode = tmpTxt.split(" ")
-                            tmpPos = 0
-                            lenTmpCode = len(tmpCode)
-                            while (tmpPos < lenTmpCode):
-                                if (tmpCode[tmpPos][0] == "Z"):
-                                    #print("found z")
-                                    self.sysVar.printPosLayer.append(n)
-                                    self.sysVar.printNbLayer += 1
-                                    pass
-                                tmpPos += 1
-                                pass
-                            pass
-                        pass
-                    n += 1
-                    tmpTxt = self.folder.readline()
-                    pass
-                self.sysVar.printPosLayer.append(n)
-                print("end init print 1")
-                self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
-                self.sysVar.printNbLine = n
-                self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
-                self.sysVar.threadControl.msgTerminal("print nb layer : " + str(self.sysVar.printNbLayer))
-                self.folder.close()
-                self.folder = open(self.tmpSrc, "r", encoding="utf-8")
-                self.countIn = 0
-                self.countOut = 0
-                self.sysVar.printPosLine = 0
-                self.sysVar.printLayer = 0
-                self.sysVar.printOldLayer = 0
-                self.sysVar.printStatut = 1
-                self.sysVar.printSrc = src
-                self.sysVar.threadWebUser.statutImpression()
-                self.sysVar.threadWebUser.srcImpression()
-                self.sysVar.threadWebUser.layerPrint()
-                self.sysVar.threadWebUser.nbLinesPrint()
-                self.sysVar.threadWebUser.nbLayerPrint()
+                self.tmpSrc = self.sysVar.FolderPrint + src
+                pass
+            if (isConnect == 1):
                 try:
-                    self.sysVar.threadWebUser.posEndPrint()
+                    self.folder = open(self.tmpSrc, "r", encoding="utf-8")
                     pass
                 except:
-                    print("bug to update start print")
+                    self.sysVar.threadControl.msgTerminal("init print : bug open folder")
                     pass
-                print("end init print 2")
+                else:
+                    self.sysVar.posLayer = []
+                    self.sysVar.printNbLayer = 0
+                    n = 1
+                    tmpTxt = tmpTxt = self.folder.readline()
+                    while (tmpTxt and self.sysVar.printStatut == -1)
+                        #print(n)
+                        if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
+                            if (tmpTxt[1] != "4"):
+                                tmpCode = tmpTxt.split(" ")
+                                tmpPos = 0
+                                lenTmpCode = len(tmpCode)
+                                while (tmpPos < lenTmpCode and and self.sysVar.printStatut == -1):
+                                    if (tmpCode[tmpPos][0] == "Z"):
+                                        #print("found z")
+                                        self.sysVar.printPosLayer.append(n)
+                                        self.sysVar.printNbLayer += 1
+                                        pass
+                                    tmpPos += 1
+                                    pass
+                                pass
+                            pass
+                        n += 1
+                        tmpTxt = self.folder.readline()
+                        pass
+                    if (and self.sysVar.printStatut == -1):
+                        self.sysVar.printPosLayer.append(n)
+                        print("end init print 1")
+                        self.sysVar.threadControl.msgTerminal("#####test :"+ str(self.folder.readline()))
+                        self.sysVar.printNbLine = n
+                        self.sysVar.threadControl.msgTerminal("print nb ligne : " + str(self.sysVar.printNbLine))
+                        self.sysVar.threadControl.msgTerminal("print nb layer : " + str(self.sysVar.printNbLayer))
+                        self.folder.close()
+                        self.folder = open(self.tmpSrc, "r", encoding="utf-8")
+                        self.countIn = 0
+                        self.countOut = 0
+                        self.sysVar.printPosLine = 0
+                        self.sysVar.printLayer = 0
+                        self.sysVar.printOldLayer = 0
+                        self.sysVar.printStatut = 1
+                        self.sysVar.printSrc = src
+                        self.sysVar.threadWebUser.statutImpression()
+                        self.sysVar.threadWebUser.srcImpression()
+                        self.sysVar.threadWebUser.layerPrint()
+                        self.sysVar.threadWebUser.nbLinesPrint()
+                        self.sysVar.threadWebUser.nbLayerPrint()
+                        try:
+                            self.sysVar.threadWebUser.posEndPrint()
+                            pass
+                        except:
+                            print("bug to update start print")
+                            pass
+                        print("end init print 2")
+                        pass
+                    pass
                 pass
             pass
         pass

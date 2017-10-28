@@ -188,6 +188,9 @@ class WebUser(Thread):
         @socketio.on('printSrc')
         def printSrc(data):
             try:
+                if (self.sysVar.printStatut == -1):
+                    self.sysVar.printStatut == -2
+                    pass
                 self.sysVar.threadControl.initPrint(data)
                 pass
             except:
