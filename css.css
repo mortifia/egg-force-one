@@ -112,7 +112,7 @@ progress
 
 ::-moz-progress-bar
 {
-	background-color: 		rgb(200,100,21);
+	background-color: 		rgb(200,100,0);
 }
 
 .txtInput
