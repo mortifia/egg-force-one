@@ -100,11 +100,9 @@ table
 progress
 {
 	width: 					100%;
-	color: 					rgb(200,200,0);
-}
-progress
-{
-
+	padding: 				3px;
+	background-color: 		rgb(30, 32, 36);
+	color:  				rgb(200,200,0);
 }
 
 .txtInput
