@@ -42,7 +42,7 @@ class rafrechisementFichierPrint(Thread):
         pass
     
     def run(self):
-        hz = 1/2
+        hz = 1/4
         while (self.sysVar.printLoad == 1):
             time.sleep(hz)
             try:
