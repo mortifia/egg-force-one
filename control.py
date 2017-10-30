@@ -40,7 +40,7 @@ class rafrechisementFichierPrint(Thread):
         self.sysVar = sysVar
         Thread.__init__(self)
         pass
-    
+
     def run(self):
         hz = 1/4
         while (self.sysVar.printLoad == 1):
@@ -67,13 +67,13 @@ class analyseFichierPrint(Thread):
         self.sysVar = sysVar
         Thread.__init__(self)
         pass
-    
+
     def updateThread(self):
         threadTime = rafrechisementFichierPrint(self.sysVar)
         threadTime.setDaemon(True)
         threadTime.start()
         pass
-    
+
     def initialisation(self):
         if (self.sysVar.printSrc[0] == "/" or self.sysVar.printSrc[0] == "\\"):
             self.src = self.sysVar.printSrc
@@ -84,11 +84,11 @@ class analyseFichierPrint(Thread):
         self.folder = open(self.src, "r", encoding="utf-8")
         self.tmpTxt = self.folder.readline()
         self.nbLigne = 1
-        
+
         self.sysVar.printLoad = 1
         self.updateThread()
         pass
-    
+
     def analyse(self, tmpTxt):
         if (tmpTxt[0] == "G" and tmpTxt[2] == " "):
             if (tmpTxt[1] != "4"):
@@ -106,7 +106,7 @@ class analyseFichierPrint(Thread):
                 pass
             pass
         pass
-    
+
     def lectureFicher(self):
         while (self.tmpTxt and self.sysVar.printStatut != -2):
             self.analyse(self.tmpTxt)
@@ -115,7 +115,7 @@ class analyseFichierPrint(Thread):
             self.tmpTxt = self.folder.readline()
             pass
         pass
-    
+
     def fin(self):
         self.folder.close()
         if (self.sysVar.printStatut != -2):
@@ -125,7 +125,7 @@ class analyseFichierPrint(Thread):
         self.sysVar.printLoad = 0
         print("###FIN Experimental###")
         pass
-    
+
     def run(self):
         self.initialisation()
         self.lectureFicher()
@@ -140,7 +140,7 @@ class Control (Thread):
         self.countIn = 0
         Thread.__init__(self)
         pass
-    
+
     def msgTerminal(self, msg=""):
         """
         envoi communication terminal
@@ -159,7 +159,7 @@ class Control (Thread):
             print("bug to send online msg")
             pass
         pass
-    
+
     def analyseFichier(self):
         threadAnalyseFichierPrint = analyseFichierPrint(self.sysVar)
         threadAnalyseFichierPrint.setDaemon(True)
@@ -231,7 +231,7 @@ class Control (Thread):
                 pass
             pass
         pass
-    
+
     def onPrint(self):
         if (self.sysVar.printStatut == 1):
             if (self.countIn == self.countOut):
@@ -303,7 +303,7 @@ class Control (Thread):
             if (len(self.sysVar.gcodeInput) != 0):
                 if (len(self.sysVar.gcodeInput[0]) > 1):
                     if (self.sysVar.gcodeInput[0][0] == 'T' or self.sysVar.gcodeInput[0][1] == 'T'):
-                        #self.msgTerminal("in : " + self.sysVar.gcodeInput[0])
+                        self.msgTerminal("in : " + self.sysVar.gcodeInput[0])
                         self.sysVar.temp = [self.sysVar.gcodeInput[0]]
                         pass
                     elif (self.sysVar.gcodeInput[0] == "start"):
