@@ -221,7 +221,8 @@ tr:hover .td2 .txtInput
 	left: 					0px;
 	top:  					0px;
 	bottom:  				0px;
-	width: 					260px;
+	/*width: 					260px;*/
+	width: 					0px;
 	overflow: 				auto;
 }
 
@@ -235,7 +236,8 @@ tr:hover .td2 .txtInput
 	position: 				absolute;
 	top:					0px;
 	bottom:  				0px;
-	left:  					260px;
+	/*left:  					260px;*/
+	left:  					0px;
 	right: 					0px;
 	overflow: 				auto;
 	color: 					rgb(150, 154, 160);
