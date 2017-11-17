@@ -263,7 +263,7 @@ class Control (Thread):
                         print("PPPPPPPPP")
                         if (tmp[2] == "2"):
                             print("QQQQQQQQQQQQ")
-                            self.countOut += 1
+                            self.countIn += 1
                             pass
                         pass
                     pass
