@@ -257,6 +257,13 @@ class Control (Thread):
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
+                if (tmp[0] == "M"):
+                    if (tmp[1] == "8"):
+                        if (tmp[2] == "2"):
+                            self.countOut += 1
+                            pass
+                        pass
+                    pass
                 if (len(self.sysVar.printPosLayer) > 2):
                     if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
                         self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]

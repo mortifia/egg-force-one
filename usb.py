@@ -23,7 +23,7 @@ class Usb(Thread):
         self.tempTxt = b''
         Thread.__init__(self)
         pass
-    
+
     def bugCom(self):
         self.sysVar.usbConnect.close()
         self.sysVar.usbConnect = False
@@ -109,7 +109,7 @@ class Usb(Thread):
                     self.sysVar.usbConnect = True
                     self.sysVar.usbPort = port.device
                     self.sysVar.threadControl.msgTerminal("USB connecté")
-                    self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur 
+                    self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur
                     try:
                         self.sysVar.threadControl.startGcode() #lance le start gcode
                         pass
@@ -141,7 +141,7 @@ class Usb(Thread):
                 pass
             pass
         pass
-    
+
     def update(self):
         """
         permet la connection, la reception de donner, et l'envoi d'information
@@ -159,7 +159,7 @@ class Usb(Thread):
             except:
                 self.sysVar.usbConnect = False
                 self.sysVar.usbSerial.close()
-                self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur 
+                self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur
                 pass
             pass
         pass
