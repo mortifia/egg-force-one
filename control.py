@@ -258,8 +258,11 @@ class Control (Thread):
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
                 if (tmp[0] == "M"):
+                    print("OOOOOOOOOOOOOOOOOOOOOOOO")
                     if (tmp[1] == "8"):
+                        print("PPPPPPPPP")
                         if (tmp[2] == "2"):
+                            print("QQQQQQQQQQQQ")
                             self.countOut += 1
                             pass
                         pass
