@@ -238,6 +238,28 @@ class Control (Thread):
                 tmp = self.folder.readline()
                 self.sysVar.printPosLine += 1
                 try:
+                    tmp2 = tmp.split()
+                    lentmp2 = len(tmp2)
+                    a = 0
+                    end = 0
+                    while (lentmp2 > a and end == 0):
+                        if (tmp2[a][0] == ";"):
+                            end = 1
+                            b = 0
+                            tmp = ""
+                            while (b < a):
+                                tmp += tmp2[b]
+                                tmp += " "
+                                b += 1
+                                pass
+                            tmp += "\n"
+                            pass
+                        a += 1
+                        pass
+                    pass
+                except:
+                    pass
+                try:
                     self.sysVar.threadWebUser.posPrint();
                     pass
                 except:
@@ -257,16 +279,16 @@ class Control (Thread):
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
-                if (tmp[0] == "M"):
-                    print("OOOOOOOOOOOOOOOOOOOOOOOO")
-                    if (tmp[1] == "8"):
-                        print("PPPPPPPPP")
-                        if (tmp[2] == "2"):
-                            print("QQQQQQQQQQQQ")
-                            self.countIn += 1
-                            pass
-                        pass
-                    pass
+                #if (tmp[0] == "M"):
+                #    print("OOOOOOOOOOOOOOOOOOOOOOOO")
+                #    if (tmp[1] == "8"):
+                #        print("PPPPPPPPP")
+                #        if (tmp[2] == "2"):
+                #            print("QQQQQQQQQQQQ")
+                #            self.countIn += 1
+                #            pass
+                #        pass
+                #    pass
                 if (len(self.sysVar.printPosLayer) > 2):
                     if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
                         self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
