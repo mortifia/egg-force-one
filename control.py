@@ -84,7 +84,6 @@ class analyseFichierPrint(Thread):
         self.folder = open(self.src, "r", encoding="utf-8")
         self.tmpTxt = self.folder.readline()
         self.nbLigne = 1
-
         self.sysVar.printLoad = 1
         self.updateThread()
         pass
@@ -110,7 +109,6 @@ class analyseFichierPrint(Thread):
     def lectureFicher(self):
         while (self.tmpTxt and self.sysVar.printStatut != -2):
             self.analyse(self.tmpTxt)
-
             self.sysVar.printNbLine += 1
             self.tmpTxt = self.folder.readline()
             pass
@@ -131,6 +129,7 @@ class analyseFichierPrint(Thread):
         self.lectureFicher()
         self.fin()
         pass
+    pass
 
 ###############################################################################
 class Control (Thread):
@@ -279,17 +278,7 @@ class Control (Thread):
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
-                #if (tmp[0] == "M"):
-                #    print("OOOOOOOOOOOOOOOOOOOOOOOO")
-                #    if (tmp[1] == "8"):
-                #        print("PPPPPPPPP")
-                #        if (tmp[2] == "2"):
-                #            print("QQQQQQQQQQQQ")
-                #            self.countIn += 1
-                #            pass
-                #        pass
-                #    pass
-                if (len(self.sysVar.printPosLayer) > 2):
+                if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut != 2):
                     if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
                         self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
                         self.sysVar.printLayer += 1
