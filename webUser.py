@@ -9,8 +9,9 @@ import os
 from threading import Thread
 
 import logging
-from flask import Flask, Response
+from flask import Flask, Response, request
 from flask_socketio import SocketIO
+from werkzeug.utils import secure_filename
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
@@ -168,6 +169,28 @@ class WebUser(Thread):
         def routeJquery():
             return self.jquery
 
+        @app.route('/upload', methods=['POST'])
+        def upload():
+            print('web[EVENT] upload')
+            f = request.files['uploadFile']
+            try:
+                f.save(self.sysVar.FolderPrint + secure_filename(f.filename))
+                pass
+            except:
+                #try:
+                #    os.mkdir(self.sysVar.FolderPrint)
+                #    print("web[EVENT] dir create")
+                #except:
+                #    print("web[ERROR] can not create dir for upload file")
+                #try:
+                #    f.save(self.sysVar.FolderPrint + secure_filename(f.filename))
+                #except:
+                #    print("web[ERROR] can not upload file")
+                return "BUG UPLOAD"
+            else:
+                return "OK"
+            pass
+        
         @socketio.on('new user')
         def newUser(data):
             if (self.sysVar.threadControl.isAlive() == True):
