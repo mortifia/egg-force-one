@@ -78,6 +78,27 @@
 
 				<div class="info3">
 					<div class="infoTitre">
+						<h3>Envoyer fichier (upload)</h3>
+					</div>
+					<dir class="infoBody">
+						<form method="POST" action="/upload" enctype="multipart/form-data">
+							<table>
+								<tr>
+									<td class="td1">Groupe</td>
+									<td class="td2"><input type="text" class="txtInput" name="groupe"></td>
+								</tr>
+								<tr>
+									<td class="td1">Fichier</td>
+									<td class="td2"><input type="file" class="txtInput" name="uploadFile" id="uploadFile"></td>
+								</tr>
+							</table>
+							<input type="submit" name="submit" value="Envoyer" class="button">
+						</form>
+					</dir>
+				</div>
+
+				<div class="info3">
+					<div class="infoTitre">
 						<h3>Connection</h3>
 					</div>
 					<dir class="infoBody">

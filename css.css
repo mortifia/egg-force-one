@@ -127,7 +127,7 @@ progress:not([value])::-moz-progress-bar
 	background-color: 		rgba(0,0,0,0);
 }
 
-button
+button, .button
 {
 	background-color: 		rgb(38, 40, 44);
 	color: 					rgb(132, 134, 138);
