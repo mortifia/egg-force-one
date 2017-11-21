@@ -6,6 +6,7 @@ Created on Tue Oct 17 11:37:23 2017
 """
 
 import os
+import sys
 from threading import Thread
 
 import logging
@@ -140,6 +141,13 @@ class WebUser(Thread):
         pass
 
     def init(self):
+        
+        if sys.platform.startswith('win'):
+            self.pathCut = "\\"
+            pass
+        else:
+            self.pathCut = "/"
+            pass
         app = Flask(__name__)
         socketio = SocketIO(app)
 
@@ -174,19 +182,23 @@ class WebUser(Thread):
             print('web[EVENT] upload')
             f = request.files['uploadFile']
             try:
-                f.save(self.sysVar.FolderPrint + secure_filename(f.filename))
+                f.save(self.sysVar.FolderPrint + request.form['groupe'] + self.pathCut + secure_filename(f.filename))
                 pass
             except:
-                #try:
-                #    os.mkdir(self.sysVar.FolderPrint)
-                #    print("web[EVENT] dir create")
-                #except:
-                #    print("web[ERROR] can not create dir for upload file")
-                #try:
-                #    f.save(self.sysVar.FolderPrint + secure_filename(f.filename))
-                #except:
-                #    print("web[ERROR] can not upload file")
-                return "BUG UPLOAD"
+                try:
+                    os.mkdir(self.sysVar.FolderPrint + request.form['groupe'])
+                    print("web[EVENT] dir create")
+                except:
+                    print("web[ERROR] can not create dir for upload file")
+                    return "BUG UPLOAD 1"
+                try:
+                    f.save(self.sysVar.FolderPrint + request.form['groupe'] + self.pathCut + secure_filename(f.filename))
+                    pass
+                except:
+                    print("web[ERROR] can not upload file")
+                    return "BUG UPLOAD 2"
+                else:
+                    return "OK"
             else:
                 return "OK"
             pass
