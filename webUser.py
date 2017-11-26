@@ -203,6 +203,27 @@ class WebUser(Thread):
                 return "OK"
             pass
         
+        @app.route('/dirPrint', methods=['POST'])
+        def dirPrint():
+            listElements = os.listdir(self.sysVar.FolderPrint) #list tout les element du dossier
+
+            nbelement = len(listElements)
+            a = 0
+            anser = ""
+            while (a < nbelement):
+                if a != 0:
+                    anser += ";"
+                    pass
+                anser += listElements[a] + ',' + str(os.path.isdir(self.sysVar.FolderPrint + listElements[a]))
+                a += 1
+                pass
+            
+            try:
+                return anser
+            except:
+                return "TEMP"
+            pass
+        
         @socketio.on('new user')
         def newUser(data):
             if (self.sysVar.threadControl.isAlive() == True):

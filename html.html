@@ -15,16 +15,16 @@
 					<div class="infoTitre">
 						<h3>Information</h3>
 					</div>
-					<dir class="infoBody">
+					<div class="infoBody">
 						
-					</dir>
+					</div>
 				</div>
 
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>Impression</h3> 
 					</div>
-					<dir class="infoBody">
+					<div class="infoBody">
 						<table>
 							<tr>
 								<td class="td1">Statut</td>
@@ -59,28 +59,34 @@
 						<button onclick="statutPrint(1)">play</button>
 						<button onclick="statutPrint(4)">stop</button>
 
-					</dir>
+					</div>
 				</div>
 
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>Lancement impression</h3>
 					</div>
-					<dir class="infoBody">
+					<div class="infoBody">
 						<table>
 							<tr>
 								<td class="td1">Fichier a imprimer</td>
 								<td class="td2"><input type="text" id="printSrc" class="txtInput" placeholder="fichier.gcode"></td>
 							</tr>
 						</table>
-					</dir>
+						<div>
+							<button onclick="listDirUpdate()">actualiser</button>
+							<table id="listDirStart">
+							</table>
+						</div>
+
+					</div>
 				</div>
 
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>Envoyer fichier (upload)</h3>
 					</div>
-					<dir class="infoBody">
+					<div class="infoBody">
 						<form method="POST" action="/upload" enctype="multipart/form-data">
 							<table>
 								<tr>
@@ -94,14 +100,14 @@
 							</table>
 							<input type="submit" name="submit" value="Envoyer" class="button">
 						</form>
-					</dir>
+					</div>
 				</div>
 
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>Connection</h3>
 					</div>
-					<dir class="infoBody">
+					<div class="infoBody">
 						<table>
 							<tr>
 								<td class="td1">Type de connection</td>
@@ -113,7 +119,7 @@
 								</td>
 							</tr>
 						</table>
-					</dir>
+					</div>
 				</div>
 
 				<div class="info3">
@@ -164,6 +170,38 @@
 				socket.emit('statutPrint', data);
 			}
 
+			function listDirUpdate(addPath) {
+				$.ajax({
+					type: 'POST',
+					url: '/dirPrint',
+					success: function(data) {
+						document.getElementById('listDirStart').innerHTML = "";
+						var temp = data.split(";");
+						for (var pos = 0; pos < temp.length; pos++) {
+							//listDirStart
+							var temp2 = temp[pos].split(',');
+							var newLine = document.createElement('tr');
+							var firstElement = document.createElement('td');
+							if (temp2[1] == "True") {
+								// True
+								firstElement.innerHTML = "Dossier";
+							}
+							else {
+								// False
+								firstElement.innerHTML = "Fichier";
+							}
+							var secondElement = document.createElement('td');
+							secondElement.innerHTML = temp2[0];
+							newLine.appendChild(firstElement);
+							newLine.appendChild(secondElement);
+							document.getElementById('listDirStart').appendChild(newLine);
+						}
+					},
+					error: function() {
+						alert('error');
+					}
+				});
+			}
 
 			// envoi un message pour prevenir qu'on est connecté
 			socket.on('connect', function (data) {
