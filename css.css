@@ -35,15 +35,16 @@ td
 {
 	width: 					30%;
 	font-family: 			'Roboto', 'Roboto Mono', Tahoma, Helvetica, Arial, sans-serif;
-	font-size: 				15px;
+	font-size: 				17px;
 }
 
 .td2
 {
 	width: 					70%;
 	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
-	font-size: 				14px;
+	font-size: 				16px;
 }
+
 .td2 span
 {
 	padding: 				4px;
@@ -52,7 +53,7 @@ td
 tr
 {
 	-webkit-transition-duration: 0.3s; /* Safari */
-    transition-duration: 0.3s;
+    transition-duration: 	0.3s;
 }
 tr:hover
 {
@@ -165,7 +166,7 @@ button:active
 	border-style: 			solid;
 	border-color: 			rgb(102, 104, 108);
 	padding: 				3px;
-	font-size: 				13px;
+	font-size: 				15px;
 	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
 	color: 					rgb(132, 134, 138);
 }
@@ -184,7 +185,7 @@ tr:hover .td2 .txtInput
 
 .terminalOutput span
 {
-	font-size: 				13px;
+	font-size: 				15px;
 	font-family: 			'Open Sans',Tahoma, Helvetica, Arial, sans-serif;
 	color: 					rgb(132, 134, 138);
 	font-weight: 			500;
@@ -192,6 +193,7 @@ tr:hover .td2 .txtInput
 
 ::-webkit-scrollbar {
     width: 					6px;
+    height:  				6px;
 }
 
 ::-webkit-scrollbar-track-piece {
@@ -274,7 +276,7 @@ tr:hover .td2 .txtInput
 	padding: 				10px;
 	padding-left: 			15px;
 	padding-right: 			15px;
-	font-size: 				20px;
+	font-size: 				21px;
 	font-family: 			'Roboto', Tahoma, Helvetica, Arial, sans-serif;
 }
 
@@ -294,8 +296,46 @@ tr:hover .td2 .txtInput
 	border-color: 			rgb(72, 74, 78);
 	border-style: 			solid;
 	padding: 				3px;
-	font-size: 				15px;
+	font-size: 				16px;
 	color: 					rgb(150, 154, 160);
+}
+
+.divDirPath
+{
+	border-bottom: 			1px;
+	border-bottom-style: 	solid;
+	border-bottom-color: 	rgb(202, 96, 51);
+	/*overflow: 			auto;*/
+}
+
+.dirPath
+{
+	width: 					100%;
+	table-layout: 			fixed;
+}
+
+.tdDivDirPath
+{
+	margin-right: 			5px;
+	overflow-x: 			scroll;
+}
+
+.listDir
+{
+	background-color: 		rgb(30, 32, 36);
+	margin: 				0px;
+	border: 				1px;
+	border-color: 			rgb(72, 74, 78);
+	border-style: 			solid;
+	padding: 				3px;
+	font-size: 				16px;
+	color: 					rgb(150, 154, 160);
+}
+
+.listDirStart
+{
+	height:  				300px;
+	overflow:  				auto;
 }
 
 .terminalOutput
@@ -310,7 +350,7 @@ tr:hover .td2 .txtInput
 	min-height: 			300px;
 	max-height: 			300px;
 	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
-	font-size: 				15px;
+	font-size: 				16px;
 	overflow: 				auto;
 }
 
@@ -330,7 +370,7 @@ tr:hover .td2 .txtInput
 	padding: 				3px;
 	background-color: 		rgb(28, 30, 34);
 	display:		 		block;
-	font-size: 				15px;
+	font-size: 				16px;
 	width: 					100%;
 	color: 					rgb(150, 154, 160);
 	transform: 				translateX(-4px);

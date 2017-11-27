@@ -75,8 +75,14 @@
 						</table>
 						<div>
 							<button onclick="listDirUpdate()">actualiser</button>
-							<table id="listDirStart">
-							</table>
+							<div class="listDir">
+								<div class="divDirPath">
+									<table id="dirPath" class="dirPath"></table>
+								</div>
+								<div class="listDirStart">
+									<table id="listDirStart"></table>
+								</div>
+							</div>
 						</div>
 
 					</div>
@@ -84,7 +90,7 @@
 
 				<div class="info3">
 					<div class="infoTitre">
-						<h3>Envoyer fichier (upload)</h3>
+						<h3>Envoyer fichier</h3>
 					</div>
 					<div class="infoBody">
 						<form method="POST" action="/upload" enctype="multipart/form-data">
@@ -170,28 +176,85 @@
 				socket.emit('statutPrint', data);
 			}
 
-			function listDirUpdate(addPath) {
+			function listDirPos(pos="/") {
+				document.getElementById('dirPath').innerHTML = "";
+				var newLine = document.createElement('tr');
+				newLine.className = "trPath";
+				var firstElement = document.createElement('td');
+				firstElement.innerHTML = "Position";
+				firstElement.className = "td1";
+				var secondElement = document.createElement('td');
+				secondElement.className = "td2";
+				var divSecondElement = document.createElement('div');
+				divSecondElement.innerHTML = pos;
+				divSecondElement.className = "tdDivDirPath";
+				secondElement.appendChild(divSecondElement);
+				newLine.appendChild(firstElement);
+				newLine.appendChild(secondElement);
+				document.getElementById('dirPath').appendChild(newLine);
+			}
+
+			function posDirUpdate() {
+				//alert(this.innerHTML);
+				tmp = document.getElementById('dirPath').lastChild.lastChild.lastChild.innerHTML + this.lastChild.innerHTML + '/';
+				listDirUpdate(tmp);
+				//document.getElementById('dirPath').lastChild.lastChild.lastChild.innerHTML += this.lastChild.innerHTML + '/';
+			}
+
+			function dirReturn() {
+				listDirUpdate(returnPath);
+			}
+
+
+			function listDirUpdate(addPath="/") {
 				$.ajax({
 					type: 'POST',
 					url: '/dirPrint',
+					data : 'path=' + addPath,
 					success: function(data) {
+						//alert(addPath);
 						document.getElementById('listDirStart').innerHTML = "";
+						listDirPos(addPath);
+						if (addPath != "/") {
+							var newLine = document.createElement('tr');
+							var firstElement = document.createElement('td');
+							firstElement.innerHTML = "Retour";
+							firstElement.className = "td1";
+							var secondElement = document.createElement('td');
+							var temp = addPath.split("/");
+							returnPath = "";
+							for (var pos = 0; pos < temp.length - 2; pos++) {
+								returnPath += temp[pos] + "/";
+							}
+							//alert("test : " + returnPath);
+							secondElement.innerHTML = returnPath;
+							secondElement.className = "td2";
+							//newLine.onclick = listDirUpdate(returnPath);
+							newLine.addEventListener("click", dirReturn, false);
+							newLine.appendChild(firstElement);
+							newLine.appendChild(secondElement);
+							document.getElementById('listDirStart').appendChild(newLine);
+						}
 						var temp = data.split(";");
 						for (var pos = 0; pos < temp.length; pos++) {
 							//listDirStart
-							var temp2 = temp[pos].split(',');
+							//alert(temp[pos] + '|||' + pos);
+							var temp2 = temp[pos].split('|');
 							var newLine = document.createElement('tr');
 							var firstElement = document.createElement('td');
 							if (temp2[1] == "True") {
 								// True
 								firstElement.innerHTML = "Dossier";
+								newLine.addEventListener("click", posDirUpdate, false);
 							}
 							else {
 								// False
 								firstElement.innerHTML = "Fichier";
 							}
+							firstElement.className = "td1";
 							var secondElement = document.createElement('td');
 							secondElement.innerHTML = temp2[0];
+							secondElement.className = "td2";
 							newLine.appendChild(firstElement);
 							newLine.appendChild(secondElement);
 							document.getElementById('listDirStart').appendChild(newLine);
@@ -202,6 +265,7 @@
 					}
 				});
 			}
+			listDirUpdate();
 
 			// envoi un message pour prevenir qu'on est connecté
 			socket.on('connect', function (data) {

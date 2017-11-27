@@ -205,7 +205,15 @@ class WebUser(Thread):
         
         @app.route('/dirPrint', methods=['POST'])
         def dirPrint():
-            listElements = os.listdir(self.sysVar.FolderPrint) #list tout les element du dossier
+            try:
+                path = str(request.form['path'])
+                path = path[1:]
+                print("chemin : " + path)
+                pass
+            except:
+                path = ''
+                pass
+            listElements = os.listdir(self.sysVar.FolderPrint + path) #list tout les element du dossier
 
             nbelement = len(listElements)
             a = 0
@@ -214,7 +222,7 @@ class WebUser(Thread):
                 if a != 0:
                     anser += ";"
                     pass
-                anser += listElements[a] + ',' + str(os.path.isdir(self.sysVar.FolderPrint + listElements[a]))
+                anser += listElements[a] + '|' + str(os.path.isdir(self.sysVar.FolderPrint + path + listElements[a]))
                 a += 1
                 pass
             

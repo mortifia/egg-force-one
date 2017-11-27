@@ -125,8 +125,8 @@ class Usb(Thread):
                 self.sysVar.usbSerial.open()
                 pass
             except:
-                self.sysVar.threadControl.msgTerminal("connect error")
-                self.sysVar.threadControl.msgTerminal(self.sysVar.usbSerial.port)
+                #self.sysVar.threadControl.msgTerminal("connect error")
+                #self.sysVar.threadControl.msgTerminal(self.sysVar.usbSerial.port)
                 pass
             else:
                 self.sysVar.usbConnect = True
