@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" type="text/css" href="css.css">
 		<title>Egg force one</title>
 	</head>
@@ -14,6 +15,7 @@
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>Information</h3>
+						<h3 class="openClose" onclick="openClose(this)"></h3>
 					</div>
 					<div class="infoBody">
 						
@@ -22,7 +24,8 @@
 
 				<div class="info3">
 					<div class="infoTitre">
-						<h3>Impression</h3> 
+						<h3>Impression</h3>
+						<h3 class="openClose" onclick="openClose(this)"></h3> 
 					</div>
 					<div class="infoBody">
 						<table>
@@ -65,6 +68,7 @@
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>Lancement impression</h3>
+						<h3 class="openClose" onclick="openClose(this)"></h3>
 					</div>
 					<div class="infoBody">
 						<table>
@@ -91,6 +95,7 @@
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>Envoyer fichier</h3>
+						<h3 class="openClose" onclick="openClose(this)"></h3>
 					</div>
 					<div class="infoBody">
 						<form method="POST" action="/upload" enctype="multipart/form-data">
@@ -112,6 +117,7 @@
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>Connection</h3>
+						<h3 class="openClose" onclick="openClose(this)"></h3>
 					</div>
 					<div class="infoBody">
 						<table>
@@ -131,6 +137,7 @@
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>USB</h3>
+						<h3 class="openClose" onclick="openClose(this)"></h3>
 					</div>
 					<div class="infoBody">
 						<table>
@@ -145,6 +152,7 @@
 				<div class="info3">
 					<div class="infoTitre">
 						<h3>terminal</h3>
+						<h3 class="openClose" onclick="openClose(this)"></h3>
 					</div>
 					<div class="infoBody">
 						<div class="terminal">
@@ -169,6 +177,17 @@
 			var statutPrintData 	= 0					// donne le statu de l'impression
 
 			var socket = io.connect('http://' + document.domain + ':' + location.port);
+			//
+
+			function openClose(test) {
+				if (test.parentNode.parentNode.childNodes[3].className == "none") {
+					test.parentNode.parentNode.childNodes[3].className = "infoBody";
+				}
+				else {
+					test.parentNode.parentNode.childNodes[3].className = "none";
+				}
+				//test.parentNode.parentNode.childNodes[3].style.display = "none";
+			}
 
 
 			//

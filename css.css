@@ -11,16 +11,34 @@ body
 
 h3
 {
+	display: inline-block;
 	margin: 				0px;
-	margin-top:	 			1px;
-	margin-bottom: 			2px;
-	border: 				0px;
 	padding: 				0px;
+	padding-top:	 			1px;
+	padding-bottom: 			2px;
+	border: 				0px;
 	line-height: 			14px;
 	color: 					rgb(132, 134, 138)
 	font-size: 				20px;
 	font-weight: 			normal;
 	font-family: 			'Roboto', 'Roboto Mono', Tahoma, Helvetica, Arial, sans-serif;
+}
+
+.none
+{
+	display: none;
+}
+.openClose
+{
+	position: 				absolute;
+	border: 				1px;
+    border-style: 			solid;
+    border-color: 			rgb(72, 74, 78);
+	right: 					16px;
+	top: 					5px;
+	height: 				32px;
+	width: 					40px;
+	background-color: 		rgb(30, 32, 36);
 }
 td
 {
@@ -267,6 +285,7 @@ tr:hover .td2 .txtInput
 
 .infoTitre
 {
+	position: relative;
 	background-color: 		rgb(42, 44, 48);
 	margin: 				0px;
 	border: 				0px;
@@ -274,6 +293,7 @@ tr:hover .td2 .txtInput
 	border-color: 			rgb(32, 34, 38);
 	border-style: 			solid;
 	padding: 				10px;
+	padding-top: 			11px;
 	padding-left: 			15px;
 	padding-right: 			15px;
 	font-size: 				21px;
@@ -380,4 +400,19 @@ tr:hover .td2 .txtInput
 .terminalInput2:focus
 {
 	outline: 				none;
+}
+
+@media all and (min-width: 800px)
+{
+	.info2
+	{
+
+	}
+	.info3
+	{
+		max-width: 850px;
+		margin-left: auto;
+		margin-right: auto;
+
+	}
 }
