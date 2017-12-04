@@ -208,7 +208,7 @@ class WebUser(Thread):
             try:
                 path = str(request.form['path'])
                 path = path[1:]
-                print("chemin : " + path)
+                #print("chemin : " + path)
                 pass
             except:
                 path = ''

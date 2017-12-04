@@ -205,6 +205,18 @@
 				listDirUpdate(returnPath);
 			}
 
+			function rightClickDir(tmp = "") {
+				if (tmp != "") {
+					alert("dossier : " + tmp.lastChild.innerHTML);
+				}
+			}
+
+			function rightClickFolder(tmp = "") {
+				if (tmp != "") {
+					alert("fichier : " +tmp.lastChild.innerHTML);
+				}
+			}
+
 
 			function listDirUpdate(addPath="/") {
 				$.ajax({
@@ -246,10 +258,19 @@
 								// True
 								firstElement.innerHTML = "Dossier";
 								newLine.addEventListener("click", posDirUpdate, false);
+								//clic Droit
+								newLine.addEventListener('contextmenu',function(e) {
+									alert(e);
+									rightClickDir(this);
+								}, false);
 							}
 							else {
 								// False
 								firstElement.innerHTML = "Fichier";
+								//clic Droit
+								newLine.addEventListener('contextmenu',function(e) {
+									rightClickFolder(this);
+								}, false);
 							}
 							firstElement.className = "td1";
 							var secondElement = document.createElement('td');
@@ -265,6 +286,17 @@
 					}
 				});
 			}
+
+			//right click
+			/*if (document.addEventListener) {
+				document.addEventListener('contextmenu',function(e) {
+					e.preventDefault();
+				}, false);
+			}*/
+
+
+
+
 			listDirUpdate();
 
 			// envoi un message pour prevenir qu'on est connecté
