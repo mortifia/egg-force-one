@@ -239,11 +239,11 @@ class WebUser(Thread):
             try:
                 tmp = git.Git().pull()
                 if (tmp == "Already up-to-date."):
-                    return 0    # deja a jour
+                    return "0"    # deja a jour
                 else:
-                    return 1    # mise a jour effectuer
+                    return "1"    # mise a jour effectuer
             except:
-                return 2        # mise a jour impossible
+                return "2"        # mise a jour impossible
                 pass
             return "bug /update"
 
