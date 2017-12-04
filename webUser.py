@@ -14,6 +14,8 @@ from flask import Flask, Response, request
 from flask_socketio import SocketIO
 from werkzeug.utils import secure_filename
 
+import git
+
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
 
@@ -64,13 +66,13 @@ class WebUser(Thread):
         try:
             if (len(self.sysVar.printPosLayer) > 0):
                 self.socketio.emit('progressLayer', str(self.sysVar.printPosLayer[self.sysVar.printLayer]) +
-                                   " " + str(self.sysVar.printOldLayer) + " " 
+                                   " " + str(self.sysVar.printOldLayer) + " "
                                    + str(self.sysVar.printPosLine), broadcast=True)
                 pass
             else:
                 self.socketio.emit('progressLayer', "0" + " " + "0" + " " + "0", broadcast=True)
                 pass
-            
+
             pass
         except:
             print("bug to send end layer")
@@ -85,7 +87,7 @@ class WebUser(Thread):
             print("bug to send end pos print")
             pass
         pass
-    
+
     def updatePrint(self):
         self.statutImpression()
         self.srcImpression()
@@ -141,7 +143,7 @@ class WebUser(Thread):
         pass
 
     def init(self):
-        
+
         if sys.platform.startswith('win'):
             self.pathCut = "\\"
             pass
@@ -202,7 +204,7 @@ class WebUser(Thread):
             else:
                 return "OK"
             pass
-        
+
         @app.route('/dirPrint', methods=['POST'])
         def dirPrint():
             try:
@@ -225,13 +227,23 @@ class WebUser(Thread):
                 anser += listElements[a] + '|' + str(os.path.isdir(self.sysVar.FolderPrint + path + listElements[a]))
                 a += 1
                 pass
-            
+
             try:
                 return anser
             except:
                 return "TEMP"
             pass
-        
+
+        @app.route('/update')
+        def update():
+            try:
+                tmp = git.Git().pull()
+                return tmp
+            except:
+                return "non mis a jour"
+                pass
+            return "end"
+
         @socketio.on('new user')
         def newUser(data):
             if (self.sysVar.threadControl.isAlive() == True):
