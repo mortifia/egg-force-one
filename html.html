@@ -261,7 +261,7 @@
 							secondElement.innerHTML = returnPath;
 							secondElement.className = "td2";
 							//newLine.onclick = listDirUpdate(returnPath);
-							newLine.addEventListener("click", dirReturn, false);
+							newLine.addEventListener("dblclick", dirReturn, false);
 							newLine.appendChild(firstElement);
 							newLine.appendChild(secondElement);
 							document.getElementById('listDirStart').appendChild(newLine);
@@ -276,7 +276,7 @@
 							if (temp2[1] == "True") {
 								// True
 								firstElement.innerHTML = "Dossier";
-								newLine.addEventListener("click", posDirUpdate, false);
+								newLine.addEventListener("dblclick", posDirUpdate, false);
 								//clic Droit
 								newLine.addEventListener('contextmenu',function(e) {
 									alert(e);
