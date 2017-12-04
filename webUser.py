@@ -242,7 +242,7 @@ class WebUser(Thread):
             except:
                 return "non mis a jour"
                 pass
-            return "end"
+            return "bug /update"
 
         @socketio.on('new user')
         def newUser(data):
