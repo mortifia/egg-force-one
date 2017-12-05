@@ -239,13 +239,33 @@ class WebUser(Thread):
             try:
                 tmp = git.Git().pull()
                 if (tmp == "Already up-to-date."):
-                    return "0"    # deja a jour
+                    return "0"      # deja a jour
                 else:
-                    return "1"    # mise a jour effectuer
+                    return "1"      # mise a jour effectuer
             except:
-                return "2"        # mise a jour impossible
+                return "2"          # mise a jour impossible
                 pass
             return "bug /update"
+
+        @app.route('/printSrc', methods=['POST'])
+        def printSrc():
+            try:
+                path = str(request.form['path'])
+                if (path[0] == "\\" or path[0] == "/"):
+                    path = path[1:]
+                    print("test path : " + path)
+                    pass
+                if sys.platform.startswith('win'):
+                    pass
+                if (self.sysVar.printStatut == 0 or self.sysVar.printStatut == 2 or self.sysVar.printStatut == 4):
+                    self.sysVar.threadControl.initPrint(path)
+                    return "1"      # impression en cour
+                else:
+                    return "2"      # impossible impression en cour
+                pass
+            except:
+                return "bugPrintSrc"
+            pass
 
         @socketio.on('new user')
         def newUser(data):
@@ -281,7 +301,7 @@ class WebUser(Thread):
             self.sysVar.threadControl.addGcode(str(data))
             pass
         @socketio.on('printSrc')
-        def printSrc(data):
+        def printSrcSocketIO(data):
             try:
                 if (self.sysVar.printStatut == 5):
                     self.sysVar.printStatut == -2

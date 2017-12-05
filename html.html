@@ -72,7 +72,7 @@
 					</div>
 					<div class="infoBody">
 						<table>
-							<tr>
+							<tr class="none">
 								<td class="td1">Fichier a imprimer</td>
 								<td class="td2"><input type="text" id="printSrc" class="txtInput" placeholder="fichier.gcode"></td>
 							</tr>
@@ -195,6 +195,23 @@
 				socket.emit('statutPrint', data);
 			}
 
+			function printFolder() {
+				path = document.getElementById("dirPath").lastChild.lastChild.lastChild.innerHTML + this.lastChild.innerHTML; 
+				alert(path);
+				$.ajax({
+					type: 'POST',
+					url: '/printSrc',
+					data : 'path=' + path,
+					success: function(data) {
+						print("retour");
+						// body...
+					},
+					error: function() {
+						alert('error');
+					}
+				});
+			}
+
 			function listDirPos(pos="/") {
 				document.getElementById('dirPath').innerHTML = "";
 				var newLine = document.createElement('tr');
@@ -236,7 +253,6 @@
 				}
 			}
 
-
 			function listDirUpdate(addPath="/") {
 				$.ajax({
 					type: 'POST',
@@ -276,6 +292,7 @@
 							if (temp2[1] == "True") {
 								// True
 								firstElement.innerHTML = "Dossier";
+								// double clic
 								newLine.addEventListener("dblclick", posDirUpdate, false);
 								//clic Droit
 								newLine.addEventListener('contextmenu',function(e) {
@@ -286,6 +303,8 @@
 							else {
 								// False
 								firstElement.innerHTML = "Fichier";
+								// double clic
+								newLine.addEventListener("dblclick", printFolder, false);
 								//clic Droit
 								newLine.addEventListener('contextmenu',function(e) {
 									rightClickFolder(this);
