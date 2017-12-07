@@ -328,7 +328,7 @@ class WebUser(Thread):
 
     def startWeb(self):
         #self.app.run(host='127.0.0.2', port=8080)
-        self.socketio.run(self.app, host='0.0.0.0', port='8080')
+        self.socketio.run(self.app, host='0.0.0.0', port=8080)
         pass
 
     def run(self):
