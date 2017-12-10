@@ -107,9 +107,11 @@ elif sys.platform.startswith('linux'):
         pass
     pass
 
-del sys
-del os
-del RLock
+#del sys
+#del os
+#del RLock
+
+# attention cette partie sert a prendre en compte les modification faite par l'utilisateur
 
 if __name__ == "__main__":
     pass

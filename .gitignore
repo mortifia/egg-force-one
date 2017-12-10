@@ -1,0 +1,8 @@
+# fichier projet
+.spyproject/*
+
+# fichier compilation
+__pycache__/*
+
+# option
+option.py
