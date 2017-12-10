@@ -9,6 +9,12 @@ import sys
 import os
 from threading import RLock
 
+import utils
+
+# nous place dans le dossier de l'executable
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+#print(os.path.dirname(os.path.realpath(__file__)))
+
 # variable system application
 path            = False             # emplacement du dossier egg force one log
 paramPath       = False             # emplacement du fichier de paramettre de l'utilisateur
@@ -68,23 +74,13 @@ addStart        = False             # permet de detecté si un startGcode est de
 if sys.platform.startswith('win'):
     print("windows")
     usbPort = "COM3"
-    import ctypes.wintypes
-    CSIDL_PERSONAL = 5
-    SHGFP_TYPE_CURRENT = 0
-    buf= ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
-    ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, buf)
-    paramPath = buf.value + "\\egg force one"
-    FolderPrint = paramPath + "\\"
-    del CSIDL_PERSONAL
-    del SHGFP_TYPE_CURRENT
-    del buf
-    del ctypes
-    if (os.path.exists(paramPath) == False):
-        os.makedirs(paramPath)
+    paramPath = os.path.dirname(os.path.realpath(__file__))
+    FolderPrint = paramPath + "\\print\\"
+    if (os.path.exists(FolderPrint) == False):
+        os.makedirs(FolderPrint)
         pass
-
     paramPath += "\\option.py"
-    if (os.path.exists(paramPath + "\\option.py") == False):
+    if (os.path.exists(paramPath) == False):
         temp = open(paramPath, "w")
         temp.close()
         del temp
@@ -94,11 +90,11 @@ if sys.platform.startswith('win'):
 elif sys.platform.startswith('linux'):
     print("linux")
     usbPort = "/dev/ttyUSB0"
-    paramPath = os.path.expanduser("~") + "/egg force one"
-    if (os.path.exists(paramPath) == False):
-        os.makedirs(paramPath)
+    paramPath = os.path.dirname(os.path.realpath(__file__))
+    FolderPrint = paramPath + "/print/"
+    if (os.path.exists(FolderPrint) == False):
+        os.makedirs(FolderPrint)
         pass
-    FolderPrint = paramPath + "/"
     paramPath += "/option.py"
     if (os.path.exists(paramPath) == False):
         temp = open(paramPath, "w")
@@ -112,6 +108,11 @@ elif sys.platform.startswith('linux'):
 #del RLock
 
 # attention cette partie sert a prendre en compte les modification faite par l'utilisateur
+import option
+allVarDict = globals()
+for tmp in utils.allVarModule(option):
+    allVarDict[tmp[0]] = tmp[1]
+    pass
 
 if __name__ == "__main__":
     pass

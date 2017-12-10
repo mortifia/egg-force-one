@@ -259,7 +259,6 @@
 					url: '/dirPrint',
 					data : 'path=' + addPath,
 					success: function(data) {
-						//alert(addPath);
 						document.getElementById('listDirStart').innerHTML = "";
 						listDirPos(addPath);
 						if (addPath != "/") {
@@ -283,7 +282,7 @@
 							document.getElementById('listDirStart').appendChild(newLine);
 						}
 						var temp = data.split(";");
-						for (var pos = 0; pos < temp.length; pos++) {
+						for (var pos = 0; pos < temp.length && temp[pos] != ""; pos++) {
 							//listDirStart
 							//alert(temp[pos] + '|||' + pos);
 							var temp2 = temp[pos].split('|');
