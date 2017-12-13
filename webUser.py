@@ -118,8 +118,14 @@ class WebUser(Thread):
         tmp = open("html.html", "r", encoding="utf-8")
         data = tmp.read()
         tmp.close()
-
         return data
+
+    def script(self):
+        tmp = open("script.js", "r", encoding="utf-8")
+        data = tmp.read()
+        tmp.close()
+        return data
+
     def css(self):
         tmp = open("css.css", "r")
         data = tmp.read()
@@ -178,6 +184,10 @@ class WebUser(Thread):
         @app.route('/jquery.min.js')
         def routeJquery():
             return self.jquery
+
+        @app.route('/script.js')
+        def routeScript():
+            return Response(self.script(), mimetype='application/javascript')
 
         @app.route('/upload', methods=['POST'])
         def upload():
@@ -328,7 +338,7 @@ class WebUser(Thread):
 
     def startWeb(self):
         #self.app.run(host='127.0.0.2', port=8080)
-        self.socketio.run(self.app, host='0.0.0.0', port=8080)
+        self.socketio.run(self.app, host = self.sysVar.webHost, port = self.sysVar.webPort)
         pass
 
     def run(self):

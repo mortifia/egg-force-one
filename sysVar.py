@@ -57,7 +57,7 @@ threadUsb       = False             # comunication usb avec le controlleur
 threadControl   = False             # comunication entre l'utilisateur et le controlleur
 threadWebUser   = False             # interface utilisateur
 
-# variable information threadUsb
+# variable thread Usb
 usbRun          = False             # previent si il tourne
 usbConnect      = False             # dit si on est connecter au controlleur
 usbBauderate    = 115200            # frequence de communication
@@ -65,6 +65,10 @@ usbPort         = False             # port de communication si false il se conne
                                     #"COM3" windown | "/dev/ttyUSB0" linux
 usbAllPort      = False             # liste tout les port disponible depuis la derniere recherche
                                     # si False aucune recherche lancé si [] il y a pas de port disponible
+
+# variable thread web
+webHost            = '0.0.0.0'         # 0.0.0.0 tout le monde peut se connecté
+webPort            = 8080              # port de connection 8080 est authoriser sur tout les systeme
 
 # variable information threadControl
 addStart        = False             # permet de detecté si un startGcode est deja lancé
