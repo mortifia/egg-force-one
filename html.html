@@ -9,6 +9,9 @@
 	</head>
 
 	<body>
+		<script type="text/javascript" src="/jquery.min.js"></script>
+		<script type="text/javascript" src="/socket.io.js"></script>
+		<script type="text/javascript" src="/script.js"></script>
 		<div class="menu"></div>
 		<div class="info">
 			<div class="info2">
@@ -157,6 +160,17 @@
 
 				<div class="info3">
 					<div class="infoTitre">
+						<h3>Mise a jour</h3>
+						<h3 class="openClose" onclick="openClose(this)"></h3>
+					</div>
+					<div class="infoBody">
+						<button onclick="updateSoftware()">Mettre a jour</button>
+						<br>
+					</div>
+				</div>
+
+				<div class="info3">
+					<div class="infoTitre">
 						<h3>terminal</h3>
 						<h3 class="openClose" onclick="openClose(this)"></h3>
 					</div>
@@ -171,9 +185,5 @@
 				</div>
 			</div>
 		</div>
-
-		<script type="text/javascript" src="/jquery.min.js"></script>
-		<script type="text/javascript" src="/socket.io.js"></script>
-		<script type="text/javascript" src="/script.js"></script>
 	</body>
 </html>

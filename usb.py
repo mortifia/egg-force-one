@@ -83,9 +83,9 @@ class Usb(Thread):
 
     def recherche(self):
         self.sysVar.usbAllPort = serial.tools.list_ports.comports()
-        for element in self.sysVar.usbAllPort:
-            self.sysVar.threadControl.msgTerminal(element)
-            pass
+        #for element in self.sysVar.usbAllPort:
+        #    self.sysVar.threadControl.msgTerminal(element)
+        #    pass
         pass
 
     def connection(self):

@@ -4,5 +4,8 @@
 # fichier compilation
 __pycache__/*
 
+# fichier impression
+print/*
+
 # option
 option.py

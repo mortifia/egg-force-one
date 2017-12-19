@@ -244,7 +244,7 @@ class WebUser(Thread):
                 return "TEMP"
             pass
 
-        @app.route('/update')
+        @app.route('/update', methods=['POST'])
         def update():
             try:
                 tmp = git.Git().pull()

@@ -140,7 +140,20 @@ function listDirUpdate(addPath="/") {
 		}
 	});
 }
-listDirUpdate();
+function updateSoftware() {
+	//met a jour le logiciel
+	$.ajax({
+		type: 'POST',
+		url: '/update',
+		data: '',
+		success: function(data) {
+
+		},
+		error: function() {
+			alert('error updateSoftware');
+		}
+	});
+}
 // envoi un message pour prevenir qu'on est connecté
 socket.on('connect', function (data) {
 	socket.emit('new user', "");
@@ -307,3 +320,5 @@ $('#inputTerm').keypress(function(e) {
 		}
 	}
 });
+//fonction a lancer au démarrage
+listDirUpdate();
