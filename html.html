@@ -33,7 +33,6 @@
 		<script type="text/javascript" src="/jquery.min.js"></script>
 		<script type="text/javascript" src="/socket.io.js"></script>
 		<script type="text/javascript" src="/script.js"></script>
-		<div class="menu"></div>
 		<div class="info">
 			<div class="info2">
 				
@@ -206,6 +205,30 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="menu"></div>
+		<div class="menu2">
+			<div class="none" id="menu2Home">
+				<div>DEV</div>
+				<div class="menu2HomeArticle">
+					<table>
+						<tr>
+							<td class="td1">test_post</td>
+							<td class="td2"></td>
+						</tr>
+						<tr>
+							<td class="td1">url</td>
+							<td class="td2"><input type="text" class="txtInput" id="test_post_url"></td>
+						</tr>
+						<tr>
+							<td class="td1">data</td>
+							<td class="td2"><input type="text" class="txtInput" id="test_post_data"></td>
+						</tr>
+					</table>
+					<button onclick="test_post()">envoi</button>
+				</div>
+			</div>
+			<button class="menu2OpenClose" onclick="openCloseMenu2(this)"></button>
 		</div>
 	</body>
 </html>

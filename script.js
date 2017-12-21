@@ -27,6 +27,24 @@ var oldPosLayer 		= 0 				// ancienne position du layer
 var PosLayer 			= 0 				// position actiel du layer
 var statutPrintData 	= 0					// donne le statu de l'impression
 var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+////////////////////////////////////////////////////////////////////////////////
+//// 								DEV 									////
+function test_post() {
+	$.ajax({
+		type: 'POST',
+		url: document.getElementById("test_post_url").value,
+		data: document.getElementById("test_post_data").value,
+		success: function (data) {
+			alert("test_post : " + data);
+		},
+		error: function (data) {
+			alert("test_post : return error");
+		}
+	});
+}
+///////////////////////////////////////////////////////////////////////////////
+
 //
 function openClose(test) {
 	if (test.parentNode.parentNode.childNodes[3].className == "none") {
@@ -34,6 +52,14 @@ function openClose(test) {
 	}
 	else {
 		test.parentNode.parentNode.childNodes[3].className = "none";
+	}
+}
+function openCloseMenu2(test) {
+	if (test.parentNode.childNodes[1].className == "none") {
+		test.parentNode.childNodes[1].className = "menu2Home";
+	}
+	else {
+		test.parentNode.childNodes[1].className = "none";
 	}
 }
 //

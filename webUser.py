@@ -29,6 +29,7 @@ import logging
 from flask import Flask, Response, request
 from flask_socketio import SocketIO
 from werkzeug.utils import secure_filename
+from werkzeug.datastructures import ImmutableMultiDict
 
 import git
 
@@ -292,6 +293,32 @@ class WebUser(Thread):
             except:
                 return "bugPrintSrc"
             pass
+
+        @app.route('/paramChange', methods=['POST'])
+        def paramChange():
+            print("teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest")
+            dictTemp = self.sysVar.allVarDict
+            #print("test : " + str(request.form['test']))
+            try:
+                for test in dictTemp:
+                    if test[0] != '_':
+                        #print(str(test) + " : " + str(dictTemp[test]))
+                        try:
+                            if (request.form[test]):
+                                dictTemp[test] = request.form[test]
+                                print(test + " : change by : " + str(request.form[test]))
+                                pass
+                            pass
+                        except:
+                            print(test + " :            not found")
+                            pass
+                        #print(test + " : " + str(dictTemp[test]))
+                        pass
+                    pass
+                pass
+            except:
+                pass
+            return "end"
 
         @socketio.on('new user')
         def newUser(data):

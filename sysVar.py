@@ -41,6 +41,7 @@ temp            = ['0']             # liste toutes les temperatures de l'imprima
 lvlMsg          = 2                 # niveau max des message aficher
                                     # lvl = 0 "info" | lvl = 1 "erreur" | lvl = 2 "debug"
                                     # attention plus le niveau est élevé plus ca consome
+allVarDict      = globals()         # permet de modifier et lire les veriables plus rapidement
 
 #variable impression
 printStatut     = 0                 # 0 = aucune impression
@@ -89,6 +90,7 @@ webPort            = 8080              # port de connection 8080 est authoriser 
 # variable information threadControl
 addStart        = False             # permet de detecté si un startGcode est deja lancé
 
+test = "tototo" ###############################################################
 
 # auto configuration de paramPath
 if sys.platform.startswith('win'):
@@ -129,7 +131,6 @@ elif sys.platform.startswith('linux'):
 
 # attention cette partie sert a prendre en compte les modification faite par l'utilisateur
 import option
-allVarDict = globals()
 for tmp in utils.allVarModule(option):
     allVarDict[tmp[0]] = tmp[1]
     pass

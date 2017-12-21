@@ -22,6 +22,7 @@
 body
 {
 	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
+	color: 					rgb(132, 134, 138);
 	font-size: 				14px;
 	margin: 				0px;
 	border: 				0px;
@@ -33,11 +34,11 @@ h3
 	display: inline-block;
 	margin: 				0px;
 	padding: 				0px;
-	padding-top:	 			1px;
-	padding-bottom: 			2px;
+	padding-top:	 		1px;
+	padding-bottom: 		2px;
 	border: 				0px;
 	line-height: 			14px;
-	color: 					rgb(132, 134, 138)
+	color: 					rgb(132, 134, 138);
 	font-size: 				20px;
 	font-weight: 			normal;
 	font-family: 			'Roboto', 'Roboto Mono', Tahoma, Helvetica, Arial, sans-serif;
@@ -276,6 +277,53 @@ tr:hover .td2 .txtInput
 	overflow: 				auto;
 }
 
+.menu2
+{
+	position: 				fixed;
+	right: 					0px;
+	top: 					0px;
+	height: 				100%;
+	background-color: 		rgb(100, 100, 100);
+	max-width: 				50%;
+}
+
+.menu2Home
+{
+	height: 				100%;
+	width: 					100%;
+	padding: 				0px;
+	background-color: 		rgb(50, 52, 56);
+	border: 				0px;
+	border-left: 			1px;
+	border-style: 			solid;
+	border-color: 			rgb(72, 74, 78);
+}
+
+.menu2HomeArticle
+{
+	margin: 				10px;
+	background-color: 		rgb(42, 44, 48);
+	padding: 				5px;
+}
+
+.menu2OpenClose
+{
+	position: absolute;
+	top: 					5%;
+	left: 					-39px;
+	background-color: 		rgb(30, 32, 36);
+	margin: 				0px;
+	border: 				1px;
+	border-right: 			0px;
+	border-style: 			solid;
+    border-color: 			rgb(72, 74, 78);
+    padding: 				0px;
+
+    height: 				37px;
+	width: 					40px;
+}
+
+
 .info
 {
 	background-color: 		rgb(22, 24, 28);
@@ -403,8 +451,6 @@ tr:hover .td2 .txtInput
 	font-size: 				16px;
 	overflow: 				auto;
 }
-
-
 
 .terminalInput
 {
