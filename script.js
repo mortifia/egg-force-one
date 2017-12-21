@@ -46,6 +46,11 @@ function test_post() {
 ///////////////////////////////////////////////////////////////////////////////
 
 //
+function getAllParam() {
+	// body...
+}
+
+//
 function openClose(test) {
 	if (test.parentNode.parentNode.childNodes[3].className == "none") {
 		test.parentNode.parentNode.childNodes[3].className = "infoBody";
