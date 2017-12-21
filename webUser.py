@@ -29,7 +29,6 @@ import logging
 from flask import Flask, Response, request
 from flask_socketio import SocketIO
 from werkzeug.utils import secure_filename
-from werkzeug.datastructures import ImmutableMultiDict
 
 import git
 
