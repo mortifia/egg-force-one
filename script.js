@@ -152,6 +152,7 @@ function listDirUpdate(addPath="/") {
 				var secondElement = document.createElement('td');
 				secondElement.innerHTML = temp2[0];
 				secondElement.className = "td2";
+				newLine.tabIndex = "1";
 				newLine.appendChild(firstElement);
 				newLine.appendChild(secondElement);
 				document.getElementById('listDirStart').appendChild(newLine);

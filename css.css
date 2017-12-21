@@ -89,12 +89,23 @@ td
 
 tr
 {
-	-webkit-transition-duration: 0.2s; /* Safari */
-    transition-duration: 	0.2s;
+	-webkit-transition-duration: 0s; /* Safari */
+    transition-duration: 	0s;
 }
+
 tr:hover
 {
 	background-color: 		rgb(50, 60, 74);
+	-webkit-transition-duration: 0s; /* Safari */
+    transition-duration: 	0s;
+}
+
+tr:focus
+{
+	background-color: 		rgb(100, 100, 100);
+
+	-webkit-transition-duration: 0s; /* Safari */
+    transition-duration: 0s;
 }
 
 select
@@ -392,6 +403,8 @@ tr:hover .td2 .txtInput
 	font-size: 				16px;
 	overflow: 				auto;
 }
+
+
 
 .terminalInput
 {
