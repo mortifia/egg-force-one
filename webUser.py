@@ -295,7 +295,6 @@ class WebUser(Thread):
 
         @app.route('/paramChange', methods=['POST'])
         def paramChange():
-            print("teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest")
             dictTemp = self.sysVar.allVarDict
             #print("test : " + str(request.form['test']))
             try:
@@ -318,6 +317,28 @@ class WebUser(Thread):
             except:
                 pass
             return "end"
+        
+        @app.route('/paramGetAll', methods=['GET','POST'])
+        def paramGetAll():
+            dataReturn = ""
+            dictTemp = self.sysVar.allVarDict
+            for tmp in dictTemp:
+                if tmp[0] != '_' and tmp != "allVarDict":
+                    tmp2 = type(dictTemp[tmp])
+                    if tmp2 is str:
+                        print(type(dictTemp[tmp]))
+                        dataReturn += tmp + ":'" + str(dictTemp[tmp]) + "'&"
+                        pass
+                    elif tmp2 is bool or tmp2 is list or tmp2 is int:
+                        print(type(dictTemp[tmp]))
+                        dataReturn += tmp + ":" + str(dictTemp[tmp]) + "&"
+                        pass
+                    else:
+                        print("no add : " + str(type(dictTemp[tmp])))
+                        pass
+                    pass
+                pass
+            return dataReturn[:len(dataReturn)-1]
 
         @socketio.on('new user')
         def newUser(data):

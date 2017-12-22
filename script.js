@@ -47,7 +47,49 @@ function test_post() {
 
 //
 function getAllParam() {
-	// body...
+	$.ajax({
+		type : 'POST',
+		url : '/paramGetAll',
+		data : '',
+		success : function(data) {
+			var allParam = {};
+			tableParam = data.split("&");
+			var test = "";
+			for (var i = 0; i < tableParam.length; i++) {
+				var pos = tableParam[i].indexOf(":");
+				allParam[tableParam[i].slice(0,pos)] = tableParam[i].slice(pos+1);
+				test += tableParam[i].slice(0,pos) + " : " + tableParam[i].slice(pos+1) + "\n";
+			}
+			alert(test);
+		},
+		error : function() {}
+	});
+}
+
+function modifyUsb(send = 0) {
+	var modifyUsb = document.getElementById("modifyUsb");
+	var modifyCancelUsb = document.getElementById("modifyCancelUsb");
+	var modifySendUsb = document.getElementById("modifySendUsb");
+
+	if (modifyUsb.className == "none") {
+		if(send == 1) {
+			alert("send");
+			modifyUsb.className = "";
+			modifyCancelUsb.className = "none";
+			modifySendUsb.className = "none";
+		}
+		else {
+			modifyUsb.className = "";
+			modifyCancelUsb.className = "none";
+			modifySendUsb.className = "none";
+		}
+	}
+	else {
+		modifyUsb.className = "none";
+		modifyCancelUsb.className = "";
+		modifySendUsb.className = "";
+
+	}
 }
 
 //
@@ -79,7 +121,7 @@ function printFolder() {
 		url: '/printSrc',
 		data : 'path=' + path,
 		success: function(data) {
-			print("retour");
+			alert("retour");
 			// body...
 		},
 		error: function() {
@@ -200,9 +242,7 @@ function updateSoftware() {
 		type: 'POST',
 		url: '/update',
 		data: '',
-		success: function(data) {
-
-		},
+		success: function(data) {},
 		error: function() {
 			alert('error updateSoftware');
 		}
@@ -375,4 +415,5 @@ $('#inputTerm').keypress(function(e) {
 	}
 });
 //fonction a lancer au démarrage
+getAllParam();
 listDirUpdate();
