@@ -43,7 +43,7 @@ class WebUser(Thread):
 
     def msgTerminal(self, msg=""):
         try:
-            self.socketio.emit('MsgTerm', msg, broadcast=True)
+            #self.socketio.emit('MsgTerm', msg, broadcast=True)
             pass
         except:
             print("WEB[ERROR] msgTerm not work")
@@ -317,7 +317,7 @@ class WebUser(Thread):
             except:
                 pass
             return "end"
-        
+
         @app.route('/paramGetAll', methods=['GET','POST'])
         def paramGetAll():
             dataReturn = ""
@@ -326,15 +326,15 @@ class WebUser(Thread):
                 if tmp[0] != '_' and tmp != "allVarDict":
                     tmp2 = type(dictTemp[tmp])
                     if tmp2 is str:
-                        print(type(dictTemp[tmp]))
+                        #print(type(dictTemp[tmp]))
                         dataReturn += tmp + ":'" + str(dictTemp[tmp]) + "'&"
                         pass
                     elif tmp2 is bool or tmp2 is list or tmp2 is int:
-                        print(type(dictTemp[tmp]))
+                        #print(type(dictTemp[tmp]))
                         dataReturn += tmp + ":" + str(dictTemp[tmp]) + "&"
                         pass
                     else:
-                        print("no add : " + str(type(dictTemp[tmp])))
+                        #print("no add : " + str(type(dictTemp[tmp])))
                         pass
                     pass
                 pass

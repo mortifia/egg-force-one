@@ -26,8 +26,9 @@ var print 				= "0"				// statut de l'impression
 var oldPosLayer 		= 0 				// ancienne position du layer
 var PosLayer 			= 0 				// position actiel du layer
 var statutPrintData 	= 0					// donne le statu de l'impression
-var socket = io.connect('http://' + document.domain + ':' + location.port);
-
+var timeUpdate 			= 1000 				// temps avant la mise a jour
+var pathFolder 			= "/"				//emplacement dans le dossier 
+var allParam 			= {} 				// tout les paramettre de l'application
 ////////////////////////////////////////////////////////////////////////////////
 //// 								DEV 									////
 function test_post() {
@@ -43,7 +44,10 @@ function test_post() {
 		}
 	});
 }
-///////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+////					fonction a chargé en priorité						////
 
 //
 function getAllParam() {
@@ -52,7 +56,7 @@ function getAllParam() {
 		url : '/paramGetAll',
 		data : '',
 		success : function(data) {
-			var allParam = {};
+			allParam = {};
 			tableParam = data.split("&");
 			var test = "";
 			for (var i = 0; i < tableParam.length; i++) {
@@ -60,12 +64,22 @@ function getAllParam() {
 				allParam[tableParam[i].slice(0,pos)] = tableParam[i].slice(pos+1);
 				test += tableParam[i].slice(0,pos) + " : " + tableParam[i].slice(pos+1) + "\n";
 			}
-			alert(test);
+			//console.log(test);
 		},
 		error : function() {}
 	});
 }
+function update() {
+	getAllParam();
+	listDirUpdate(pathFolder);
+	setTimeout(update,timeUpdate);
+}
+////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+////					fonction a lancer au démarrage						////
+update();
+////////////////////////////////////////////////////////////////////////////////
 function modifyUsb(send = 0) {
 	var modifyUsb = document.getElementById("modifyUsb");
 	var modifyCancelUsb = document.getElementById("modifyCancelUsb");
@@ -115,13 +129,13 @@ function statutPrint(data) {
 }
 function printFolder() {
 	path = document.getElementById("dirPath").lastChild.lastChild.lastChild.innerHTML + this.lastChild.innerHTML; 
-	alert(path);
+	//alert(path);
 	$.ajax({
 		type: 'POST',
 		url: '/printSrc',
 		data : 'path=' + path,
 		success: function(data) {
-			alert("retour");
+			console.log("start Print : " + path);
 			// body...
 		},
 		error: function() {
@@ -130,6 +144,7 @@ function printFolder() {
 	});
 }
 function listDirPos(pos="/") {
+	pathFolder = pos;
 	document.getElementById('dirPath').innerHTML = "";
 	var newLine = document.createElement('tr');
 	newLine.className = "trPath";
@@ -166,6 +181,7 @@ function rightClickFolder(tmp = "") {
 	}
 }
 function listDirUpdate(addPath="/") {
+	pathFolder = addPath;
 	$.ajax({
 		type: 'POST',
 		url: '/dirPrint',
@@ -242,24 +258,30 @@ function updateSoftware() {
 		type: 'POST',
 		url: '/update',
 		data: '',
-		success: function(data) {},
+		success: function(data) {
+			console.log("updateSoftware" + data);
+		},
 		error: function() {
-			alert('error updateSoftware');
+			console.log('error updateSoftware');
 		}
 	});
 }
+
+
+//socket io
+var socket = io.connect('http://' + document.domain + ':' + location.port);
 // envoi un message pour prevenir qu'on est connecté
 socket.on('connect', function (data) {
 	socket.emit('new user', "");
 });
 // reception des message pour le terminal
-socket.on('MsgTerm', function (data) {
+/*socket.on('MsgTerm', function (data) {
 	if (document.getElementById('outputTerm').childNodes.length >= (lenTerm * 2)) {
 		document.getElementById('outputTerm').firstElementChild.remove();
 		document.getElementById('outputTerm').firstElementChild.remove();
 	}
 	$('#outputTerm').append('<span>' + data + '</span><br>');
-});
+});*/
 //reception de la temperature
 socket.on('temp', function (data) {
 	temp = data
@@ -414,6 +436,3 @@ $('#inputTerm').keypress(function(e) {
 		}
 	}
 });
-//fonction a lancer au démarrage
-getAllParam();
-listDirUpdate();
