@@ -248,7 +248,7 @@ function listDirUpdate(addPath="/") {
 			}
 		},
 		error: function() {
-			alert('error');
+			console.log('error update dir');
 		}
 	});
 }
