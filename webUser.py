@@ -321,14 +321,22 @@ class WebUser(Thread):
         @app.route('/paramGetAll', methods=['GET','POST'])
         def paramGetAll():
             self.sysVar.threadUsb.recherche()
-            print(self.sysVar.usbAllPort)
-            
+            #print(self.sysVar.usbAllPort)
+
             dataReturn = ""
             dictTemp = self.sysVar.allVarDict
             for tmp in dictTemp:
                 if tmp[0] != '_' and tmp != "allVarDict":
                     tmp2 = type(dictTemp[tmp])
-                    if tmp2 is str:
+                    if tmp == "usbAllPort":
+                        dataReturn += tmp + ":" + "["
+                        for element in self.sysVar.usbAllPort:
+                            dataReturn += str(element[0]) + ","
+                            pass
+                        dataReturn += "]"
+                        dataReturn += "&"
+                        pass
+                    elif tmp2 is str:
                         #print(type(dictTemp[tmp]))
                         dataReturn += tmp + ":'" + str(dictTemp[tmp]) + "'&"
                         pass

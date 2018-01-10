@@ -254,6 +254,7 @@ function listDirUpdate(addPath="/") {
 }
 function updateSoftware() {
 	//met a jour le logiciel
+	console.log("update run");
 	$.ajax({
 		type: 'POST',
 		url: '/update',
