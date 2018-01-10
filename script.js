@@ -260,7 +260,7 @@ function updateSoftware() {
 		url: '/update',
 		data: '',
 		success: function(data) {
-			console.log("updateSoftware" + data);
+			console.log("updateSoftware : " + data);
 		},
 		error: function() {
 			console.log('error updateSoftware');

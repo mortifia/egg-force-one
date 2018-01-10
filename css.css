@@ -385,10 +385,9 @@ tr:hover .td2 .txtInput
 	position: 				absolute;
 	left: 					0px;
 	top:  					0px;
-	bottom:  				0px;
+	/*bottom:  				0px;*/
 	/*width: 					260px;*/
 	width: 					0px;
-	overflow: 				auto;
 }
 
 .menu2
@@ -396,7 +395,7 @@ tr:hover .td2 .txtInput
 	position: 				fixed;
 	right: 					0px;
 	top: 					0px;
-	height: 				100%;
+	max-height: 			100%;
 	background-color: 		rgb(100, 100, 100);
 	max-width: 				50%;
 }
@@ -405,10 +404,12 @@ tr:hover .td2 .txtInput
 {
 	height: 				100%;
 	width: 					100%;
-	padding: 				0px;
+	padding: 				6px;
+	padding-left: 			12px;
 	background-color: 		rgb(50, 52, 56);
 	border: 				0px;
 	border-left: 			1px;
+	border-bottom: 			1px;
 	border-style: 			solid;
 	border-color: 			rgb(72, 74, 78);
 }
@@ -416,14 +417,16 @@ tr:hover .td2 .txtInput
 .menu2HomeArticle
 {
 	margin: 				10px;
+	margin-left: 			0px;
 	background-color: 		rgb(42, 44, 48);
 	padding: 				5px;
+	padding-left: 0px;
 }
 
 .menu2OpenClose
 {
 	position: absolute;
-	top: 					5%;
+	top: 					35px;
 	left: 					-39px;
 	background-color: 		rgb(30, 32, 36);
 	margin: 				0px;
