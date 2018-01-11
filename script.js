@@ -29,6 +29,7 @@ var statutPrintData 	= 0					// donne le statu de l'impression
 var timeUpdate 			= 1000 				// temps avant la mise a jour
 var pathFolder 			= "/"				//emplacement dans le dossier 
 var allParam 			= {} 				// tout les paramettre de l'application
+var usbModify 			= 0
 ////////////////////////////////////////////////////////////////////////////////
 //// 								DEV 									////
 function test_post() {
@@ -65,7 +66,7 @@ function getAllParam() {
 				test += tableParam[i].slice(0,pos) + " : " + tableParam[i].slice(pos+1) + "\n";
 			}
 			//console.log(test);
-			listDirUpdate(pathFolder);
+			updateAllInfo();
 			setTimeout(update,timeUpdate);
 		},
 		error : function() {
@@ -76,6 +77,30 @@ function getAllParam() {
 }
 function update() {
 	getAllParam();
+	listDirUpdate(pathFolder);
+}
+
+function updateAllInfo(){
+	updateUsb();
+}
+
+function updateUsb(){
+	if (allParam.usbRun == "True"){
+		$('#inprimanteRunUsb').text("utiliser");
+	}
+	else {
+		$('#inprimanteRunUsb').text("non utiliser");
+	}
+	if (allParam.usbConnect == "True"){
+		$('#inprimanteConnecterUsb').text("Connecté");
+	}
+	else {
+		$('#inprimanteConnecterUsb').text("Non connecté");
+	}
+	if (usbModify = 0){
+		$('#inprimantePortUsb').text(allParam.usbPort);
+		$('#inprimanteBauderateUsb').text(allParam.usbBauderate);
+	}
 }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -84,6 +109,12 @@ function update() {
 update();
 ////////////////////////////////////////////////////////////////////////////////
 function modifyUsb(send = 0) {
+	if (usbModify == 0){
+		usbModify = 1
+	}
+	else{
+		usbModify = 0
+	}
 	var modifyUsb = document.getElementById("modifyUsb");
 	var modifyCancelUsb = document.getElementById("modifyCancelUsb");
 	var modifySendUsb = document.getElementById("modifySendUsb");
