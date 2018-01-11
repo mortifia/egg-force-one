@@ -27,7 +27,7 @@ from threading import Thread
 
 import logging
 from flask import Flask, Response, request
-from flask_socketio import SocketIO
+#from flask_socketio import SocketIO
 from werkzeug.utils import secure_filename
 
 import git
@@ -54,6 +54,7 @@ class WebUser(Thread):
     #    self.socketio.emit('print', str(self.sysVar.printNbLine), broadcast=True)
     #    pass
 
+    """
     def statutImpression(self):
         self.socketio.emit('statutImpression', self.sysVar.printStatut, broadcast=True)
         pass
@@ -103,7 +104,9 @@ class WebUser(Thread):
             print("bug to send end pos print")
             pass
         pass
+    """
 
+    """
     def updatePrint(self):
         self.statutImpression()
         self.srcImpression()
@@ -114,7 +117,9 @@ class WebUser(Thread):
         self.nbLinesPrint()
         self.nbLayerPrint()
         pass
+    """
 
+    """
     def inprimanteConnecterUsb(self):
         self.sysVar.threadControl.msgTerminal("usbConnect : " + str(self.sysVar.usbConnect))
         try:
@@ -129,6 +134,7 @@ class WebUser(Thread):
             self.socketio.emit('inprimanteConnecterUsb', "True", broadcast=True)
             pass
         pass
+    """
 
     def html(self):
         tmp = open("html.html", "r", encoding="utf-8")
@@ -155,9 +161,9 @@ class WebUser(Thread):
         return data
 
     def initData(self):
-        fichier = open("socket.io.js", "r")
-        self.socketIO = fichier.read()
-        fichier.close()
+        #fichier = open("socket.io.js", "r")
+        #self.socketIO = fichier.read()
+        #fichier.close()
 
         fichier = open("jquery.min.js", "r")
         self.jquery = fichier.read()
@@ -173,14 +179,14 @@ class WebUser(Thread):
             self.pathCut = "/"
             pass
         app = Flask(__name__)
-        socketio = SocketIO(app)
+        #socketio = SocketIO(app)
 
         log = logging.getLogger('werkzeug')
         log.setLevel(logging.ERROR)
 
         self.app = app
         self.log = log
-        self.socketio = socketio
+        #self.socketio = socketio
 
         @app.route('/')
         def home():
@@ -191,7 +197,7 @@ class WebUser(Thread):
             return Response(self.css(), mimetype='text/css')
         @app.route('/font/<name>')
         def font(name):
-            print("name : " + str(name))
+            #print("name : " + str(name))
             return Response(self.font(name), mimetype='application/woff2')
 
         #@app.route('/socket.io.js')
@@ -351,7 +357,7 @@ class WebUser(Thread):
                     pass
                 pass
             return dataReturn[:len(dataReturn)-1]
-
+        """
         @socketio.on('new user')
         def newUser(data):
             if (self.sysVar.threadControl.isAlive() == True):
@@ -410,10 +416,10 @@ class WebUser(Thread):
                 self.statutImpression()
                 pass
             pass
-
+        """
     def startWeb(self):
-        #self.app.run(host='127.0.0.2', port=8080)
-        self.socketio.run(self.app, host = self.sysVar.webHost, port = self.sysVar.webPort)
+        self.app.run(host = self.sysVar.webHost, port = self.sysVar.webPort, threaded=True)
+        #self.socketio.run(self.app, host = self.sysVar.webHost, port = self.sysVar.webPort)
         pass
 
     def run(self):

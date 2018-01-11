@@ -147,7 +147,7 @@ class Usb(Thread):
             else:
                 self.sysVar.usbConnect = True
                 self.sysVar.threadControl.msgTerminal("USB connecté")
-                self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur
+                #self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur
                 try:
                     self.sysVar.threadControl.startGcode() #lance le start gcode
                     pass

@@ -51,6 +51,7 @@ class OnStart (Thread):
         pass
     pass
 
+"""
 class rafrechisementFichierPrint(Thread):
     def __init__(self,sysVar):
         self.sysVar = sysVar
@@ -61,22 +62,22 @@ class rafrechisementFichierPrint(Thread):
         hz = 1/4
         while (self.sysVar.printLoad == 1):
             time.sleep(hz)
-            try:
-                self.sysVar.threadWebUser.updatePrint()
-                pass
-            except:
-                print("bug dans updatePrint")
-                pass
+            #try:
+            #    self.sysVar.threadWebUser.updatePrint()
+            #    pass
+            #except:
+            #    print("bug dans updatePrint")
+            #    pass
             pass
-        try:
-            self.sysVar.threadWebUser.updatePrint()
-            pass
-        except:
-            print("bug dans updatePrint")
-            pass
+        #try:
+        #    self.sysVar.threadWebUser.updatePrint()
+        #    pass
+        #except:
+        #    print("bug dans updatePrint")
+        #    pass
         pass
     pass
-
+"""
 
 class analyseFichierPrint(Thread):
     def __init__(self,sysVar):
@@ -84,11 +85,11 @@ class analyseFichierPrint(Thread):
         Thread.__init__(self)
         pass
 
-    def updateThread(self):
-        threadTime = rafrechisementFichierPrint(self.sysVar)
-        threadTime.setDaemon(True)
-        threadTime.start()
-        pass
+    #def updateThread(self):
+    #    threadTime = rafrechisementFichierPrint(self.sysVar)
+    #    threadTime.setDaemon(True)
+    #    threadTime.start()
+    #    pass
 
     def initialisation(self):
         if (self.sysVar.printSrc[0] == "/" or self.sysVar.printSrc[0] == "\\"):
@@ -101,7 +102,7 @@ class analyseFichierPrint(Thread):
         self.tmpTxt = self.folder.readline()
         self.nbLigne = 1
         self.sysVar.printLoad = 1
-        self.updateThread()
+        #self.updateThread()
         pass
 
     def analyse(self, tmpTxt):
@@ -192,13 +193,6 @@ class Control (Thread):
         self.sysVar.printPosLayer   = []
         self.sysVar.printPosLine    = 0
         with self.sysVar.printSafe:
-            try:
-                self.sysVar.threadWebUser.updatePrint()
-                pass
-            except:
-                print("bug update statut web")
-                self.sysVar.printStatut = 0
-                pass
             isConnect = 0
             if (self.sysVar.connectType == "USB"):
                 isConnect = 1
@@ -233,13 +227,13 @@ class Control (Thread):
                         self.sysVar.printSrc = src
                         self.sysVar.printStatut = 1
                         self.analyseFichier()
-                        try:
-                            self.sysVar.threadWebUser.statutImpression()
-                            self.sysVar.threadWebUser.srcImpression()
-                            pass
-                        except:
-                            print("bug to update start print")
-                            pass
+                        #try:
+                        #    self.sysVar.threadWebUser.statutImpression()
+                        #    self.sysVar.threadWebUser.srcImpression()
+                        #    pass
+                        #except:
+                        #    print("bug to update start print")
+                        #    pass
                         print("end init print 2")
                         pass
                     pass
@@ -274,12 +268,12 @@ class Control (Thread):
                     pass
                 except:
                     pass
-                try:
-                    self.sysVar.threadWebUser.posPrint();
-                    pass
-                except:
-                    print("bug to send posPrint")
-                    pass
+                #try:
+                #    self.sysVar.threadWebUser.posPrint();
+                #    pass
+                #except:
+                #    print("bug to send posPrint")
+                #    pass
                 if (tmp == ""):
                     self.sysVar.printStatut = 2
                     self.sysVar.threadWebUser.statutImpression()
@@ -294,19 +288,19 @@ class Control (Thread):
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
-                if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut != 2):
-                    if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
-                        self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
-                        self.sysVar.printLayer += 1
-                        self.sysVar.threadWebUser.layerPrint()
-                        try:
-                            self.sysVar.threadWebUser.layer()
-                            pass
-                        except:
-                            print("bug to send layer")
-                            pass
-                        pass
-                    pass
+                #if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut != 2):
+                #    if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
+                #        self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
+                #        self.sysVar.printLayer += 1
+                #        self.sysVar.threadWebUser.layerPrint()
+                #        try:
+                #            self.sysVar.threadWebUser.layer()
+                #            pass
+                #        except:
+                #            print("bug to send layer")
+                #            pass
+                #        pass
+                #    pass
                 pass
             pass
         pass
