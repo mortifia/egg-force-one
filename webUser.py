@@ -148,8 +148,8 @@ class WebUser(Thread):
         tmp.close()
         return data
 
-    def cssCharac(self):
-        tmp = open("charac.css", "r")
+    def font(self,name):
+        tmp = open("font/" + name, "rb") # lecture byte a byte
         data = tmp.read()
         tmp.close()
         return data
@@ -189,13 +189,14 @@ class WebUser(Thread):
         @app.route('/css.css')
         def css():
             return Response(self.css(), mimetype='text/css')
-        @app.route('/charac.css')
-        def charac():
-            return Response(self.cssCharac(), mimetype='text/css')
+        @app.route('/font/<name>')
+        def font(name):
+            print("name : " + str(name))
+            return Response(self.font(name), mimetype='application/woff2')
 
-        @app.route('/socket.io.js')
-        def routeSocketIO():
-            return self.socketIO
+        #@app.route('/socket.io.js')
+        #def routeSocketIO():
+        #    return self.socketIO
 
         @app.route('/jquery.min.js')
         def routeJquery():

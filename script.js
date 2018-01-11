@@ -65,14 +65,18 @@ function getAllParam() {
 				test += tableParam[i].slice(0,pos) + " : " + tableParam[i].slice(pos+1) + "\n";
 			}
 			//console.log(test);
+			listDirUpdate(pathFolder);
+			setTimeout(update,timeUpdate);
 		},
-		error : function() {}
+		error : function() {
+			setTimeout(update,timeUpdate);
+			console.error("update param bug");
+		}
 	});
 }
 function update() {
 	getAllParam();
-	listDirUpdate(pathFolder);
-	setTimeout(update,timeUpdate);
+	
 }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -269,12 +273,14 @@ function updateSoftware() {
 }
 
 
+/*
 //socket io
 var socket = io.connect('http://' + document.domain + ':' + location.port);
 // envoi un message pour prevenir qu'on est connecté
 socket.on('connect', function (data) {
 	socket.emit('new user', "");
 });
+*/
 // reception des message pour le terminal
 /*socket.on('MsgTerm', function (data) {
 	if (document.getElementById('outputTerm').childNodes.length >= (lenTerm * 2)) {
@@ -283,10 +289,15 @@ socket.on('connect', function (data) {
 	}
 	$('#outputTerm').append('<span>' + data + '</span><br>');
 });*/
+
+/*
 //reception de la temperature
 socket.on('temp', function (data) {
 	temp = data
 });
+*/
+
+/*
 // previent si on est connecté a l'imprimante ou non
 socket.on('inprimanteConnecterUsb', function (data) {
 	if (data == "True") {
@@ -332,6 +343,9 @@ $("#printSrc").keypress(function(e) {
 		socket.emit('printSrc', src);
 	}
 });
+*/
+
+/*
 //met a jour l'interface avec la progression
 socket.on('posPrint', function (data) {
 	
@@ -349,7 +363,12 @@ socket.on('posEndPrint', function (data) {
 });
 socket.on('srcImpression', function (data) {
 	$('#emplacementFichier').text(data);
-})
+});
+*/
+
+
+/*
+//
 socket.on('statutImpression', function (data) {
 	switch (data) {
 		case 5:
@@ -386,7 +405,10 @@ socket.on('statutImpression', function (data) {
 			$('#statutImpression').text("Bug");
 		}
 	});
+*/
+
 // analyse de la commande du terminal
+/*
 $('#inputTerm').keypress(function(e) {
 	if (e.which == 13) {
 		var commande = $('#inputTerm').val();
@@ -437,3 +459,4 @@ $('#inputTerm').keypress(function(e) {
 		}
 	}
 });
+*/
