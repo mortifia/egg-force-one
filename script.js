@@ -59,12 +59,29 @@ function getAllParam() {
 		success : function(data) {
 			allParam = {};
 			tableParam = data.split("&");
-			var test = "";
 			for (var i = 0; i < tableParam.length; i++) {
 				var pos = tableParam[i].indexOf(":");
-				allParam[tableParam[i].slice(0,pos)] = tableParam[i].slice(pos+1);
-				test += tableParam[i].slice(0,pos) + " : " + tableParam[i].slice(pos+1) + "\n";
+				if (tableParam[i][pos+1] == "["){
+					//console.log("tableau : " + tableParam[i].slice(0,pos));
+					var tmp = [];
+					var data = tableParam[i].slice(pos+2).split(",");
+					//console.log(tableParam[i].slice(0,pos)+" : "+data);
+					for (var j = 0; j < data.length; j++) {
+						tmp.push(data[j]);
+					}
+					//alert(data[data.length -1].substring(0, data[data.length-1].length-2));
+					var tmp2 = data[data.length -1].substring(0, data[data.length-1].length-1);
+					tmp.pop();
+					tmp.push(tmp2);
+					allParam[tableParam[i].slice(0,pos)] = tmp;
+
+				}
+				else{
+					allParam[tableParam[i].slice(0,pos)] = tableParam[i].slice(pos+1);					
+				}
 			}
+
+			console.log(allParam);
 			//console.log(test);
 			updateAllInfo();
 			setTimeout(update,timeUpdate);
@@ -82,6 +99,7 @@ function update() {
 
 function updateAllInfo(){
 	updateUsb();
+	updatePrint();
 }
 
 function updateUsb(){
@@ -97,10 +115,51 @@ function updateUsb(){
 	else {
 		$('#inprimanteConnecterUsb').text("Non connecté");
 	}
-	if (usbModify = 0){
+	if (usbModify == 0){
 		$('#inprimantePortUsb').text(allParam.usbPort);
 		$('#inprimanteBauderateUsb').text(allParam.usbBauderate);
 	}
+}
+
+function updatePrint(){
+	//statut impression
+	switch (allParam.printStatut) {
+		case "5":
+			// initialisation de l'impression
+			$('#statutImpression').text("analyse en cour");
+			break;
+		case "0":
+			// aucune impression
+			
+			$('#statutImpression').text("Aucune impression");
+			break;
+		case "1":
+			// impression en cour
+			$('#statutImpression').text("Impression en cour");
+			break;
+		case "2":
+			// impression terminer
+			$('#statutImpression').text("Impression terminer");
+			break;
+		case "3":
+			// impression en pause
+			$('#statutImpression').text("Impression en pause");
+			break;
+		case "4":
+			// impression areter
+			$('#statutImpression').text("Impression arrêtée");
+			break;
+			default:
+			$('#statutImpression').text("Bug");
+	}
+	//max total
+	document.getElementById("progressPrint").max = allParam.printNbLine;
+	//pos total
+	document.getElementById("progressPrint").value = allParam.printPosLine;
+	//max layer
+	//document.getElementById("progressLayer").value = allNb[2] - allNb[1];
+	//pos layer
+
 }
 ////////////////////////////////////////////////////////////////////////////////
 

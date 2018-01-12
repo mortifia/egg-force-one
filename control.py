@@ -276,7 +276,7 @@ class Control (Thread):
                 #    pass
                 if (tmp == ""):
                     self.sysVar.printStatut = 2
-                    self.sysVar.threadWebUser.statutImpression()
+                    #self.sysVar.threadWebUser.statutImpression()
                     self.sysVar.threadControl.msgTerminal("impression terminer I/O :" +
                                                           str(self.countIn) + " / " +
                                                           str(self.countOut))
@@ -288,19 +288,19 @@ class Control (Thread):
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
-                #if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut != 2):
-                #    if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
-                #        self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
-                #        self.sysVar.printLayer += 1
-                #        self.sysVar.threadWebUser.layerPrint()
-                #        try:
-                #            self.sysVar.threadWebUser.layer()
-                #            pass
-                #        except:
-                #            print("bug to send layer")
-                #            pass
-                #        pass
-                #    pass
+                if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut != 2):
+                    if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
+                        self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
+                        self.sysVar.printLayer += 1
+                        #self.sysVar.threadWebUser.layerPrint()
+                        #try:
+                        #    self.sysVar.threadWebUser.layer()
+                        #    pass
+                        #except:
+                        #    print("bug to send layer")
+                        #    pass
+                        pass
+                    pass
                 pass
             pass
         pass

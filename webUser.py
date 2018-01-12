@@ -338,14 +338,15 @@ class WebUser(Thread):
                     if tmp == "usbAllPort":
                         dataReturn += tmp + ":" + "["
                         for element in self.sysVar.usbAllPort:
-                            dataReturn += str(element[0]) + ","
+                            dataReturn += element[0] + ","
                             pass
+                        dataReturn = dataReturn[:-1]
                         dataReturn += "]"
                         dataReturn += "&"
                         pass
                     elif tmp2 is str:
                         #print(type(dictTemp[tmp]))
-                        dataReturn += tmp + ":'" + str(dictTemp[tmp]) + "'&"
+                        dataReturn += tmp + ":" + dictTemp[tmp] + "&"
                         pass
                     elif tmp2 is bool or tmp2 is list or tmp2 is int:
                         #print(type(dictTemp[tmp]))
