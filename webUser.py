@@ -23,6 +23,7 @@
 
 import os
 import sys
+import signal
 from threading import Thread
 
 import logging
@@ -170,8 +171,13 @@ class WebUser(Thread):
         fichier.close()
         pass
 
-    def init(self):
+    def shutdown_server(self):
+        func = request.environ.get('werkzeug.server.shutdown')
+        if func is None:
+            raise RuntimeError('Not running with the Werkzeug Server')
+        func()
 
+    def init(self):
         if sys.platform.startswith('win'):
             self.pathCut = "\\"
             pass
@@ -187,6 +193,11 @@ class WebUser(Thread):
         self.app = app
         self.log = log
         #self.socketio = socketio
+
+        @app.route('/shutdown')
+        def shutdown():
+            self.shutdown_server()
+            return 'Server shutting down...'
 
         @app.route('/')
         def home():
@@ -282,6 +293,7 @@ class WebUser(Thread):
 
         @app.route('/printSrc', methods=['POST'])
         def printSrc():
+            print("dddddddddddddddddddddddddddddd")
             try:
                 path = str(request.form['path'])
                 if (path[0] == "\\" or path[0] == "/"):
@@ -291,6 +303,7 @@ class WebUser(Thread):
                 if sys.platform.startswith('win'):
                     pass
                 if (self.sysVar.printStatut == 0 or self.sysVar.printStatut == 2 or self.sysVar.printStatut == 4):
+                    print("test")
                     self.sysVar.threadControl.initPrint(path)
                     return "1"      # impression en cour
                 else:
@@ -310,7 +323,13 @@ class WebUser(Thread):
                         #print(str(test) + " : " + str(dictTemp[test]))
                         try:
                             if (request.form[test]):
-                                dictTemp[test] = request.form[test]
+                                try:
+                                    dictTemp[test] = int(request.form[test])
+                                    print("type int")
+                                    pass
+                                except:
+                                    dictTemp[test] = request.form[test]
+                                    pass
                                 print(test + " : change by : " + str(request.form[test]))
                                 pass
                             pass
@@ -419,7 +438,7 @@ class WebUser(Thread):
             pass
         """
     def startWeb(self):
-        self.app.run(host = self.sysVar.webHost, port = self.sysVar.webPort, threaded=True)
+        self.app.run(host = self.sysVar.webHost, port = self.sysVar.webPort)
         #self.socketio.run(self.app, host = self.sysVar.webHost, port = self.sysVar.webPort)
         pass
 

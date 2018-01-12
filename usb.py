@@ -186,9 +186,9 @@ class Usb(Thread):
         """
         hz = 1/120 # optimisation
         hzSleep = 1/10 # optimisation
-        while (self.sysVar.alive == True):
+        while (self.sysVar.alive == 0):
             time.sleep(hzSleep)
-            while (self.sysVar.connectType == "USB" and self.sysVar.alive == True): # fait fonctionner la communication usb
+            while (self.sysVar.connectType == "USB" and self.sysVar.alive == 0): # fait fonctionner la communication usb
                 time.sleep(hz)
                 self.sysVar.usbRun = True
                 self.update()

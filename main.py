@@ -25,74 +25,58 @@
 #import externe
 import os
 import time
+import requests
 
 #import egg force one
-import sysVar
-
-import usb
-import control
-import webUser
+import start
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
 
-def startUsb (sysVar):
-    threadUsb = usb.Usb(sysVar)
-    sysVar.threadUsb = threadUsb
-    threadUsb.setDaemon(True)
-    threadUsb.setName("usb egg force one")
-    threadUsb.start()
-    pass
+def analyseStart ():
+    errorCode = -1
+    while (errorCode == -1):
+        #import egg force one
+        print("start")
+        errorCode = start.start()
+        errorCode = int(errorCode)
+        time.sleep(2)
+        if (errorCode == -1):
+            print("restart")
 
-def startControl(sysVar):
-    threadControl = control.Control(sysVar)
-    sysVar.threadControl = threadControl
-    threadControl.setDaemon(True)
-    threadControl.setName("control egg force one")
-    threadControl.start()
-    pass
-
-def startWebUser(sysVar):
-    threadWebUser = webUser.WebUser(sysVar)
-    sysVar.threadWebUser = threadWebUser
-    threadWebUser.setDaemon(True)
-    threadWebUser.setName("web user egg force one")
-    threadWebUser.start()
-    pass
-
-def startAll(sysVar):
-    startWebUser(sysVar)
-    startControl(sysVar)
-    startUsb (sysVar)
-    pass
-
-def alwaysAlive(sysVar):
-    hz = 1/10 #optimisation
-    while (sysVar.alive == True):
-        time.sleep(hz)
-        if (sysVar.threadUsb.isAlive() == False):
-            print("bug usb")
-            #startUsb(sysVar)
-            sysVar.alive == False
+            try:
+                print("reload 0-1 test")
+                import importlib
+                importlib.reload(start.sysVar.usb)
+                importlib.reload(start.sysVar.control)
+                importlib.reload(start.sysVar.webUser)
+                importlib.reload(start.sysVar.utils)
+                importlib.reload(start.sysVar)
+                importlib.reload(start)
+                print("reload 0-1 finish successful")
+                pass
+            except:
+                print("reload 0-2 test")
+                try:
+                    import imp
+                    imp.reload(start.sysVar.usb)
+                    imp.reload(start.sysVar.control)
+                    imp.reload(start.sysVar.webUser)
+                    imp.reload(start.sysVar.utils)
+                    imp.reload(start.sysVar)
+                    imp.reload(start)
+                    print("reload 0-2 finish successful")
+                    pass
+                except:
+                    print("all test bug")
+                    pass
+                pass
             pass
-        if (sysVar.threadControl.isAlive() == False):
-            print("bug control")
-            #startControl(sysVar)
-            sysVar.alive == False
+        else:
+            print("stop : " + str(errorCode))
             pass
-        if (sysVar.threadWebUser.isAlive() == False):
-            print("bug web user")
-            #startWebUser(sysVar)
-            sysVar.alive == False
-            pass
-        pass
-    pass
-def start():
-    startAll(sysVar)
-    alwaysAlive(sysVar)
-    pass
 
 if __name__ == "__main__":
     #cProfile.run("start()")
-    start()
+    analyseStart()
     pass

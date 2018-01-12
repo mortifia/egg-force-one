@@ -378,16 +378,12 @@ tr:hover .td2 .txtInput
 
 .menu
 {
-	background-color: 		rgb(42, 44, 48);
-	color: 					rgb(253, 253, 253);
-	font-family: 			'Roboto', 'Roboto Mono', Tahoma, Helvetica, Arial, sans-serif;
-	font-size: 				15px;
-	position: 				absolute;
+	position: 				fixed;
 	left: 					0px;
-	top:  					0px;
-	/*bottom:  				0px;*/
-	/*width: 					260px;*/
-	width: 					0px;
+	top: 					0px;
+	max-height: 			100%;
+	background-color: 		rgb(100, 100, 100);
+	max-width: 				50%;
 }
 
 .menu2
@@ -400,10 +396,24 @@ tr:hover .td2 .txtInput
 	max-width: 				50%;
 }
 
+.menuHome
+{
+	height: 				inherit;
+	width: 					inherit;
+	padding: 				6px;
+	padding-left: 			12px;
+	background-color: 		rgb(50, 52, 56);
+	border: 				0px;
+	border-right:			1px;
+	border-bottom: 			1px;
+	border-style: 			solid;
+	border-color: 			rgb(72, 74, 78);
+}
+
 .menu2Home
 {
-	height: 				100%;
-	width: 					100%;
+	height: 				inherit;
+	width: 					inherit;
 	padding: 				6px;
 	padding-left: 			12px;
 	background-color: 		rgb(50, 52, 56);
@@ -412,6 +422,15 @@ tr:hover .td2 .txtInput
 	border-bottom: 			1px;
 	border-style: 			solid;
 	border-color: 			rgb(72, 74, 78);
+}
+
+.menuHomeArticle
+{
+	margin: 				10px;
+	margin-left: 			0px;
+	background-color: 		rgb(42, 44, 48);
+	padding: 				5px;
+	padding-left: 0px;
 }
 
 .menu2HomeArticle
@@ -423,10 +442,27 @@ tr:hover .td2 .txtInput
 	padding-left: 0px;
 }
 
+.menuOpenClose
+{
+	position: absolute;
+	top: 					5px;
+	right: 					-39px;
+	background-color: 		rgb(30, 32, 36);
+	margin: 				0px;
+	border: 				1px;
+	border-left: 			0px;
+	border-style: 			solid;
+    border-color: 			rgb(72, 74, 78);
+    padding: 				0px;
+
+    height: 				37px;
+	width: 					40px;
+}
+
 .menu2OpenClose
 {
 	position: absolute;
-	top: 					35px;
+	top: 					5px;
 	left: 					-39px;
 	background-color: 		rgb(30, 32, 36);
 	margin: 				0px;

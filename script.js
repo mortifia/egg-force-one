@@ -157,8 +157,19 @@ function updatePrint(){
 	//pos total
 	document.getElementById("progressPrint").value = allParam.printPosLine;
 	//max layer
-	//document.getElementById("progressLayer").value = allNb[2] - allNb[1];
+	document.getElementById("progressLayer").max = allParam.printPosLayer[allParam.printLayer] - allParam.printOldLayer;
 	//pos layer
+	document.getElementById("progressLayer").value = allParam.printPosLine - allParam.printOldLayer;
+	//print src
+	$('#emplacementFichier').text(allParam.printSrc);
+	//print nb lines
+	$('#nbLinesPrint').text(allParam.printNbLine);
+	//print line
+	$('#LinesPrint').text(allParam.printPosLine);
+	//print nb layer
+	$('#nbLayerPrint').text(allParam.printNbLayer);
+	//print layer
+	$('#layerPrint').text(allParam.printLayer);
 
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -208,6 +219,15 @@ function openClose(test) {
 		test.parentNode.parentNode.childNodes[3].className = "none";
 	}
 }
+function openCloseMenu(test) {
+	if (test.parentNode.childNodes[1].className == "none") {
+		test.parentNode.childNodes[1].className = "menuHome";
+	}
+	else {
+		test.parentNode.childNodes[1].className = "none";
+	}
+}
+//
 function openCloseMenu2(test) {
 	if (test.parentNode.childNodes[1].className == "none") {
 		test.parentNode.childNodes[1].className = "menu2Home";
@@ -217,8 +237,19 @@ function openCloseMenu2(test) {
 	}
 }
 //
-function statutPrint(data) {
-	socket.emit('statutPrint', data);
+function printStatut(data) {
+	console.log("modify printStatut : " + data);
+	$.ajax({
+		type: 'POST',
+		url: '/paramChange',
+		data: 'printStatut=' + data,
+		success: function(data) {
+			console.log("printStatut update");
+		},
+		error: function() {
+			console.error("error statutPrint");
+		}
+	});
 }
 function printFolder() {
 	path = document.getElementById("dirPath").lastChild.lastChild.lastChild.innerHTML + this.lastChild.innerHTML; 
@@ -356,7 +387,23 @@ function updateSoftware() {
 			console.log("updateSoftware : " + data);
 		},
 		error: function() {
-			console.log('error updateSoftware');
+			console.error('error updateSoftware');
+		}
+	});
+}
+
+function sendAlive(code) {
+	//modifie le alive du programme
+	console.log("modify alive : " + code);
+	$.ajax({
+		type: 'POST',
+		url: '/paramChange',
+		data: 'alive=' + code,
+		success: function(data) {
+			console.log("alive update");
+		},
+		error: function() {
+			console.error("error sendAlive");
 		}
 	});
 }

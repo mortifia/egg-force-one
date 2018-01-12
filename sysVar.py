@@ -25,6 +25,9 @@ import sys
 import os
 from threading import RLock
 
+import usb
+import control
+import webUser
 import utils
 
 # nous place dans le dossier de l'executable
@@ -35,7 +38,7 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 path            = False             # emplacement du dossier egg force one log
 paramPath       = False             # emplacement du fichier de paramettre de l'utilisateur
 FolderPrint     = False             # emplacement du dossier d'impression
-alive           = True              # ferme l'application
+alive           = 0                 # matien l'application en vie et sert de code d'erreur
 connectType     = "USB"             # permet de choisir le moyen de communication avec le controlleur
 temp            = ['0']             # liste toutes les temperatures de l'imprimante 3D
 lvlMsg          = 2                 # niveau max des message aficher

@@ -183,6 +183,7 @@ class Control (Thread):
         pass
 
     def initPrint(self, src):
+        print("test print")
         self.sysVar.threadControl.msgTerminal("start init print :" + src)
         self.sysVar.printStatut     = 5
         self.sysVar.printSrc        = ""
@@ -357,7 +358,7 @@ class Control (Thread):
 
     def update(self):
         hz = 1/120 # optimisation
-        while (self.sysVar.alive == True):
+        while (self.sysVar.alive == 0):
             time.sleep(hz)
             self.analyseGcode()
             self.onPrint()

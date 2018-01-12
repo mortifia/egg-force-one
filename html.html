@@ -70,21 +70,25 @@
 								<td class="td2" id="emplacementFichier"></td>
 							</tr>
 							<tr>
-								<td class="td1">Couche actuelle</td>
-								<td class="td2" id="layerPrint"></td>
-							</tr>
-							<tr>
 								<td class="td1">Nombre de lignes</td>
 								<td class="td2" id="nbLinesPrint"></td>
+							</tr>
+							<tr>
+								<td class="td1">ligne actuelle</td>
+								<td class="td2" id="LinesPrint"></td>
 							</tr>
 							<tr>
 								<td class="td1">Nombre de couches</td>
 								<td class="td2" id="nbLayerPrint"></td>
 							</tr>
+							<tr>
+								<td class="td1">Couche actuelle</td>
+								<td class="td2" id="layerPrint"></td>
+							</tr>
 						</table>
-						<button onclick="statutPrint(3)">pause</button>
-						<button onclick="statutPrint(1)">play</button>
-						<button onclick="statutPrint(4)">stop</button>
+						<button onclick="printStatut(3)">pause</button>
+						<button onclick="printStatut(1)">play</button>
+						<button onclick="printStatut(4)">stop</button>
 
 					</div>
 				</div>
@@ -215,7 +219,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="menu"></div>
+		<div class="menu">
+			<div class="none" id="menuHome">
+				<button onclick="sendAlive(1)">exit</button>
+				<button onclick="sendAlive(-1)">restart</button>
+			</div>
+			<button class="menuOpenClose" onclick="openCloseMenu(this)"></button>
+		</div>
 		<div class="menu2">
 			<div class="none" id="menu2Home">
 				<div>DEV</div>
