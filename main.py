@@ -25,7 +25,6 @@
 #import externe
 import os
 import time
-import requests
 
 #import egg force one
 import start
@@ -40,7 +39,6 @@ def analyseStart ():
         print("start")
         errorCode = start.start()
         errorCode = int(errorCode)
-        time.sleep(2)
         if (errorCode == -1):
             print("restart")
 

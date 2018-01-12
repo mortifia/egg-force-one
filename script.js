@@ -401,6 +401,9 @@ function sendAlive(code) {
 		data: 'alive=' + code,
 		success: function(data) {
 			console.log("alive update");
+			setTimeout(function() {
+				document.location.reload(true);
+			}, 1000);
 		},
 		error: function() {
 			console.error("error sendAlive");
