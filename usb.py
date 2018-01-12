@@ -175,7 +175,7 @@ class Usb(Thread):
             except:
                 self.sysVar.usbConnect = False
                 self.sysVar.usbSerial.close()
-                self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur
+                #self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur
                 pass
             pass
         pass
