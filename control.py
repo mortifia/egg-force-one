@@ -292,7 +292,9 @@ class Control (Thread):
                 if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut != 2):
                     if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
                         self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
-                        self.sysVar.printLayer += 1
+                        if (self.sysVar.printStatut == 1)
+                            self.sysVar.printLayer += 1
+                            pass
                         #self.sysVar.threadWebUser.layerPrint()
                         #try:
                         #    self.sysVar.threadWebUser.layer()
