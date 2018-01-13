@@ -261,8 +261,8 @@ progress
 	color: 					rgb(202,96,51);
 	-webkit-appearance: 	none;
 
-	-webkit-transition-duration: 1.0s; /* Safari */
-    transition-duration: 1.0s;
+	-webkit-transition-duration: 3.0s; /* Safari */
+    transition-duration: 3.0s;
 }
 
 progress::-webkit-progress-bar
@@ -270,24 +270,24 @@ progress::-webkit-progress-bar
 	color: 					rgb(202,96,51);
 	background-color: 		rgba(0,0,0,0);
 
-	-webkit-transition-duration: 2.0s; /* Safari */
-    transition-duration: 2.0s;
+	-webkit-transition-duration: 3.0s; /* Safari */
+    transition-duration: 3.0s;
 }
 progress::-webkit-progress-value
 {
 	color: 					rgb(202,96,51);
 	background-color: 		rgb(202,96,51);
 
-	-webkit-transition-duration: 2.0s; /* Safari */
-    transition-duration: 2.0s;
+	-webkit-transition-duration: 3.0s; /* Safari */
+    transition-duration: 3.0s;
 }
 
 progress::-moz-progress-bar
 {
 	background-color: 		rgb(202,96,51);
 
-	-webkit-transition-duration: 2.0s; /* Safari */
-    transition-duration: 2.0s;
+	-webkit-transition-duration: 3.0s; /* Safari */
+    transition-duration: 3.0s;
 }
 
 progress:not([value])::-webkit-progress-bar
