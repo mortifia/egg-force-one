@@ -158,7 +158,10 @@ function updatePrint(){
 	//pos total
 	document.getElementById("progressPrint").value = allParam.printPosLine;
 	//max layer
-	document.getElementById("progressLayer").max = allParam.printPosLayer[allParam.printLayer] - allParam.printOldLayer;
+	var tmp = allParam.printPosLayer[allParam.printLayer] - allParam.printOldLayer;
+	if (document.getElementById("progressLayer").max != tmp){
+		document.getElementById("progressLayer").max = tmp;
+	}
 	//pos layer
 	document.getElementById("progressLayer").value = allParam.printPosLine - allParam.printOldLayer;
 	//print src
