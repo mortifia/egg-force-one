@@ -27,7 +27,8 @@ var oldPosLayer 		= 0 				// ancienne position du layer
 var PosLayer 			= 0 				// position actiel du layer
 var statutPrintData 	= 0					// donne le statu de l'impression
 var timeUpdate 			= 1000 				// temps avant la mise a jour
-var pathFolder 			= "/"				//emplacement dans le dossier 
+var pathFolder 			= "/"				//emplacement dans le dossier
+var elementRightClic 	= false 			//element ayant recu un clic droit
 var allParam 			= {} 				// tout les paramettre de l'application
 var usbModify 			= 0
 ////////////////////////////////////////////////////////////////////////////////
@@ -177,6 +178,9 @@ function updatePrint(){
 ////////////////////////////////////////////////////////////////////////////////
 ////					fonction a lancer au démarrage						////
 update();
+window.onload=function(){
+	addAtribute();
+}
 ////////////////////////////////////////////////////////////////////////////////
 function modifyUsb(send = 0) {
 	if (usbModify == 0){
@@ -294,12 +298,17 @@ function posDirUpdate() {
 function dirReturn() {
 	listDirUpdate(returnPath);
 }
+function rightClickext(tmp = "") {
+	alert("ext right click");
+}
 function rightClickDir(tmp = "") {
+	event.stopPropagation();
 	if (tmp != "") {
 		alert("dossier : " + tmp.lastChild.innerHTML);
 	}
 }
 function rightClickFolder(tmp = "") {
+	event.stopPropagation();
 	if (tmp != "") {
 		alert("fichier : " +tmp.lastChild.innerHTML);
 	}
@@ -411,6 +420,11 @@ function sendAlive(code) {
 	});
 }
 
+function addAtribute(){
+	test = document.getElementById('listDir').addEventListener('contextmenu',function(){
+		rightClickext();
+	}, false);
+}
 
 /*
 //socket io

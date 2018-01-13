@@ -261,8 +261,8 @@ progress
 	color: 					rgb(202,96,51);
 	-webkit-appearance: 	none;
 
-	-webkit-transition-duration: 2.0s; /* Safari */
-    transition-duration: 2.0s;
+	-webkit-transition-duration: 0s; /* Safari */
+    transition-duration: 0s;
 }
 
 progress::-webkit-progress-bar
@@ -307,8 +307,8 @@ button, .button
   	outline: 				none;
 
 
-	-webkit-transition-duration: 0.3s; /* Safari */
-    transition-duration: 0.3s;
+	-webkit-transition-duration: 3s; /* Safari */
+    transition-duration: 3s;
 }
 
 button:hover
