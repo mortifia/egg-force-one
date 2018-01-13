@@ -93,7 +93,13 @@ def alwaysAlive(sysVar):
                 pass
             pass
         pass
-    requests.get('http://127.0.0.1:8080/shutdown')
+    try:
+        while (True):
+            requests.get('http://127.0.0.1:8080/shutdown')
+            pass
+        pass
+    except:
+        pass
     pass
 
 def start():
