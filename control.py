@@ -188,10 +188,10 @@ class Control (Thread):
         self.sysVar.printStatut     = 5
         self.sysVar.printSrc        = ""
         self.sysVar.printNbLine     = 0
-        self.sysVar.printNbLayer    = 0
+        self.sysVar.printNbLayer    = 1
         self.sysVar.printLayer      = 0
         self.sysVar.printOldLayer   = 0
-        self.sysVar.printPosLayer   = []
+        self.sysVar.printPosLayer   = [0]
         self.sysVar.printPosLine    = 0
         with self.sysVar.printSafe:
             isConnect = 0
