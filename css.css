@@ -261,8 +261,13 @@ progress
 	color: 					rgb(202,96,51);
 	-webkit-appearance: 	none;
 
-	-webkit-transition-duration: 1s; /* Safari */
-    transition-duration: 1s;
+	/*-webkit-transition-duration: 1.0s;*/ /* Safari */
+    /*transition-duration: 1.0s;*/
+
+    -webkit-transition : width 1s ease;
+    -moz-transition : width 1s ease;
+    -o-transition : width 1s ease;
+    transition : width 1s ease;
 }
 
 progress::-webkit-progress-bar
