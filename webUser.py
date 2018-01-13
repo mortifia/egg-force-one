@@ -438,7 +438,7 @@ class WebUser(Thread):
             pass
         """
     def startWeb(self):
-        self.app.run(host = self.sysVar.webHost, port = self.sysVar.webPort)
+        self.app.run(host = self.sysVar.webHost, port = self.sysVar.webPort, threaded=True)
         #self.socketio.run(self.app, host = self.sysVar.webHost, port = self.sysVar.webPort)
         pass
 
