@@ -58,6 +58,8 @@ function getAllParam() {
 		url : '/paramGetAll',
 		data : '',
 		success : function(data) {
+			setTimeout(update,timeUpdate);
+			//
 			allParam = {};
 			tableParam = data.split("&");
 			for (var i = 0; i < tableParam.length; i++) {
@@ -85,7 +87,6 @@ function getAllParam() {
 			console.log(allParam);
 			//console.log(test);
 			updateAllInfo();
-			setTimeout(update,timeUpdate);
 		},
 		error : function() {
 			setTimeout(update,timeUpdate);
