@@ -307,8 +307,8 @@ button, .button
   	outline: 				none;
 
 
-	-webkit-transition-duration: 3s; /* Safari */
-    transition-duration: 3s;
+	-webkit-transition-duration: 0s; /* Safari */
+    transition-duration: 0s;
 }
 
 button:hover
