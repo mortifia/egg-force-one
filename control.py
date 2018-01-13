@@ -277,6 +277,9 @@ class Control (Thread):
                 #    pass
                 if (tmp == ""):
                     self.sysVar.printStatut = 2
+                    if (self.sysVar.printLayer == self.sysVar.printNbLayer):
+                        print("pass to end")
+                        pass
                     #self.sysVar.threadWebUser.statutImpression()
                     self.sysVar.threadControl.msgTerminal("impression terminer I/O :" +
                                                           str(self.countIn) + " / " +
@@ -289,12 +292,13 @@ class Control (Thread):
                 else:
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
-                if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut != 2):
+                if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut == 1):
                     if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
                         self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
-                        if (self.sysVar.printStatut == 1):
-                            self.sysVar.printLayer += 1
+                        if (self.sysVar.printLayer == self.sysVar.printNbLayer):
+                            print("heuuu : " + str(self.sysVar.printStatut) + " : and txt : " + str(tmp) + " :")
                             pass
+                        self.sysVar.printLayer += 1
                         #self.sysVar.threadWebUser.layerPrint()
                         #try:
                         #    self.sysVar.threadWebUser.layer()
