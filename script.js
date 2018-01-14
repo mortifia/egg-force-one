@@ -31,6 +31,7 @@ var pathFolder 			= "/"				//emplacement dans le dossier
 var elementRightClic 	= false 			//element ayant recu un clic droit
 var allParam 			= {} 				// tout les paramettre de l'application
 var usbModify 			= 0
+var dragTimer 								//timeout on drag 
 ////////////////////////////////////////////////////////////////////////////////
 //// 								DEV 									////
 function test_post() {
