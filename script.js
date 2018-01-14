@@ -478,6 +478,12 @@ function addAtribute(){
 		document.getElementById('rightClicFolder').className = "none";
 	}
 
+	document.addEventListener("click", function (event) {
+		document.getElementById('rightClicNone').className = "none";
+		document.getElementById('rightClicDir').className = "none";
+		document.getElementById('rightClicFolder').className = "none";
+	}, false);
+
 	document.addEventListener("dragover", function(event) {
 		document.getElementById('listDirStartTable').className = "none";
 		document.getElementById('dragFileUpload').className = "dragFileUpload";
