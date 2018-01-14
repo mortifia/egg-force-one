@@ -33,7 +33,7 @@
 		<script type="text/javascript" src="/jquery.min.js"></script>
 		<!--<script type="text/javascript" src="/socket.io.js"></script>-->
 		<script type="text/javascript" src="/script.js"></script>
-		<div class="info">
+		<div class="info" id="info">
 			<div class="info2">
 				
 				<div class="info3">
@@ -110,8 +110,14 @@
 										</tr>
 									</table>
 								</div>
-								<div class="listDirStart">
-									<table id="listDirStart"></table>
+								<div class="listDirStart" id="listDirStart">
+									<table id="listDirStartTable"></table>
+									<div id="dragFileUpload" class="none">
+										<div class="drag1">
+											<div class="drag2">Glisser déposer<br>
+											vos fichiers a ajouter</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -248,6 +254,25 @@
 				</div>
 			</div>
 			<button class="menu2OpenClose" onclick="openCloseMenu2(this)"></button>
+		</div>
+		<div id="rightClicNone" class="none">
+			<div>nouveau dossier</div>
+			<div>nouveau fichier</div>
+		</div>
+		<div id="rightClicDir" class="none">
+			<div>ouvrir</div>
+			<div>copier</div>
+			<div>couper</div>
+			<div>renommer</div>
+			<div>supprimer</div>
+		</div>
+		<div id="rightClicFolder" class="none">
+			<div>executer</div>
+			<div>modifier</div>
+			<div>copier</div>
+			<div>couper</div>
+			<div>renommer</div>
+			<div>supprimer</div>
 		</div>
 	</body>
 </html>

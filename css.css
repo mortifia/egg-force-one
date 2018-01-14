@@ -188,6 +188,14 @@ td
 	width: 					30%;
 	font-family: 			'Roboto', 'Roboto Mono', Tahoma, Helvetica, Arial, sans-serif;
 	font-size: 				17px;
+
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 .td2
@@ -195,6 +203,14 @@ td
 	width: 					70%;
 	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
 	font-size: 				16px;
+
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 .td2 span
@@ -596,6 +612,42 @@ tr:hover .td2 .txtInput
 {
 	height:  				300px;
 	overflow:  				auto;
+}
+
+.dragFileUpload
+{
+}
+
+.drag1
+{
+	background-color: 		rgb(40, 42, 46);
+	height: 				270px;
+	margin: 				13px;
+	margin-bottom: 			0px;
+	box-shadow: 0px 0px 50px 5px rgba(0, 2, 6, 1) inset;
+	border-radius: 5px;
+}
+
+.drag2
+{
+	padding-top: 70px;
+	font-size: 				35px;
+	font-family: 			'Roboto', Tahoma, Helvetica, Arial, sans-serif;
+	color: 					rgb(150, 154, 160);
+	text-align: center;
+
+}
+
+.rightClic
+{
+	position: 				absolute;
+	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
+	font-size: 				17px;
+	background-color:  		rgb(34, 36, 40);
+	padding: 				6px;
+	border: 				2px;
+	border-color: 			rgb(72, 74, 78);
+	border-style: 			solid;
 }
 
 .terminalOutput

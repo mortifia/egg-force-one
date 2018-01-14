@@ -300,22 +300,58 @@ function posDirUpdate() {
 function dirReturn() {
 	listDirUpdate(returnPath);
 }
+function getRightClic() {
+	document.getElementById('rightClicNone').className = "none";
+	document.getElementById('rightClicDir').className = "none";
+	document.getElementById('rightClicFolder').className = "none";
+}
 function rightClickext(tmp = "", event) {
-	alert("ext right click");
+	getRightClic();
+	console.log("right click ext");
+	event.stopPropagation();
+	event.preventDefault();
+    var menu = document.getElementById('rightClicNone');
+
+    menu.className 	= "rightClic";
+    menu.style.left = event.pageX + "px";
+    menu.style.top 	= event.pageY + "px";
+
+	/*alert("ext right click");
 	console.log(event.pageX);
-    console.log(event.pageY);
+    console.log(event.pageY);*/
+
 }
 function rightClickDir(tmp = "", event) {
+	getRightClic();
+	console.log("right click Dir");
 	event.stopPropagation();
-	if (tmp != "") {
+	event.preventDefault();
+
+    var menu = document.getElementById('rightClicDir');
+
+    menu.className 	= "rightClic";
+    menu.style.left = event.pageX + "px";
+    menu.style.top 	= event.pageY + "px";
+
+	/*if (tmp != "") {
 		alert("dossier : " + tmp.lastChild.innerHTML);
-	}
+	}*/
 }
 function rightClickFolder(tmp = "", event) {
+	getRightClic();
+	console.log("right click Folder");
 	event.stopPropagation();
-	if (tmp != "") {
+	event.preventDefault();
+
+    var menu = document.getElementById('rightClicFolder');
+
+    menu.className 	= "rightClic";
+    menu.style.left = event.pageX + "px";
+    menu.style.top 	= event.pageY + "px";
+
+	/*if (tmp != "") {
 		alert("fichier : " +tmp.lastChild.innerHTML);
-	}
+	}*/
 }
 function listDirUpdate(addPath="/") {
 	pathFolder = addPath;
@@ -324,7 +360,7 @@ function listDirUpdate(addPath="/") {
 		url: '/dirPrint',
 		data : 'path=' + addPath,
 		success: function(data) {
-			document.getElementById('listDirStart').innerHTML = "";
+			document.getElementById('listDirStartTable').innerHTML = "";
 			listDirPos(addPath);
 			if (addPath != "/") {
 				var newLine = document.createElement('tr');
@@ -344,11 +380,11 @@ function listDirUpdate(addPath="/") {
 				newLine.addEventListener("dblclick", dirReturn, false);
 				newLine.appendChild(firstElement);
 				newLine.appendChild(secondElement);
-				document.getElementById('listDirStart').appendChild(newLine);
+				document.getElementById('listDirStartTable').appendChild(newLine);
 			}
 			var temp = data.split(";");
 			for (var pos = 0; pos < temp.length && temp[pos] != ""; pos++) {
-				//listDirStart
+				//listDirStartTable
 				//alert(temp[pos] + '|||' + pos);
 				var temp2 = temp[pos].split('|');
 				var newLine = document.createElement('tr');
@@ -360,7 +396,6 @@ function listDirUpdate(addPath="/") {
 					newLine.addEventListener("dblclick", posDirUpdate, false);
 					//clic Droit
 					newLine.addEventListener('contextmenu',function(event) {
-						alert(e);
 						rightClickDir(this, event);
 					}, false);
 				}
@@ -381,7 +416,7 @@ function listDirUpdate(addPath="/") {
 				newLine.tabIndex = "1";
 				newLine.appendChild(firstElement);
 				newLine.appendChild(secondElement);
-				document.getElementById('listDirStart').appendChild(newLine);
+				document.getElementById('listDirStartTable').appendChild(newLine);
 			}
 		},
 		error: function() {
@@ -425,8 +460,33 @@ function sendAlive(code) {
 }
 
 function addAtribute(){
-	test = document.getElementById('listDir').addEventListener('contextmenu',function(event){
+	document.getElementById('listDir').addEventListener('contextmenu',function(event){
 		rightClickext(this, event);
+	}, false);
+	
+	//
+	document.getElementById('info').onscroll = function(event){
+		document.getElementById('rightClicNone').className = "none";
+		document.getElementById('rightClicDir').className = "none";
+		document.getElementById('rightClicFolder').className = "none";
+	}
+
+	document.getElementById('listDirStart').onscroll = function(event){
+		document.getElementById('rightClicNone').className = "none";
+		document.getElementById('rightClicDir').className = "none";
+		document.getElementById('rightClicFolder').className = "none";
+	}
+
+	document.addEventListener("dragover", function(event) {
+		document.getElementById('listDirStartTable').className = "none";
+		document.getElementById('dragFileUpload').className = "dragFileUpload";
+		window.clearTimeout(dragTimer);
+	}, false);
+	document.addEventListener("dragleave", function(event) {
+		dragTimer = window.setTimeout(function() {
+			document.getElementById('listDirStartTable').className = "";
+			document.getElementById('dragFileUpload').className = "none";
+		}, 120);
 	}, false);
 }
 
