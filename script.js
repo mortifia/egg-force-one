@@ -305,6 +305,8 @@ function dirReturn() {
 }
 function rightClickext(tmp = "") {
 	alert("ext right click");
+	console.log(e.pageX),
+    console.log(e.pageY);
 }
 function rightClickDir(tmp = "") {
 	event.stopPropagation();
