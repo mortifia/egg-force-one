@@ -246,7 +246,6 @@ class Control (Thread):
         if (self.sysVar.printStatut == 1):
             if (self.countIn == self.countOut):
                 tmp = self.folder.readline()
-                self.sysVar.printPosLine += 1
                 try:
                     tmp2 = tmp.split()
                     lentmp2 = len(tmp2)
@@ -286,10 +285,12 @@ class Control (Thread):
                                                           str(self.countOut))
                     pass
                 elif (tmp[0] == ";" or tmp[0] == "\n"):
+                    self.sysVar.printPosLine += 1
                     self.countIn  += 1
                     self.countOut += 1
                     pass
                 else:
+                    self.sysVar.printPosLine += 1
                     self.sysVar.threadControl.addGcode(tmp)
                     pass
                 if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut == 1):
