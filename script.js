@@ -27,11 +27,12 @@ var oldPosLayer 		= 0 				// ancienne position du layer
 var PosLayer 			= 0 				// position actiel du layer
 var statutPrintData 	= 0					// donne le statu de l'impression
 var timeUpdate 			= 1000 				// temps avant la mise a jour
-var pathFolder 			= "/"				//emplacement dans le dossier
+var pathFolder 			= ""				//emplacement dans le dossier
 var elementRightClic 	= false 			//element ayant recu un clic droit
 var allParam 			= {} 				// tout les paramettre de l'application
-var usbModify 			= 0
+var usbModify 			= 0					// element qui a recu le clic droit
 var dragTimer 								//timeout on drag 
+var listDirOld 			= []				//liste les dossier
 ////////////////////////////////////////////////////////////////////////////////
 //// 								DEV 									////
 function test_post() {
@@ -84,9 +85,9 @@ function getAllParam() {
 					allParam[tableParam[i].slice(0,pos)] = tableParam[i].slice(pos+1);					
 				}
 			}
-
-			console.log(allParam);
-			//console.log(test);
+			if (allParam.logDev == "True") {
+				console.log(allParam);
+			}
 			updateAllInfo();
 		},
 		error : function() {
@@ -275,37 +276,46 @@ function printFolder() {
 	});
 }
 function listDirPos(pos="/") {
-	pathFolder = pos;
-	document.getElementById('dirPath').innerHTML = "";
-	var newLine = document.createElement('tr');
-	newLine.className = "trPath";
-	var firstElement = document.createElement('td');
-	firstElement.innerHTML = "Position";
-	firstElement.className = "td1";
-	var secondElement = document.createElement('td');
-	secondElement.className = "td2";
-	var divSecondElement = document.createElement('div');
-	divSecondElement.innerHTML = pos;
-	divSecondElement.className = "tdDivDirPath";
-	secondElement.appendChild(divSecondElement);
-	newLine.appendChild(firstElement);
-	newLine.appendChild(secondElement);
-	document.getElementById('dirPath').appendChild(newLine);
+	if (pathFolder != pos) {
+		pathFolder = pos;
+		document.getElementById('dirPath').innerHTML = "";
+		var newLine = document.createElement('tr');
+		newLine.className = "trPath";
+		var firstElement = document.createElement('td');
+		firstElement.innerHTML = "Position";
+		firstElement.className = "td1";
+		var secondElement = document.createElement('td');
+		secondElement.className = "td2";
+		var divSecondElement = document.createElement('div');
+		divSecondElement.innerHTML = pos;
+		divSecondElement.className = "tdDivDirPath";
+		secondElement.appendChild(divSecondElement);
+		newLine.appendChild(firstElement);
+		newLine.appendChild(secondElement);
+		document.getElementById('dirPath').appendChild(newLine);
+	}
 }
 function posDirUpdate() {
 	//alert(this.innerHTML);
 	tmp = document.getElementById('dirPath').lastChild.lastChild.lastChild.innerHTML + this.lastChild.innerHTML + '/';
 	listDirUpdate(tmp);
-	//document.getElementById('dirPath').lastChild.lastChild.lastChild.innerHTML += this.lastChild.innerHTML + '/';
 }
+
+function posDirUpdate2(){
+	tmp = document.getElementById('dirPath').lastChild.lastChild.lastChild.innerHTML + elementRightClic.lastChild.innerHTML + '/';
+	listDirUpdate(tmp);
+}
+
 function dirReturn() {
 	listDirUpdate(returnPath);
 }
+
 function getRightClic() {
 	document.getElementById('rightClicNone').className = "none";
 	document.getElementById('rightClicDir').className = "none";
 	document.getElementById('rightClicFolder').className = "none";
 }
+
 function rightClickext(tmp = "", event) {
 	getRightClic();
 	console.log("right click ext");
@@ -322,9 +332,10 @@ function rightClickext(tmp = "", event) {
     console.log(event.pageY);*/
 
 }
-function rightClickDir(tmp = "", event) {
+function rightClickDir(event) {
+	elementRightClic = this;
 	getRightClic();
-	console.log("right click Dir");
+	console.log("right click Dir : " + this.lastChild.innerHTML);
 	event.stopPropagation();
 	event.preventDefault();
 
@@ -338,9 +349,10 @@ function rightClickDir(tmp = "", event) {
 		alert("dossier : " + tmp.lastChild.innerHTML);
 	}*/
 }
-function rightClickFolder(tmp = "", event) {
+function rightClickFolder(event) {
+	elementRightClic = this;
 	getRightClic();
-	console.log("right click Folder");
+	console.log("right click Folder : " + this.lastChild.innerHTML);
 	event.stopPropagation();
 	event.preventDefault();
 
@@ -355,69 +367,61 @@ function rightClickFolder(tmp = "", event) {
 	}*/
 }
 function listDirUpdate(addPath="/") {
-	pathFolder = addPath;
+	if (addPath == ""){
+		addPath = "/";
+	}
 	$.ajax({
 		type: 'POST',
 		url: '/dirPrint',
 		data : 'path=' + addPath,
 		success: function(data) {
-			document.getElementById('listDirStartTable').innerHTML = "";
-			listDirPos(addPath);
-			if (addPath != "/") {
-				var newLine = document.createElement('tr');
-				var firstElement = document.createElement('td');
-				firstElement.innerHTML = "Retour";
-				firstElement.className = "td1";
-				var secondElement = document.createElement('td');
-				var temp = addPath.split("/");
-				returnPath = "";
-				for (var pos = 0; pos < temp.length - 2; pos++) {
-					returnPath += temp[pos] + "/";
+			if (addPath != pathFolder){
+				//si on change de dossier
+				console.log("change dir");
+				document.getElementById('listDirStartTable').innerHTML = "";
+				listDirPos(addPath);
+				listDirUpdateTestReturn(temp, addPath);
+				var temp = data.split(";");
+				var newList = [];
+				for (var pos = 0; pos < temp.length && temp[pos] != ""; pos++) {
+					//ajoute tout les dossier et fichier
+					var temp2 = temp[pos].split('|');
+					newList.push(temp2);
+					listDirUpdateCreateLine(temp2);
 				}
-				//alert("test : " + returnPath);
-				secondElement.innerHTML = returnPath;
-				secondElement.className = "td2";
-				//newLine.onclick = listDirUpdate(returnPath);
-				newLine.addEventListener("dblclick", dirReturn, false);
-				newLine.appendChild(firstElement);
-				newLine.appendChild(secondElement);
-				document.getElementById('listDirStartTable').appendChild(newLine);
+				listDirOld = newList;
 			}
-			var temp = data.split(";");
-			for (var pos = 0; pos < temp.length && temp[pos] != ""; pos++) {
-				//listDirStartTable
-				//alert(temp[pos] + '|||' + pos);
-				var temp2 = temp[pos].split('|');
-				var newLine = document.createElement('tr');
-				var firstElement = document.createElement('td');
-				if (temp2[1] == "True") {
-					// True
-					firstElement.innerHTML = "Dossier";
-					// double clic
-					newLine.addEventListener("dblclick", posDirUpdate, false);
-					//clic Droit
-					newLine.addEventListener('contextmenu',function(event) {
-						rightClickDir(this, event);
-					}, false);
+			else{
+				//on est toujour dans le meme dossier
+				var temp = data.split(";");
+				var newList = [];
+				for (var pos = 0; pos < temp.length && temp[pos] != ""; pos++) {
+					//ajoute tout les dossier et fichier
+					var temp2 = temp[pos].split('|');
+					newList.push(temp2);
 				}
-				else {
-					// False
-					firstElement.innerHTML = "Fichier";
-					// double clic
-					newLine.addEventListener("dblclick", printFolder, false);
-					//clic Droit
-					newLine.addEventListener('contextmenu',function(event) {
-						rightClickFolder(this, event);
-					}, false);
+				if (newList.length != listDirOld.length){
+					// si on a pas le meme nombre d'elements
+					console.log("change detected on dir");
+					document.getElementById('listDirStartTable').innerHTML = "";
+					listDirUpdateTestReturn(temp, addPath);
+					for (var pos = 0; pos < newList.length && newList[pos] != ""; pos++) {
+						//ajoute tout les dossier et fichier
+						listDirUpdateCreateLine(newList[pos]);
+					}
+					listDirOld = newList;
 				}
-				firstElement.className = "td1";
-				var secondElement = document.createElement('td');
-				secondElement.innerHTML = temp2[0];
-				secondElement.className = "td2";
-				newLine.tabIndex = "1";
-				newLine.appendChild(firstElement);
-				newLine.appendChild(secondElement);
-				document.getElementById('listDirStartTable').appendChild(newLine);
+				else{
+					//si on a le mem nombre d'elements
+					for (var pos = 0; pos < newList.length && newList[pos] != ""; pos++) {
+						//ajoute tout les dossier et fichier
+						if (newList[pos][0] != listDirOld[pos][0] || newList[pos][1] != listDirOld[pos][1]){
+							console.log("change detected on dir");
+							listDirUpdateLine(newList[pos], pos);
+						}
+					}
+					listDirOld = newList
+				}
 			}
 		},
 		error: function() {
@@ -425,6 +429,95 @@ function listDirUpdate(addPath="/") {
 		}
 	});
 }
+function listDirUpdateLine(temp2, pos){
+	ret = 0;
+	if(document.getElementById('listDirStartTable').firstChild.firstChild.innerHTML == "Retour"){
+		ret = 1;
+	}
+	var tmp = document.getElementById('listDirStartTable').children[ret + pos];
+
+	if(tmp.firstChild.innerHTML == "Dossier"){
+		//Dossier
+		tmp.removeEventListener("dblclick", posDirUpdate, false);
+		tmp.removeEventListener("contextmenu", rightClickDir, false);
+	}
+	else{
+		//Fichier
+		tmp.removeEventListener("dblclick", printFolder, false);
+		tmp.removeEventListener("contextmenu", rightClickFolder, false);
+	}
+
+	if (temp2[1] == "True") {
+		// True
+		tmp.firstChild.innerHTML = "Dossier";
+		// double clic
+		tmp.addEventListener("dblclick", posDirUpdate, false);
+		//clic Droit
+		tmp.addEventListener('contextmenu',rightClickDir, false);
+	}
+	else {
+		// False
+		tmp.firstChild.innerHTML = "Fichier";
+		// double clic
+		tmp.addEventListener("dblclick", printFolder, false);
+		//clic Droit
+		tmp.addEventListener('contextmenu',rightClickFolder, false);
+	}
+	tmp.lastChild.innerHTML = temp2[0];
+}
+
+function listDirUpdateTestReturn(temp, addPath) {
+	if (addPath != "/"){
+		var newLine = document.createElement('tr');
+		var firstElement = document.createElement('td');
+		firstElement.innerHTML = "Retour";
+		firstElement.className = "td1";
+		var secondElement = document.createElement('td');
+		var temp = addPath.split("/");
+		returnPath = "";
+		for (var pos = 0; pos < temp.length - 2; pos++) {
+			returnPath += temp[pos] + "/";
+		}
+		//alert("test : " + returnPath);
+		secondElement.innerHTML = returnPath;
+		secondElement.className = "td2";
+		//newLine.onclick = listDirUpdate(returnPath);
+		newLine.addEventListener("dblclick", dirReturn, false);
+		newLine.appendChild(firstElement);
+		newLine.appendChild(secondElement);
+		document.getElementById('listDirStartTable').appendChild(newLine);
+	}
+}
+
+function listDirUpdateCreateLine(temp2){
+	var newLine = document.createElement('tr');
+	var firstElement = document.createElement('td');
+	if (temp2[1] == "True") {
+		// True
+		firstElement.innerHTML = "Dossier";
+		// double clic
+		newLine.addEventListener("dblclick", posDirUpdate, false);
+		//clic Droit
+		newLine.addEventListener('contextmenu',rightClickDir, false);
+	}
+	else {
+		// False
+		firstElement.innerHTML = "Fichier";
+		// double clic
+		newLine.addEventListener("dblclick", printFolder, false);
+		//clic Droit
+		newLine.addEventListener('contextmenu',rightClickFolder, false);
+	}
+	firstElement.className = "td1";
+	var secondElement = document.createElement('td');
+	secondElement.innerHTML = temp2[0];
+	secondElement.className = "td2";
+	newLine.tabIndex = "1";
+	newLine.appendChild(firstElement);
+	newLine.appendChild(secondElement);
+	document.getElementById('listDirStartTable').appendChild(newLine);
+}
+
 function updateSoftware() {
 	//met a jour le logiciel
 	console.log("update run");
@@ -452,10 +545,73 @@ function sendAlive(code) {
 			console.log("alive update");
 			setTimeout(function() {
 				document.location.reload(true);
-			}, 1000);
+			}, 2000);
 		},
 		error: function() {
 			console.error("error sendAlive");
+		}
+	});
+}
+function createDir(){
+	console.log("create dir");
+	$.ajax({
+		type	: 'POST',
+		url 	: '/createDir',
+		data 	: 'path=' + pathFolder 
+				+ '&name=' + "nouveau dossier",
+		success: function(data){
+			console.log("createDir ok");
+		},
+		error: function() {
+			console.error("error createDir");
+		}
+	});
+}
+
+function deleteThisDir() {
+	pathDel = pathFolder + elementRightClic.lastChild.innerHTML;
+	console.log("delete Dir : " + pathDel);
+	$.ajax({
+		type	: 'POST',
+		url 	: '/deletePathDir',
+		data 	: 'path=' + pathDel,
+		success: function(data){
+			console.log("createDir ok");
+		},
+		error: function() {
+			console.error("error createDir");
+		}
+	});
+}
+
+function deleteThisFolder() {
+	pathDel = pathFolder + elementRightClic.lastChild.innerHTML;
+	console.log("delete folder : " + pathDel);
+	$.ajax({
+		type	: 'POST',
+		url 	: '/deletePathFolder',
+		data 	: 'path=' + pathDel,
+		success: function(data){
+			console.log("createDir ok");
+		},
+		error: function() {
+			console.error("error createDir");
+		}
+	});
+}
+
+function renameThis() {
+	console.log("rename : " + elementRightClic.lastChild.innerHTML + " by: " + "........");
+	$.ajax({
+		type	: 'POST',
+		url 	: '/deletePathFolder',
+		data 	: 'path=' + pathFolder
+				+ '&pathRename=' + pathRename,
+		success: function(data){
+			console.log("createDir ok");
+		},
+		error: function() {
+			console.error("error createDir");
 		}
 	});
 }
@@ -496,191 +652,3 @@ function addAtribute(){
 		}, 120);
 	}, false);
 }
-
-/*
-//socket io
-var socket = io.connect('http://' + document.domain + ':' + location.port);
-// envoi un message pour prevenir qu'on est connecté
-socket.on('connect', function (data) {
-	socket.emit('new user', "");
-});
-*/
-// reception des message pour le terminal
-/*socket.on('MsgTerm', function (data) {
-	if (document.getElementById('outputTerm').childNodes.length >= (lenTerm * 2)) {
-		document.getElementById('outputTerm').firstElementChild.remove();
-		document.getElementById('outputTerm').firstElementChild.remove();
-	}
-	$('#outputTerm').append('<span>' + data + '</span><br>');
-});*/
-
-/*
-//reception de la temperature
-socket.on('temp', function (data) {
-	temp = data
-});
-*/
-
-/*
-// previent si on est connecté a l'imprimante ou non
-socket.on('inprimanteConnecterUsb', function (data) {
-	if (data == "True") {
-		$('#inprimanteConnecterUsb').text("Connecté");
-	}
-	else {
-		$('#inprimanteConnecterUsb').text("Non connecté");
-	}
-})
-//
-socket.on('layerPrint', function(data) {
-	if (data != 0) {
-		$('#layerPrint').text(data);
-	}
-	else {
-		$('#layerPrint').text("");
-	}
-});
-//
-socket.on('nbLinesPrint', function(data) {
-	if (data != 0) {
-		$('#nbLinesPrint').text(data);
-	}
-	else {
-		$('#nbLinesPrint').text("");
-	}
-});
-//
-socket.on('nbLayerPrint', function(data) {
-	if (data != 0) {
-		$('#nbLayerPrint').text(data);
-	}
-	else {
-		$('#nbLayerPrint').text("");
-	}
-});
-// dit quel fichier il faut imprimé
-$("#printSrc").keypress(function(e) {
-	if (e.which == 13) {
-		//alert($('#printSrc').val());
-		var src = $('#printSrc').val();
-		$('#printSrc').val("");
-		socket.emit('printSrc', src);
-	}
-});
-*/
-
-/*
-//met a jour l'interface avec la progression
-socket.on('posPrint', function (data) {
-	
-	document.getElementById("progressLayer").value = data - oldPosLayer;
-	document.getElementById("progressPrint").value = data;
-});
-socket.on('progressLayer', function (data) {
-	allNb = data.split(" ");
-	document.getElementById("progressLayer").value = allNb[2] - allNb[1];
-	document.getElementById("progressLayer").max = allNb[0] - allNb[1];
-	oldPosLayer = allNb[1];
-});
-socket.on('posEndPrint', function (data) {
-	document.getElementById("progressPrint").max = data;
-});
-socket.on('srcImpression', function (data) {
-	$('#emplacementFichier').text(data);
-});
-*/
-
-
-/*
-//
-socket.on('statutImpression', function (data) {
-	switch (data) {
-		case 5:
-			// initialisation de l'impression
-			statutPrintData = data;
-			$('#statutImpression').text("analyse en cour");
-			break;
-			case 0:
-			// aucune impression
-			statutPrintData = data;
-			$('#statutImpression').text("Aucune impression");
-			break;
-			case 1:
-			// impression en cour
-			statutPrintData = data;
-			$('#statutImpression').text("Impression en cour");
-			break;
-			case 2:
-			// impression terminer
-			statutPrintData = data;
-			$('#statutImpression').text("Impression terminer");
-			break;
-			case 3:
-			// impression en pause
-			statutPrintData = data;
-			$('#statutImpression').text("Impression en pause");
-			break;
-			case 4:
-			// impression areter
-			statutPrintData = data;
-			$('#statutImpression').text("Impression arrêtée");
-			break;
-			default:
-			$('#statutImpression').text("Bug");
-		}
-	});
-*/
-
-// analyse de la commande du terminal
-/*
-$('#inputTerm').keypress(function(e) {
-	if (e.which == 13) {
-		var commande = $('#inputTerm').val();
-		$('#inputTerm').val("");
-		var argCom = commande.split(" ");
-		//alert(argCom)
-		switch (argCom[0]) {
-			//affiche les commande disponible
-			case "help":
-			$('#outputTerm').append("<span>" + "help :" + "<br>" + 
-				"<dd>" + "temp : donne la temperature" + "<br>" + 
-				"<dd>" + "msglvl : choisi le niveau de message afficher" + "</span><br>");
-			break;
-			//arret d'urgence distant du programme ATTENTION si une generation ou impression
-			// est en cour ca sera coupé net 
-			case "STOP":
-			socket.emit('STOP', "");
-			$('#outputTerm').append('<span>' + "stop execute" + '</span><br>');
-			break;
-			// affiche les derniere temperature recu 
-			case "temp":
-			$('#outputTerm').append('<span>' + temp + '</span><br>');
-			break;
-			// deprecié
-			case "msglvl":
-			if (argCom.length == 2) {
-				socket.emit('msglvl', argCom[1]);
-				$('#outputTerm').append("<span>" + "msglvl " + argCom[1] + " complete" + "</span><br>");
-			}
-			else {
-				$('#outputTerm').append("<span>" + "usage> msglvl 'int:0,1,2' " + "</span><br>");
-			}
-			break;
-			//permet d'envoyer une commande gcode
-			case "gcode":
-			if (argCom.length >= 2) {
-				gcode = commande.substring(commande.indexOf(" "), commande.length);
-					//alert(argCom[argCom.length - 1]);
-					if (argCom[argCom.length - 1] != "\n") {
-						gcode += "\n"
-					}
-					socket.emit('gcode', gcode);
-				}
-				break;
-			// si aucune commande trouvé 
-			default:
-			$('#outputTerm').append('<span> commande inconnue </span><br>');
-		}
-	}
-});
-*/

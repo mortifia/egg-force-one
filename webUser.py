@@ -24,6 +24,7 @@
 import os
 import sys
 import signal
+import shutil
 from threading import Thread
 
 import logging
@@ -50,92 +51,6 @@ class WebUser(Thread):
             print("WEB[ERROR] msgTerm not work")
             pass
         pass
-
-    #def initPrint(self):
-    #    self.socketio.emit('print', str(self.sysVar.printNbLine), broadcast=True)
-    #    pass
-
-    """
-    def statutImpression(self):
-        self.socketio.emit('statutImpression', self.sysVar.printStatut, broadcast=True)
-        pass
-
-    def srcImpression(self):
-        self.socketio.emit('srcImpression', self.sysVar.printSrc, broadcast=True)
-        pass
-
-    def posPrint(self):
-        self.socketio.emit('posPrint', self.sysVar.printPosLine, broadcast=True)
-        pass
-
-    def layerPrint(self):
-        self.socketio.emit('layerPrint', self.sysVar.printLayer, broadcast=True)
-        pass
-
-    def nbLinesPrint(self):
-        self.socketio.emit('nbLinesPrint', self.sysVar.printNbLine, broadcast=True)
-        pass
-
-    def nbLayerPrint(self):
-        self.socketio.emit('nbLayerPrint', self.sysVar.printNbLayer, broadcast=True)
-        pass
-
-    def layer(self):
-        try:
-            if (len(self.sysVar.printPosLayer) > 0):
-                self.socketio.emit('progressLayer', str(self.sysVar.printPosLayer[self.sysVar.printLayer]) +
-                                   " " + str(self.sysVar.printOldLayer) + " "
-                                   + str(self.sysVar.printPosLine), broadcast=True)
-                pass
-            else:
-                self.socketio.emit('progressLayer', "0" + " " + "0" + " " + "0", broadcast=True)
-                pass
-
-            pass
-        except:
-            print("bug to send end layer")
-            pass
-        pass
-
-    def posEndPrint(self):
-        try:
-            self.socketio.emit('posEndPrint', self.sysVar.printNbLine, broadcast=True)
-            pass
-        except:
-            print("bug to send end pos print")
-            pass
-        pass
-    """
-
-    """
-    def updatePrint(self):
-        self.statutImpression()
-        self.srcImpression()
-        self.posEndPrint()
-        self.posPrint()
-        self.layer()
-        self.layerPrint()
-        self.nbLinesPrint()
-        self.nbLayerPrint()
-        pass
-    """
-
-    """
-    def inprimanteConnecterUsb(self):
-        self.sysVar.threadControl.msgTerminal("usbConnect : " + str(self.sysVar.usbConnect))
-        try:
-            self.sysVar.threadControl.msgTerminal(self.sysVar.usbSerial.port)
-            pass
-        except:
-            pass
-        if (self.sysVar.usbConnect == False):
-            self.socketio.emit('inprimanteConnecterUsb', "False", broadcast=True)
-            pass
-        else:
-            self.socketio.emit('inprimanteConnecterUsb', "True", broadcast=True)
-            pass
-        pass
-    """
 
     def html(self):
         tmp = open("html.html", "r", encoding="utf-8")
@@ -376,66 +291,34 @@ class WebUser(Thread):
                     pass
                 pass
             return dataReturn[:len(dataReturn)-1]
-        """
-        @socketio.on('new user')
-        def newUser(data):
-            if (self.sysVar.threadControl.isAlive() == True):
-                self.sysVar.threadControl.msgTerminal("utilisateur connecté")
-                self.inprimanteConnecterUsb()
-                self.statutImpression()
-                self.srcImpression()
-                self.posEndPrint()
-                self.posPrint()
-                self.layer()
-                self.layerPrint()
-                self.nbLinesPrint()
-                self.nbLayerPrint()
-                pass
-            pass
 
-        @socketio.on('msglvl')
-        def msglvl(data):
-            tmp = int(data)
-            if (tmp >= 0 and tmp <= 2):
-                self.sysVar.lvlMsg = tmp
-                pass
-            pass
+        @app.route('/createDir',methods=['POST'])
+        def createDir():
+            path = request.form["path"]
+            name = request.form["name"]
+            os.mkdir(self.sysVar.FolderPrint + path + name)
+            return "end"
 
-        @socketio.on('STOP')
-        def stop(data):
-            self.sysVar.alive = False
-            pass
+        @app.route('/deletePathDir', methods=['POST'])
+        def deletePathDir():
+            path = request.form["path"]
+            shutil.rmtree(self.sysVar.FolderPrint + path)
+            return "end"
 
-        @socketio.on('gcode')
-        def gcode(data):
-            self.sysVar.threadControl.addGcode(str(data))
-            pass
-        @socketio.on('printSrc')
-        def printSrcSocketIO(data):
-            try:
-                if (self.sysVar.printStatut == 5):
-                    self.sysVar.printStatut == -2
-                    pass
-                self.sysVar.threadControl.initPrint(data)
-                pass
-            except:
-                self.socketio.emit('ALERT', "bug a printSrc")
-                pass
-            pass
-        @socketio.on('statutPrint')
-        def statutPrint(data):
-            if ((data == 1 or data == 3)
-            and (self.sysVar.printStatut == 2 or self.sysVar.printStatut == 4
-                 or self.sysVar.printStatut == 0)):
-                pass
-            elif (data == 4 and self.sysVar.printStatut == 0):
-                pass
-            else:
-                self.sysVar.printStatut = int(data)
-                self.statutImpression()
-                pass
-            pass
-        """
+        @app.route('/deletePathFolder', methods=['POST'])
+        def deletePathFolder():
+            path = request.form["path"]
+            os.remove(self.sysVar.FolderPrint + path)
+            return "end"
+
+        @app.route('/renameDirFolder', methods=['POST'])
+        def renameDirFolder():
+            path = request.form["path"]
+            pathRename = request.form["pathRename"]
+            os.rename(self.sysVar.FolderPrint + path, self.sysVar.FolderPrint + pathRename)
+            return "end"
+
+
     def startWeb(self):
         self.app.run(host = self.sysVar.webHost, port = self.sysVar.webPort, threaded=True)
         #self.socketio.run(self.app, host = self.sysVar.webHost, port = self.sysVar.webPort)

@@ -256,23 +256,23 @@
 			<button class="menu2OpenClose" onclick="openCloseMenu2(this)"></button>
 		</div>
 		<div id="rightClicNone" class="none">
-			<div>nouveau dossier</div>
-			<div>nouveau fichier</div>
+			<div class="rightclickOption" onclick="createDir()">nouveau dossier</div>
+			<div class="rightclickOption">nouveau fichier</div>
 		</div>
 		<div id="rightClicDir" class="none">
-			<div>ouvrir</div>
-			<div>copier</div>
-			<div>couper</div>
-			<div>renommer</div>
-			<div>supprimer</div>
+			<div class="rightclickOption" onclick="posDirUpdate2()">ouvrir</div>
+			<!--<div class="rightclickOption">copier</div>
+			<div class="rightclickOption">couper</div>-->
+			<div class="rightclickOption">renommer</div>
+			<div class="rightclickOption" onclick="deleteThisDir()">supprimer</div>
 		</div>
 		<div id="rightClicFolder" class="none">
-			<div>executer</div>
-			<div>modifier</div>
-			<div>copier</div>
-			<div>couper</div>
-			<div>renommer</div>
-			<div>supprimer</div>
+			<div class="rightclickOption">executer</div>
+			<div class="rightclickOption">modifier</div>
+			<!--<div class="rightclickOption">copier</div>
+			<div class="rightclickOption">couper</div>-->
+			<div class="rightclickOption">renommer</div>
+			<div class="rightclickOption" onclick="deleteThisFolder()">supprimer</div>
 		</div>
 	</body>
 </html>

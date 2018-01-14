@@ -46,6 +46,12 @@ lvlMsg          = 2                 # niveau max des message aficher
                                     # attention plus le niveau est élevé plus ca consome
 allVarDict      = globals()         # permet de modifier et lire les veriables plus rapidement
 
+#information a afficher
+logDev          = False
+logPrint        = False
+logError        = True
+logInfo         = True
+
 #variable impression
 printStatut     = 0                 # 0 = aucune impression
                                     # 1 = impression en cour
@@ -136,6 +142,7 @@ elif sys.platform.startswith('linux'):
 import option
 for tmp in utils.allVarModule(option):
     allVarDict[tmp[0]] = tmp[1]
+    print("option : " + str(tmp[0]) + " = " + str(tmp[1]))
     pass
 
 if __name__ == "__main__":

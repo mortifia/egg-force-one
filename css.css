@@ -644,10 +644,27 @@ tr:hover .td2 .txtInput
 	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
 	font-size: 				17px;
 	background-color:  		rgb(34, 36, 40);
-	padding: 				6px;
-	border: 				2px;
-	border-color: 			rgb(72, 74, 78);
+	border: 				1px;
+	border-radius: 			1px;
+	border-color: 			rgb(202, 96, 51);
 	border-style: 			solid;
+}
+
+.rightclickOption
+{
+	font-family: 			'Open Sans', Tahoma, Helvetica, Arial, sans-serif;
+	text-align: 			center;
+	font-size: 				17px;
+	padding: 				7px;
+	padding-top: 			1px;
+	padding-bottom: 		1px;
+}
+
+.rightclickOption:hover
+{
+	background-color: 		rgb(50, 60, 74);
+	-webkit-transition-duration: 0s; /* Safari */
+    transition-duration: 	0s;
 }
 
 .terminalOutput
