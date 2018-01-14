@@ -160,9 +160,7 @@ function updatePrint(){
 	document.getElementById("progressPrint").value = allParam.printPosLine;
 	//max layer
 	var tmp = allParam.printPosLayer[allParam.printLayer] - allParam.printOldLayer;
-	if (document.getElementById("progressLayer").max != tmp){
-		console.log(tmp);
-		document.getElementById("progressLayer").max = tmp;
+	document.getElementById("progressLayer").max = tmp;
 	}
 	//pos layer
 	document.getElementById("progressLayer").value = allParam.printPosLine - allParam.printOldLayer;
@@ -303,18 +301,18 @@ function posDirUpdate() {
 function dirReturn() {
 	listDirUpdate(returnPath);
 }
-function rightClickext(tmp = "") {
+function rightClickext(tmp = "", event) {
 	alert("ext right click");
-	console.log(e.pageX);
-    console.log(e.pageY);
+	console.log(event.pageX);
+    console.log(event.pageY);
 }
-function rightClickDir(tmp = "") {
+function rightClickDir(tmp = "", event) {
 	event.stopPropagation();
 	if (tmp != "") {
 		alert("dossier : " + tmp.lastChild.innerHTML);
 	}
 }
-function rightClickFolder(tmp = "") {
+function rightClickFolder(tmp = "", event) {
 	event.stopPropagation();
 	if (tmp != "") {
 		alert("fichier : " +tmp.lastChild.innerHTML);
@@ -362,9 +360,9 @@ function listDirUpdate(addPath="/") {
 					// double clic
 					newLine.addEventListener("dblclick", posDirUpdate, false);
 					//clic Droit
-					newLine.addEventListener('contextmenu',function(e) {
+					newLine.addEventListener('contextmenu',function(event) {
 						alert(e);
-						rightClickDir(this);
+						rightClickDir(this, event);
 					}, false);
 				}
 				else {
@@ -373,8 +371,8 @@ function listDirUpdate(addPath="/") {
 					// double clic
 					newLine.addEventListener("dblclick", printFolder, false);
 					//clic Droit
-					newLine.addEventListener('contextmenu',function(e) {
-						rightClickFolder(this);
+					newLine.addEventListener('contextmenu',function(event) {
+						rightClickFolder(this, event);
 					}, false);
 				}
 				firstElement.className = "td1";
@@ -428,8 +426,8 @@ function sendAlive(code) {
 }
 
 function addAtribute(){
-	test = document.getElementById('listDir').addEventListener('contextmenu',function(){
-		rightClickext();
+	test = document.getElementById('listDir').addEventListener('contextmenu',function(event){
+		rightClickext(this, event);
 	}, false);
 }
 
