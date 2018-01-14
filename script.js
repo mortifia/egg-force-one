@@ -161,7 +161,6 @@ function updatePrint(){
 	//max layer
 	var tmp = allParam.printPosLayer[allParam.printLayer] - allParam.printOldLayer;
 	document.getElementById("progressLayer").max = tmp;
-	}
 	//pos layer
 	document.getElementById("progressLayer").value = allParam.printPosLine - allParam.printOldLayer;
 	//print src
