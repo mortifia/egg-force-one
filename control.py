@@ -187,7 +187,7 @@ class Control (Thread):
         self.sysVar.threadControl.msgTerminal("start init print :" + src)
         self.sysVar.printStatut     = 5
         self.sysVar.printSrc        = ""
-        self.sysVar.printNbLine     = 0
+        self.sysVar.printNbLine     = 1
         self.sysVar.printNbLayer    = 1
         self.sysVar.printLayer      = 0
         self.sysVar.printOldLayer   = 0
@@ -276,9 +276,7 @@ class Control (Thread):
                 #    pass
                 if (tmp == ""):
                     self.sysVar.printStatut = 2
-                    if (self.sysVar.printLayer == self.sysVar.printNbLayer):
-                        print("pass to end")
-                        pass
+                    print("pass to end")
                     #self.sysVar.threadWebUser.statutImpression()
                     self.sysVar.threadControl.msgTerminal("impression terminer I/O :" +
                                                           str(self.countIn) + " / " +

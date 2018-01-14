@@ -293,7 +293,6 @@ class WebUser(Thread):
 
         @app.route('/printSrc', methods=['POST'])
         def printSrc():
-            print("dddddddddddddddddddddddddddddd")
             try:
                 path = str(request.form['path'])
                 if (path[0] == "\\" or path[0] == "/"):
