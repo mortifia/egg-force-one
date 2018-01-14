@@ -192,7 +192,7 @@ class Control (Thread):
         self.sysVar.printLayer      = 0
         self.sysVar.printOldLayer   = 0
         self.sysVar.printPosLayer   = [0]
-        self.sysVar.printPosLine    = 0
+        self.sysVar.printPosLine    = 1
         with self.sysVar.printSafe:
             isConnect = 0
             if (self.sysVar.connectType == "USB"):
@@ -276,7 +276,6 @@ class Control (Thread):
                 #    pass
                 if (tmp == ""):
                     self.sysVar.printStatut = 2
-                    print("pass to end")
                     #self.sysVar.threadWebUser.statutImpression()
                     self.sysVar.threadControl.msgTerminal("impression terminer I/O :" +
                                                           str(self.countIn) + " / " +
@@ -294,9 +293,6 @@ class Control (Thread):
                 if (len(self.sysVar.printPosLayer) > 2 and self.sysVar.printStatut == 1):
                     if (self.countOut >= self.sysVar.printPosLayer[self.sysVar.printLayer]):
                         self.sysVar.printOldLayer = self.sysVar.printPosLayer[self.sysVar.printLayer]
-                        if (self.sysVar.printLayer == self.sysVar.printNbLayer):
-                            print("heuuu : " + str(self.sysVar.printStatut) + " : and txt : " + str(tmp) + " :")
-                            pass
                         self.sysVar.printLayer += 1
                         #self.sysVar.threadWebUser.layerPrint()
                         #try:
