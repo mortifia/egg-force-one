@@ -119,7 +119,7 @@ function updateUsb(){
 	else {
 		$('#inprimanteConnecterUsb').text("Non connecté");
 	}
-	if (usbModify == 0){
+	if (document.getElementById("modifyUsb").className == ""){
 		$('#inprimantePortUsb').text(allParam.usbPort);
 		$('#inprimanteBauderateUsb').text(allParam.usbBauderate);
 	}
@@ -203,17 +203,71 @@ function modifyUsb(send = 0) {
 			modifyUsb.className = "";
 			modifyCancelUsb.className = "none";
 			modifySendUsb.className = "none";
+
+			updateUsb();
 		}
 		else {
 			modifyUsb.className = "";
 			modifyCancelUsb.className = "none";
 			modifySendUsb.className = "none";
+
+			updateUsb();
 		}
+
 	}
 	else {
 		modifyUsb.className = "none";
 		modifyCancelUsb.className = "";
 		modifySendUsb.className = "";
+
+		// modifier activé
+		//bauderate
+		var test = document.createElement('select');
+		test.id = "optionBauderate";
+
+		//add auto
+		var tmp = document.createElement('option');
+		tmp.value = "auto";
+		tmp.innerHTML = "auto";
+		test.appendChild(tmp);
+
+		var tempAllBaud = allParam.allBauderate;
+		for (var i = tempAllBaud.length - 1; i >= 0; i--) {
+			var tmp = document.createElement('option');
+			tmp.value = tempAllBaud[i];
+			tmp.innerHTML = tempAllBaud[i];
+			if (parseInt(tempAllBaud[i]) == parseInt(allParam.usbBauderate)){
+				console.log("pass selected : " + tempAllBaud[i]);
+				tmp.setAttribute('selected', true);
+			}
+			test.appendChild(tmp);
+		}
+		document.getElementById("inprimanteBauderateUsb").innerHTML = "";
+		document.getElementById("inprimanteBauderateUsb").appendChild(test);
+
+		//port
+		var test = document.createElement('select');
+		test.id = "optionPort";
+
+		//add auto
+		var tmp = document.createElement('option');
+		tmp.value = "auto";
+		tmp.innerHTML = "auto";
+		test.appendChild(tmp);
+
+		var tempAllPort = allParam.usbAllPort;
+		for (var i = tempAllPort.length - 1; i >= 0; i--) {
+			var tmp = document.createElement('option');
+			tmp.value = tempAllPort[i];
+			tmp.innerHTML = tempAllPort[i];
+			if (tempAllPort[i] == allParam.usbPort){
+				console.log("pass selected : " + tempAllPort[i]);
+				tmp.setAttribute('selected', true);
+			}
+			test.appendChild(tmp);
+		}
+		document.getElementById("inprimantePortUsb").innerHTML = "";
+		document.getElementById("inprimantePortUsb").appendChild(test);
 
 	}
 }

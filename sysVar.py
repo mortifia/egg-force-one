@@ -45,6 +45,12 @@ lvlMsg          = 2                 # niveau max des message aficher
                                     # lvl = 0 "info" | lvl = 1 "erreur" | lvl = 2 "debug"
                                     # attention plus le niveau est élevé plus ca consome
 allVarDict      = globals()         # permet de modifier et lire les veriables plus rapidement
+allBauderate    = [2400, 9600,      # liste toutes les frequences possible
+                   19200, 38400,    # pour un future "full auto connect"
+                   57600, 115200,
+                   250000, 500000,
+                   1000000]
+
 
 #information a afficher
 logDev          = False
