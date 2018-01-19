@@ -239,7 +239,7 @@ class WebUser(Thread):
                             if (request.form[test]):
                                 try:
                                     dictTemp[test] = int(request.form[test])
-                                    print("type int")
+                                    #print("type int")
                                     pass
                                 except:
                                     dictTemp[test] = request.form[test]
@@ -248,7 +248,7 @@ class WebUser(Thread):
                                 pass
                             pass
                         except:
-                            print(test + " :            not found")
+                            #print(test + " :            not found")
                             pass
                         #print(test + " : " + str(dictTemp[test]))
                         pass
@@ -317,6 +317,31 @@ class WebUser(Thread):
             pathRename = request.form["pathRename"]
             os.rename(self.sysVar.FolderPrint + path, self.sysVar.FolderPrint + pathRename)
             return "end"
+
+        @app.route('/changeUsb', methods=['POST'])
+        def changeUsb():
+            port = request.form["port"]
+            bauderate = request.form["bauderate"]
+
+            if (port == "auto"):
+                port = False
+                pass
+            if (bauderate == "auto"):
+                bauderate = self.sysVar.usbBauderate
+                pass
+
+            try:
+                self.sysVar.usbSerial.close()
+                pass
+            except:
+                print("serial not close")
+                pass
+            self.sysVar.usbPort = port
+            self.sysVar.usbBauderate = int(bauderate)
+            self.sysVar.usbBug = False
+            self.sysVar.usbRun = False
+            self.sysVar.usbConnect = False
+            return "ok"
 
 
     def startWeb(self):

@@ -45,11 +45,14 @@ lvlMsg          = 2                 # niveau max des message aficher
                                     # lvl = 0 "info" | lvl = 1 "erreur" | lvl = 2 "debug"
                                     # attention plus le niveau est élevé plus ca consome
 allVarDict      = globals()         # permet de modifier et lire les veriables plus rapidement
-allBauderate    = [2400, 9600,      # liste toutes les frequences possible
-                   19200, 38400,    # pour un future "full auto connect"
-                   57600, 115200,
-                   250000, 500000,
-                   1000000]
+allBauderate    = [300, 1200,1800,2400,
+                   4800,9600,19200,
+                   28800,38400,57600,
+                   76800,115200,230400,
+                   250000,460800,500000,
+                   576000,921600,1000000]
+                                    # liste toutes les frequences possible
+                                    # pour un future "full auto connect"
 
 
 #information a afficher
@@ -92,6 +95,7 @@ threadWebUser   = False             # interface utilisateur
 # variable thread Usb
 usbRun          = False             # previent si il tourne
 usbConnect      = False             # dit si on est connecter au controlleur
+usbBug          = False             # dit si il est imposible d'etablir la connection
 usbBauderate    = 250000            # frequence de communication
 usbPort         = False             # port de communication si false il se connectera au premier port posible
                                     #"COM3" windown | "/dev/ttyUSB0" linux

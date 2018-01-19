@@ -79,4 +79,5 @@ def analyseStart ():
 if __name__ == "__main__":
     #cProfile.run("start()")
     analyseStart()
+    os.system("pause")
     pass

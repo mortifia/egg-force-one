@@ -95,7 +95,7 @@ def alwaysAlive(sysVar):
         pass
     try:
         while (True):
-            requests.get('http://127.0.0.1:8080/shutdown')
+            requests.get('http://' + str(sysVar.webHost) + ":"+ str(sysVar.webPort) + '/shutdown')
             pass
         pass
     except:

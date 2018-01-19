@@ -199,12 +199,24 @@ function modifyUsb(send = 0) {
 
 	if (modifyUsb.className == "none") {
 		if(send == 1) {
-			alert("send");
+			console.log("send");
 			modifyUsb.className = "";
 			modifyCancelUsb.className = "none";
 			modifySendUsb.className = "none";
 
-			updateUsb();
+			console.log(document.getElementById("optionBauderate").value);
+			$.ajax({
+				type : 	'POST',
+				url : 	'/changeUsb',
+				data : 	'port=' + document.getElementById("optionPort").value + 
+						'&bauderate=' + document.getElementById("optionBauderate").value,
+				success : function(data) {
+					updateUsb();
+				},
+				error : function() {
+					updateUsb();
+				}
+			});
 		}
 		else {
 			modifyUsb.className = "";

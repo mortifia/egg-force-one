@@ -38,16 +38,19 @@ class OnStart (Thread):
 
     def run(self):
         time.sleep(3)
-        self.sysVar.threadControl.msgTerminal("add start #################")
-        with self.sysVar.lockOutput:
-            #time.sleep(2)
-            tmp = 0
-            while (tmp < len(self.sysVar.gcodeOnConnect)):
-                self.sysVar.threadControl.addGcode(self.sysVar.gcodeOnConnect[tmp])
-                tmp += 1
+        print("test : " + str(self.sysVar.usbBug))
+        if (self.sysVar.usbBug == False):
+            print("add start #################")
+            with self.sysVar.lockOutput:
+                #time.sleep(2)
+                tmp = 0
+                while (tmp < len(self.sysVar.gcodeOnConnect)):
+                    self.sysVar.threadControl.addGcode(self.sysVar.gcodeOnConnect[tmp])
+                    tmp += 1
+                    pass
                 pass
+            self.sysVar.addStart = False
             pass
-        self.sysVar.addStart = False
         pass
     pass
 
