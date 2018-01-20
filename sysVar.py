@@ -45,18 +45,13 @@ lvlMsg          = 2                 # niveau max des message aficher
                                     # lvl = 0 "info" | lvl = 1 "erreur" | lvl = 2 "debug"
                                     # attention plus le niveau est élevé plus ca consome
 allVarDict      = globals()         # permet de modifier et lire les veriables plus rapidement
-allBauderate    = [300, 1200,1800,2400,
-                   4800,9600,19200,
-                   28800,38400,57600,
-                   76800,115200,230400,
-                   250000,460800,500000,
-                   576000,921600,1000000]
+autoBaud        = True              # recherche automatique du baud
+allBauderate    = [1000000, 500000, 250000, 115200, 57600, 38400, 19200, 9600, 2400]
                                     # liste toutes les frequences possible
                                     # pour un future "full auto connect"
 
-
 #information a afficher
-logDev          = False
+logDev          = True
 logPrint        = False
 logError        = True
 logInfo         = True
@@ -114,7 +109,7 @@ test = "tototo" ###############################################################
 # auto configuration de paramPath
 if sys.platform.startswith('win'):
     print("windows")
-    usbPort = "COM3"
+    #usbPort = "COM3"
     paramPath = os.path.dirname(os.path.realpath(__file__))
     FolderPrint = paramPath + "\\print\\"
     if (os.path.exists(FolderPrint) == False):
@@ -130,7 +125,7 @@ if sys.platform.startswith('win'):
 
 elif sys.platform.startswith('linux'):
     print("linux")
-    usbPort = "/dev/ttyUSB0"
+    #usbPort = "/dev/ttyUSB0"
     paramPath = os.path.dirname(os.path.realpath(__file__))
     FolderPrint = paramPath + "/print/"
     if (os.path.exists(FolderPrint) == False):

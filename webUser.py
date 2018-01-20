@@ -326,10 +326,6 @@ class WebUser(Thread):
             if (port == "auto"):
                 port = False
                 pass
-            if (bauderate == "auto"):
-                bauderate = self.sysVar.usbBauderate
-                pass
-
             try:
                 self.sysVar.usbSerial.close()
                 pass
@@ -337,7 +333,12 @@ class WebUser(Thread):
                 print("serial not close")
                 pass
             self.sysVar.usbPort = port
-            self.sysVar.usbBauderate = int(bauderate)
+            if (bauderate == "auto"):
+                self.sysVar.autoBaud = True
+                pass
+            else:
+                self.sysVar.usbBauderate = int(bauderate)
+                pass
             self.sysVar.usbBug = False
             self.sysVar.usbRun = False
             self.sysVar.usbConnect = False

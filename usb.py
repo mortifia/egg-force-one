@@ -127,10 +127,12 @@ class Usb(Thread):
 
     def testConnect(self):
         time.sleep(1)
+        print("test connect : " + str(self.sysVar.usbSerial.port) + " : " + str(self.sysVar.usbSerial.baudrate))
         try:
             self.lecture()
             pass
         except:
+            print("USB : INFO : testConnect : EXIT 0")
             raise Exception('BAD BAUD')
             pass
         try:
@@ -140,8 +142,43 @@ class Usb(Thread):
                 pass
             pass
         except:
+            print("USB : INFO : testConnect : EXIT 1")
             self.tempTxt = b''
             raise Exception('BAD BAUD')
+            pass
+        pass
+
+    def sucessConnect(self):
+        self.sysVar.usbConnect = True
+        self.sysVar.usbBug = False
+        self.sysVar.usbPort = str(self.sysVar.usbSerial.port)
+        self.sysVar.usbBauderate = str(self.sysVar.usbSerial.baudrate)
+        print("USB connecté : " + str(self.sysVar.usbPort) + " : " + str(self.sysVar.usbSerial.baudrate))
+        try:
+            self.sysVar.threadControl.startGcode() #lance le start gcode
+            pass
+        except:
+            print("start gcode error")
+            pass
+        pass
+
+    def autoBaud(self):
+        for baud in self.sysVar.allBauderate:
+            self.sysVar.usbSerial.baudrate = baud
+            try:
+                self.sysVar.usbSerial.open()
+                self.testConnect()
+                pass
+            except:
+                print("close")
+                self.sysVar.usbSerial.close()
+                time.sleep(1/10)
+                pass
+            else:
+                # connection reussie
+                self.sucessConnect()
+                break
+                pass
             pass
         pass
 
@@ -163,28 +200,22 @@ class Usb(Thread):
             for port in self.sysVar.usbAllPort:
                 # test tout les port com
                 self.sysVar.usbSerial.port = port.device
-                try:
-                    self.sysVar.usbSerial.open()
-                    print(port.device)
-                    self.testConnect()
-                    pass
-                except:
-                    # echec connection
-                    self.sysVar.usbSerial.close()
+                if (self.sysVar.autoBaud == True):
+                    self.autoBaud()
                     pass
                 else:
-                    # connection reussie
-                    self.sysVar.usbConnect = True
-                    self.sysVar.usbBug = False
-                    self.sysVar.usbPort = str(port.device)
-                    print("USB connecté : " + str(self.sysVar.usbPort) + " : " + str(self.sysVar.usbSerial.baudrate))
-                    #self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur
-
                     try:
-                        self.sysVar.threadControl.startGcode() #lance le start gcode
+                        self.sysVar.usbSerial.open()
+                        self.testConnect()
                         pass
                     except:
-                        self.sysVar.threadControl.msgTerminal("start gcode error")
+                        # echec connection
+                        self.sysVar.usbSerial.close()
+                        pass
+                    else:
+                        # connection reussie
+                        self.sucessConnect()
+                        break
                         pass
                     pass
                 pass
@@ -208,16 +239,8 @@ class Usb(Thread):
                 self.bugCom()
                 pass
             else:
-                self.sysVar.usbConnect = True
-                self.sysVar.usbBug = False
-                print("USB connecté : " + str(self.sysVar.usbPort) + " : " + str(self.sysVar.usbSerial.baudrate))
-                #self.sysVar.threadWebUser.inprimanteConnecterUsb() # previent les utilisateur
-                try:
-                    self.sysVar.threadControl.startGcode() #lance le start gcode
-                    pass
-                except:
-                    self.sysVar.threadControl.msgTerminal("start gcode error")
-                    pass
+                # connection reussie
+                self.sucessConnect()
                 pass
             pass
         pass
@@ -232,18 +255,19 @@ class Usb(Thread):
             pass
         if (self.sysVar.usbConnect == True):
             try:
+                #print("2 : connect usb error")
                 self.lecture()
                 self.ecriture()
                 pass
             except:
-                print("2 : connect usb error")
+                print("3 : connect usb error")
                 self.bugCom()
                 pass
             try:
                 self.addLine()
                 pass
             except:
-                print("3 : connect usb error")
+                print("4 : connect usb error")
                 self.bugCom()
                 pass
             pass
