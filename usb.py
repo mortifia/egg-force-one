@@ -126,7 +126,7 @@ class Usb(Thread):
         pass
 
     def testConnect(self):
-        time.sleep(3/2)
+        time.sleep(3)
         print("test connect : " + str(self.sysVar.usbSerial.port) + " : " + str(self.sysVar.usbSerial.baudrate))
         try:
             self.lecture()
@@ -172,7 +172,7 @@ class Usb(Thread):
             except:
                 print("close")
                 self.sysVar.usbSerial.close()
-                time.sleep(1/4)
+                time.sleep(1/2)
                 pass
             else:
                 # connection reussie
