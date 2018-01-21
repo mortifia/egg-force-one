@@ -214,14 +214,11 @@ class Usb(Thread):
                     pass
                 else:
                     try:
-                        try:
-                            self.sysVar.usbSerial.close()
-                            pass
-                        except:
-                            pass
                         time.sleep(1/4)
                         self.sysVar.usbSerial.open()
+                        print("open ok")
                         self.testConnect()
+                        print("test connect ok")
                         pass
                     except:
                         # echec connection
