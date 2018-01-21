@@ -132,18 +132,17 @@ class Usb(Thread):
             self.lecture()
             pass
         except:
-            print("USB : INFO : testConnect : EXIT 0")
+            #print("USB : INFO : testConnect : EXIT 0")
             raise Exception('BAD BAUD')
             pass
         try:
             pos = self.tempTxt.find(b'\n')
             if (pos == -1):
-                print("USB : INFO : testConnect : EXIT 1")
                 raise Exception('BAD BAUD')
                 pass
             pass
         except:
-            print("USB : INFO : testConnect : EXIT 2")
+            #print("USB : INFO : testConnect : EXIT 1")
             self.tempTxt = b''
             raise Exception('BAD BAUD')
             pass
@@ -151,7 +150,7 @@ class Usb(Thread):
             self.addLine()
             pass
         except:
-            print("USB : INFO : testConnect : EXIT 3")
+            #print("USB : INFO : testConnect : EXIT 2")
             raise Exception('BAD BAUD')
             pass
         pass
@@ -187,8 +186,8 @@ class Usb(Thread):
                     pass
                 pass
             except Exception as e:
-                print(e)
-                print("close")
+                #print(e)
+                #print("close")
                 self.sysVar.usbSerial.close()
                 time.sleep(1/4)
                 pass
@@ -247,7 +246,6 @@ class Usb(Thread):
         else:
             self.sysVar.usbSerial.port = self.sysVar.usbPort
             if (self.sysVar.autoBaud == True):
-                print("wololololo")
                 self.autoBaud()
                 pass
             else:
