@@ -197,7 +197,7 @@ class Usb(Thread):
                 self.sucessConnect()
                 return True
             pass
-        pass
+        return False
 
     def connection(self):
         print("USB : start connect")
@@ -246,20 +246,26 @@ class Usb(Thread):
             pass
         else:
             self.sysVar.usbSerial.port = self.sysVar.usbPort
-            try:
-                self.sysVar.usbSerial.open()
-                self.testConnect()
-                pass
-            except:
-                self.sysVar.usbSerial.close()
-                if (self.sysVar.usbBug == False):
-                    print("1 : connect usb error")
-                    pass
-                self.bugCom()
+            if (self.sysVar.autoBaud == True):
+                print("wololololo")
+                self.autoBaud()
                 pass
             else:
-                # connection reussie
-                self.sucessConnect()
+                try:
+                    self.sysVar.usbSerial.open()
+                    self.testConnect()
+                    pass
+                except:
+                    self.sysVar.usbSerial.close()
+                    if (self.sysVar.usbBug == False):
+                        print("1 : connect usb error")
+                        pass
+                    self.bugCom()
+                    pass
+                else:
+                    # connection reussie
+                    self.sucessConnect()
+                    pass
                 pass
             pass
         pass

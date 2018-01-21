@@ -335,6 +335,7 @@ class WebUser(Thread):
             self.sysVar.usbPort = port
             if (bauderate == "auto"):
                 self.sysVar.autoBaud = True
+                self.sysVar.usbBauderate = self.sysVar.allBauderate[0]
                 pass
             else:
                 self.sysVar.usbBauderate = int(bauderate)
