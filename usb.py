@@ -174,14 +174,23 @@ class Usb(Thread):
         for baud in self.sysVar.allBauderate:
             self.sysVar.usbSerial.baudrate = baud
             try:
-                self.sysVar.usbSerial.open()
-                self.testConnect()
+                if (self.sysVar.usbSerial.isOpen() == True):
+                    self.sysVar.usbSerial.close()
+                    time.sleep(1/4)
+                    pass
+                if (self.sysVar.usbSerial.isOpen() == False):
+                    self.sysVar.usbSerial.open()
+                    self.testConnect()
+                    pass
+                else:
+                    raise Exception("fermeture imposible")
+                    pass
                 pass
             except Exception as e:
                 print(e)
                 print("close")
                 self.sysVar.usbSerial.close()
-                time.sleep(1/2)
+                time.sleep(1/4)
                 pass
             else:
                 # connection reussie
@@ -216,9 +225,7 @@ class Usb(Thread):
                     try:
                         time.sleep(1/4)
                         self.sysVar.usbSerial.open()
-                        print("open ok")
                         self.testConnect()
-                        print("test connect ok")
                         pass
                     except:
                         # echec connection
