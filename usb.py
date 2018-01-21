@@ -195,8 +195,7 @@ class Usb(Thread):
             else:
                 # connection reussie
                 self.sucessConnect()
-                break
-                pass
+                return True
             pass
         pass
 
@@ -219,7 +218,8 @@ class Usb(Thread):
                 # test tout les port com
                 self.sysVar.usbSerial.port = port.device
                 if (self.sysVar.autoBaud == True):
-                    self.autoBaud()
+                    if (self.autoBaud() == True):
+                        break
                     pass
                 else:
                     try:
