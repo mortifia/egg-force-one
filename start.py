@@ -25,7 +25,7 @@
 #import externe
 import os
 import time
-import requests
+import get
 
 #import egg force one
 import  sysVar
@@ -95,7 +95,7 @@ def alwaysAlive(sysVar):
         pass
     try:
         while (True):
-            requests.get('http://' + str(sysVar.webHost) + ":"+ str(sysVar.webPort) + '/shutdown')
+            get('http://' + str(sysVar.webHost) + ":"+ str(sysVar.webPort) + '/shutdown')
             pass
         pass
     except:

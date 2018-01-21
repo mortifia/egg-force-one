@@ -30,8 +30,6 @@ from threading import Thread, RLock
 import serial
 import serial.tools.list_ports
 
-import importlib
-
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
 
