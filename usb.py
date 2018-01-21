@@ -138,11 +138,12 @@ class Usb(Thread):
         try:
             pos = self.tempTxt.find(b'\n')
             if (pos == -1):
+                print("USB : INFO : testConnect : EXIT 1")
                 raise Exception('BAD BAUD')
                 pass
             pass
         except:
-            print("USB : INFO : testConnect : EXIT 1")
+            print("USB : INFO : testConnect : EXIT 2")
             self.tempTxt = b''
             raise Exception('BAD BAUD')
             pass
@@ -150,7 +151,7 @@ class Usb(Thread):
             self.addLine()
             pass
         except:
-            print("USB : INFO : testConnect : EXIT 2")
+            print("USB : INFO : testConnect : EXIT 3")
             raise Exception('BAD BAUD')
             pass
         pass
