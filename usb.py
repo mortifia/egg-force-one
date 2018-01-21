@@ -126,7 +126,7 @@ class Usb(Thread):
         pass
 
     def testConnect(self):
-        time.sleep(3)
+        time.sleep(1)
         print("test connect : " + str(self.sysVar.usbSerial.port) + " : " + str(self.sysVar.usbSerial.baudrate))
         try:
             self.lecture()
@@ -144,6 +144,13 @@ class Usb(Thread):
         except:
             print("USB : INFO : testConnect : EXIT 1")
             self.tempTxt = b''
+            raise Exception('BAD BAUD')
+            pass
+        try:
+            self.addLine()
+            pass
+        except:
+            print("USB : INFO : testConnect : EXIT 2")
             raise Exception('BAD BAUD')
             pass
         pass
