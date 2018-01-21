@@ -177,7 +177,8 @@ class Usb(Thread):
                 self.sysVar.usbSerial.open()
                 self.testConnect()
                 pass
-            except:
+            except Exception as e:
+                print(e)
                 print("close")
                 self.sysVar.usbSerial.close()
                 time.sleep(1/2)
