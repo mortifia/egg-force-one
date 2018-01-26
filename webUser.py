@@ -34,7 +34,7 @@ from flask import Flask, Response, request
 #from flask_socketio import SocketIO
 from werkzeug.utils import secure_filename
 
-from camera import Camera
+#from camera import Camera
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # nous place dans le dossier de l'executable
 #print(os.path.dirname(os.path.realpath(__file__)))
@@ -346,7 +346,7 @@ class WebUser(Thread):
             self.sysVar.usbConnect = False
             return "ok"
 
-        def gen(camera):
+"""        def gen(camera):
             while True:
                 frame = camera.get_frame()
                 yield (b'--frame\r\n'
@@ -358,7 +358,7 @@ class WebUser(Thread):
             #video streaming
             return Response(gen(Camera()),
                             mimetype='multipart/x-mixed-replace; boundary=frame')
-
+"""
 
     def startWeb(self):
         self.app.run(host = self.sysVar.webHost, port = self.sysVar.webPort, threaded=True)
