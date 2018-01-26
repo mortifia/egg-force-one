@@ -346,20 +346,6 @@ class WebUser(Thread):
             self.sysVar.usbConnect = False
             return "ok"
 
-"""        def gen(camera):
-            while True:
-                frame = camera.get_frame()
-                yield (b'--frame\r\n'
-                       b'Content-Type: image/jpeg\r\n\r\n' + bytearray(frame) + b'\r\n')
-            pass
-
-        @app.route('/video_feed')
-        def video_feed():
-            #video streaming
-            return Response(gen(Camera()),
-                            mimetype='multipart/x-mixed-replace; boundary=frame')
-"""
-
     def startWeb(self):
         self.app.run(host = self.sysVar.webHost, port = self.sysVar.webPort, threaded=True)
         #self.socketio.run(self.app, host = self.sysVar.webHost, port = self.sysVar.webPort)
