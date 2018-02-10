@@ -51,7 +51,7 @@ allBauderate    = [1000000, 500000, 250000, 115200, 57600, 38400, 19200, 9600, 2
                                     # pour un future "full auto connect"
 
 #information a afficher
-logDev          = True
+logDev          = False
 logPrint        = False
 logError        = True
 logInfo         = True

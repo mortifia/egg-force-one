@@ -212,6 +212,7 @@ class WebUser(Thread):
         def printSrc():
             try:
                 path = str(request.form['path'])
+                print("PrintSrc : " + self.sysVar.path + " ::: "+ path)
                 if (path[0] == "\\" or path[0] == "/"):
                     path = path[1:]
                     print("test path : " + self.sysVar.path + " :and: " + path)
