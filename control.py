@@ -210,7 +210,7 @@ class Control (Thread):
             if (isConnect == 1):
                 try:
                     self.folder = open(self.tmpSrc, "r", encoding="utf-8")
-                    self.folder.read()
+                    self.folder.readline()
                     self.folder.close()
                     self.folder = open(self.tmpSrc, "r", encoding="utf-8")
                     pass
