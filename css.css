@@ -316,6 +316,20 @@ progress:not([value])::-moz-progress-bar
 	background-color: 		rgba(0,0,0,0);
 }
 
+/*progress:before {
+	color: rgb(0,0,0);
+	content: attr(max)'%';
+	position: relative;
+	right: 0;
+	top: -125%;
+}*/
+
+progress:after {
+	color: rgb(150, 154, 160);
+	content: calc(100 - 50);
+	background-color: rgba(0,0,0,0);
+}
+
 button, .button
 {
 	background-color: 		rgb(38, 40, 44);

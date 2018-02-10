@@ -150,5 +150,10 @@ for tmp in utils.allVarModule(option):
     print("option : " + str(tmp[0]) + " = " + str(tmp[1]))
     pass
 
+
+#from camera import Camera
+#Camera()
+
+
 if __name__ == "__main__":
     pass

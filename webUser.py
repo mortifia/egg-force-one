@@ -214,7 +214,7 @@ class WebUser(Thread):
                 path = str(request.form['path'])
                 if (path[0] == "\\" or path[0] == "/"):
                     path = path[1:]
-                    print("test path : " + path)
+                    print("test path : " + self.sysVar.path + " :and: " + path)
                     pass
                 if sys.platform.startswith('win'):
                     pass
@@ -345,6 +345,22 @@ class WebUser(Thread):
             self.sysVar.usbRun = False
             self.sysVar.usbConnect = False
             return "ok"
+
+
+        def gen(camera):
+            """Video streaming generator function."""
+            while True:
+                frame = camera.get_frame()
+                yield (b'--frame\r\n'
+                       b'Content-Type: image/jpeg\r\n\r\n' + bytearray(frame) + b'\r\n')
+
+        @app.route('/video_feed')
+        def video_feed():
+            """Video streaming route. Put this in the src attribute of an img tag."""
+            return Response(gen(Camera()),
+                            mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
 
     def startWeb(self):
         self.app.run(host = self.sysVar.webHost, port = self.sysVar.webPort, threaded=True)
