@@ -211,12 +211,11 @@ class WebUser(Thread):
         @app.route('/printSrc', methods=['POST'])
         def printSrc():
             try:
-                print("looooooooooool")
                 path = str(request.form['path'])
-                print("PrintSrc : " + self.sysVar.path + " ::: "+ path)
+                print("PrintSrc : " + self.sysVar.FolderPrint + " ::: "+ str(path))
                 if (path[0] == "\\" or path[0] == "/"):
                     path = path[1:]
-                    print("test path : " + self.sysVar.path + " :and: " + path)
+                    print("test path : " + self.sysVar.FolderPrint + " :and: " + path)
                     pass
                 if sys.platform.startswith('win'):
                     pass
@@ -227,7 +226,8 @@ class WebUser(Thread):
                 else:
                     return "2"      # impossible impression en cour
                 pass
-            except:
+            except Exception as e:
+                print(e)
                 return "bugPrintSrc"
             pass
 
