@@ -2,7 +2,7 @@
 
 ### install
 ```markdown
-pip3 install flask get gitpython pyserial
+pip3 install flask requests gitpython pyserial
 ```
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
