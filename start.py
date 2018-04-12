@@ -25,7 +25,7 @@
 #import externe
 import os
 import time
-import get
+from requests import get
 
 #import egg force one
 import  sysVar
